@@ -1,0 +1,814 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  color: var(--foreground);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:focus,
+button:focus-visible {
+  /* outline: 4px auto -webkit-focus-ring-color; */
+}
+.diagonal-split-background {
+  background: linear-gradient(135deg, #ffa600 50%, #444 50%);
+  width: 100%;
+  height: 100vh;
+}
+@media (prefers-color-scheme: light) {
+  :root,
+  .bg {
+    color: #213547;
+    background-color: white;
+  }
+  .AuthButton {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid black;
+  }
+  .AuthButton:hover {
+    background-color: #000;
+  }
+
+  .hero-Back {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+  .subtitle {
+    color: #555;
+  }
+  .border_Color {
+    border-color: rgb(129, 127, 127);
+  }
+  .Border {
+    border: 1px solid rgb(170, 170, 170);
+  }
+  .BorderTop {
+    border-top: 0.2px solid rgb(222, 221, 221);
+  }
+  .BorderRight {
+    border-right: 0.2px solid rgb(222, 221, 221);
+  }
+  .BorderLeft {
+    border-left: 0.2px solid rgb(222, 221, 221);
+  }
+  .BorderBottom {
+    border-bottom: 0.2px solid rgb(222, 221, 221);
+  }
+
+  .RideTileGradient {
+    background: linear-gradient(
+      to bottom,
+
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  .sideBar {
+    background-color: #fff;
+  }
+
+  .diagonal-background {
+    background-color: #ffa600;
+  }
+  .diagonal-background::before {
+    background-color: white;
+  }
+
+  .ButtonTransparent {
+    background-color: transparent;
+    border: 1px solid rgb(149, 149, 149);
+    color: rgb(149, 149, 149);
+  }
+  .ButtonTransparent:hover {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+  .HeaderBadge {
+    background-color: #fff;
+    border: 1px solid #222;
+    color: #222;
+  }
+  .Text {
+    color: #222;
+  }
+
+  .LoginBtn {
+    color: #fff;
+    border: 1px solid white;
+    padding: 0 10px;
+    border-radius: 3px;
+    height: 35px;
+    background-color: transparent;
+    font-size: 14px;
+  }
+  .LoginBtn:hover {
+    color: #222 !important;
+    background-color: #fff;
+  }
+  .HeaderBG {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .card {
+    background-color: #fff;
+  }
+  .text-shadow {
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  .invertBg {
+    color: #fff;
+    background-color: #000;
+  }
+  .ListingBg {
+    background: linear-gradient(to top, #f4daa7, white);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root,
+  .bg {
+    color: white;
+    background-color: #000;
+  }
+  .ListingBg {
+    background: linear-gradient(to top left, #f9dda1, black);
+  }
+  .invertBg {
+    color: #000;
+    background-color: #fff;
+  }
+
+  .text-shadow {
+    text-shadow: 3px 4px 4px rgba(0, 0, 0, 0.26);
+  }
+
+  .card {
+    background-color: rgb(61, 61, 61);
+  }
+  Text {
+    color: white;
+  }
+  .TextHover:hover {
+    color: #ffa600;
+  }
+  .HeaderBadge {
+    background-color: #222;
+    border: 1px solid gray;
+    color: #ffff;
+  }
+  .AuthButton {
+    background-color: #ffffffdd;
+    border: 1px solid black;
+    color: #000;
+  }
+  .AuthButton:hover {
+    background-color: #fff;
+  }
+
+  .hero-Back {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .Border {
+    border: 1px solid rgb(97, 97, 97);
+  }
+  .BorderTop {
+    border-top: 0.2px solid rgb(97, 97, 97);
+  }
+  .SiderBarBorderRight,
+  .BorderRight {
+    border-right: 0.2px solid rgb(97, 97, 97);
+  }
+  .BorderLeft {
+    border-left: 0.2px solid rgb(97, 97, 97);
+  }
+  .HeaderBorderBottom,
+  .BorderBottom {
+    border-bottom: 0.2px solid rgb(97, 97, 97);
+  }
+  .sideBar {
+    background-color: #000;
+  }
+
+  .dark {
+    background-color: #222;
+  }
+  .subtitle {
+    color: #999;
+  }
+  .diagonal-background {
+    background-color: #ffa600;
+  }
+  .diagonal-background::before {
+    background-color: #000;
+  }
+  .Contact-background {
+    background-color: #333;
+  }
+  .Contact-background::before {
+    background-color: #000;
+  }
+  .RideTileGradient {
+    background: linear-gradient(
+      to bottom,
+
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  .ButtonTransparent {
+    background-color: transparent;
+    border: 1px solid rgb(149, 149, 149);
+    color: rgb(165, 165, 165);
+  }
+  .ButtonTransparent:hover {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary: black;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: hsl(0, 0%, 100%);
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: black;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ------------------------------------------ custom css ------------------------------------------------ */
+
+.LoginButton {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid black;
+}
+.HorizontalScroll {
+  overflow-x: auto;
+  -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+.HorizontalScroll::-webkit-scrollbar {
+  /* width: 1px; Vertical scrollbar width */
+  /* height: 1px; Horizontal scrollbar height */
+  display: none;
+}
+.HorizontalScroll::-webkit-scrollbar-thumb {
+  /* background-color: rgb(207, 207, 207); Scrollbar thumb color */
+  /* border-radius: 10px; Rounded corners */
+}
+
+.HorizontalScroll::-webkit-scrollbar-track {
+  /* background-color: #f1f1f1; Scrollbar track color */
+}
+
+.box {
+  padding: 60px 0 80px 0;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: whitesmoke;
+}
+
+/* service  */
+.diagonal-background {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.diagonal-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: skewX(50deg);
+  transform-origin: top left;
+  z-index: 0;
+}
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Contact us   */
+.Contact-background {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.Contact-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: skewX(-60deg);
+  transform-origin: top left;
+  z-index: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  #topBook {
+    visibility: hidden;
+  }
+  #HomeSubtitle {
+    visibility: visible;
+    font-size: 16px;
+    color: #fff;
+  }
+  #Content {
+    margin-top: -30px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 767px) {
+  .AddressGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .serviceBox {
+    height: 110px;
+  }
+  .iconBox,
+  .iconBox > span,
+  .iconBox > p {
+    height: 110px;
+    width: 110px;
+  }
+  p {
+    font-size: 12px;
+  }
+  .iconBox > p {
+    font-size: 12px;
+  }
+  .ContactForm {
+    margin: 10px 0 -35px 0;
+  }
+  .CallCenter {
+    height: 45px;
+  }
+  h2 {
+    font-size: 18px !important;
+  }
+  .bars {
+    height: 35px;
+    width: 40px;
+    margin-left: -10px;
+    transition: all;
+    transition-duration: 1ms;
+  }
+}
+@media screen and (max-width: 639px) {
+  .titleHolder > h1 {
+    font-size: 26px;
+  }
+  .titleHolder > h6 {
+    font-size: 15px;
+  }
+  .detailsDialog {
+    border-radius: 10px;
+  }
+  .logo {
+    visibility: hidden;
+    position: absolute;
+    top: -30px;
+  }
+
+  .avtar {
+    height: 35px;
+    width: 35px;
+    margin-right: -10px !important;
+  }
+  .RideCard {
+    margin: 15px 0px;
+  }
+}
+@media screen and (max-width: 570px) {
+  .dialog {
+    box-shadow: none;
+  }
+  .detailsDialog {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    border-radius: 0;
+    border: none;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 0%;
+    transform: translatex(0%) !important;
+    transform: translateY(0%) !important;
+    max-width: fit-content;
+    padding: 12px;
+    padding-top: 80px;
+  }
+  .detailsImageBox {
+    height: 80vw;
+    border-radius: 10px;
+    position: relative;
+    background-color: #fff;
+  }
+  .detailsImage {
+    margin-top: -6vw !important;
+  }
+  .pickUpDropCon {
+    padding: 0 10px 0 10px;
+    top: -40px !important;
+  }
+  .serviceBox {
+    height: 90px;
+  }
+  .iconBox,
+  .iconBox > span,
+  .iconBox > p {
+    height: 90px;
+    width: 90px;
+  }
+  p {
+    font-size: 10px;
+  }
+  .iconBox > p {
+    font-size: 10px;
+  }
+
+  .ContactForm {
+    margin: 10px 0 -35px 0;
+  }
+  .CallCenter {
+    height: 45px;
+  }
+  h2 {
+    font-size: 18px !important;
+  }
+}
+@media screen and (max-width: 515px) {
+  .AddressGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .date {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 490px) {
+  p {
+    font-size: small;
+  }
+  .serviceGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .titleHolder > h1 {
+    font-size: 23px;
+  }
+  .titleHolder > h6 {
+    font-size: 13px;
+  }
+
+  .serviceBox {
+    height: 110px;
+  }
+  .iconBox,
+  .iconBox > span,
+  .iconBox > p {
+    height: 110px;
+    width: 110px;
+  }
+  p {
+    font-size: 12px;
+  }
+  .iconBox > p {
+    font-size: 12px;
+  }
+  .ContactForm {
+    margin: 10px 0 -35px 0;
+  }
+  .CallCenter {
+    height: 45px;
+  }
+  h2 {
+    font-size: 18px !important;
+  }
+  .swiper-slide {
+    max-height: 400px;
+  }
+  .reachUs h3 {
+    visibility: hidden;
+    position: absolute;
+    top: -30px;
+  }
+}
+
+.SearchBtn {
+  border: 0.5px solid gray;
+}
+
+/* CustomDatePicker.css */
+.custom-date-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Styling the input field */
+.date-input {
+  width: 100%;
+  padding: 8px;
+  border-bottom: 1px solid #d1dce5;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  background-color: transparent;
+  text-align: center;
+}
+
+.date-input:focus {
+  box-shadow: none;
+}
+
+.custom-calendar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px 0px 0px 8px;
+}
+
+/* Styling individual day cells */
+.react-datepicker__day {
+  width: 40px;
+  line-height: 40px;
+  margin: 0px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Hover effect on day cells */
+.react-datepicker__day:hover {
+  background-color: #e6f2ff;
+}
+
+/* Selected day styling */
+.react-datepicker__day--selected {
+  background-color: #ffa600;
+  color: white;
+  border-radius: 15%;
+}
+
+/* Header styling */
+.react-datepicker__header {
+  background-color: #ffa600;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  height: 62px;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+}
+.react-datepicker__day-name {
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.react-datepicker__current-month {
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.react-datepicker__day--today {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.react-datepicker__navigation {
+  top: 17px;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: white;
+}
+
+.react-datepicker__time-container {
+  z-index: 0;
+  border-radius: 0px 8px 8px 0;
+}
+
+.react-datepicker__time {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f7f9fc;
+  overflow: auto;
+  height: 212px;
+}
+
+.react-datepicker__time-list-item {
+  font-size: 14px;
+  color: #333;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.react-datepicker__time-list-item:hover {
+  background-color: #e6f2ff;
+}
+.react-datepicker__time-list-item--selected {
+  background-color: #ffa600 !important;
+  border-radius: 0% !important;
+  color: white;
+  font-weight: bold;
+}
+
+/* Highlighting the current time */
+.react-datepicker__time-list-item--selected:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styling the Today Button */
+.react-datepicker__today-button {
+  background-color: #fff;
+  position: absolute;
+  right: -86px;
+
+  width: 83px;
+  z-index: 2;
+  bottom: 0;
+  color: #333;
+  font-size: 14px;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 0 0 8px 0px;
+}
+
+.react-datepicker__today-button:hover {
+  background-color: #f2f8fd;
+}
+
+/* html  */
+.custom-datetime-input {
+  color: white;
+  background-color: transparent;
+  border-bottom: 1px solid #d1dce5;
+  padding: 8px 12px;
+  font-size: 16px;
+  width: 80%;
+  outline: none;
+  appearance: none;
+}
+
+/* Placeholder styling */
+.custom-datetime-input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Lighter white for placeholder */
+}
+
+/* Calendar and clock icons styling (if supported by browser) */
+.custom-datetime-input::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Inverts colors for light-themed icons */
+  opacity: 0.7; /* Slight transparency */
+  cursor: pointer;
+}
+
+.date-input {
+  color: #f0f4fa; 
+  background: linear-gradient(
+    145deg,
+    #1f1f1f,
+    #2e2e2e
+  ); /* Dark gradient background */
+  border: 1px solid #3a3a3a; 
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  appearance: none; /* Removes default styling */
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the calendar icon white */
+  opacity: 0.8;
+  cursor: pointer;
+}

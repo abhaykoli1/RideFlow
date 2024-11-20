@@ -1,0 +1,39 @@
+# Node.js and React specific
+/node_modules/
+/Client/node_modules/
+/Server/node_modules/
+/Client/build/
+/Server/build/
+
+# Environment variables
+.env
+
+# IDE-specific
+.idea/
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+.fuse_hidden*
+.Trash-*
+
+# Package Manager lock files
+package-lock.json
+yarn.lock
+
+# Test Coverage
+/coverage/
+
+# Temporary or backup files
+*.swp
+*.swo
+*.tmp
+
+# Distribution files
+/dist/

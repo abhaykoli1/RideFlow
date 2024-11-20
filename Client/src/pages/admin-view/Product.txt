@@ -1,0 +1,40 @@
+File handling {
+    make a Product.jsx form admin view
+
+    make a buuton top open side sheet
+
+    make form by common form 
+    make a image-upload.jsx in admin view folder
+
+    import it in products.jsx under <sheetHeader>
+
+     make an input area for file whrere we upload our image 
+     handal by a function handleimagefilechange
+     the files the store in selected file variable >> if (selectedFile) setImageFile(selectedFile);
+
+     handleDrag and drop over same as selected file
+}
+
+backend {
+step1  make a cloudinary account
+       mkdir helpers/cloudinary in Server
+       config  :   cloud_name , apikey , api_secret_key
+
+step 2 make controller/admin/productsContoler.jsx   create handleImageupload function
+       
+step 3 makr routes/admin/products-routes.js  add handleImageupload here     
+
+step 4 we need to call this in the server.js
+}
+
+
+add products from admin panel 
+
+create products in models   make schema 
+
+goto >> controller  add four more controller in controller/admin/product-controller.js
+goto >> routes
+
+goto >> slices mkdir product-slice
+
+and goto store and add theem
