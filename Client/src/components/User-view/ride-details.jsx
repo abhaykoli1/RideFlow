@@ -11,6 +11,7 @@ import { Star } from "lucide-react";
 import { addToCart, fetchCartItems } from "@/store/user/cart-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 function RideDetailsDialog({ open, setOpen, RideDetails }) {
   const [reviewMsg, setReviewMsg] = useState("");
@@ -19,7 +20,7 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.userCart);
   // const { reviews } = useSelector((state) => state.shopReview);
-
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   // function handleRatingChange(getRating) {
@@ -126,19 +127,44 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
             <DialogDescription>{RideDetails?.description}</DialogDescription>
             <p className="text-gray-400 text-2xl mb-5 mt-4"></p>
           </div>
-          <div>
-            <p className="text-sm font-bold ">
-              {"\u20B9"} {RideDetails?.rentPerHour}
-              <span className="italic text-gray-600"> /- per hour</span>
-            </p>
-            <p className="text-sm font-bold ">
-              {"\u20B9"} {RideDetails?.rentPerDay}{" "}
-              <span className="italic text-gray-600">/- per day</span>
-            </p>
-            <p className="text-sm font-bold ">
-              {"\u20B9"} {RideDetails?.rentPerWeek}{" "}
-              <span className="italic text-gray-600">/- per week</span>
-            </p>
+          <div className="flex flex-col">
+            {RideDetails?.salePrice === 0 ? (
+              <span
+                className={`${
+                  RideDetails?.salePrice > 0 ? "line-through" : ""
+                } text-[14px] font-semibold  text-tomato`}
+              >
+                {"\u20B9"}
+                {RideDetails?.rentPrice}
+              </span>
+            ) : (
+              <span
+                className={`${
+                  RideDetails?.salePrice > 0 ? "line-through" : ""
+                } text-[12px] font-medium  subtitle`}
+              >
+                {"\u20B9"}
+                {RideDetails?.rentPrice}
+              </span>
+            )}
+
+            {RideDetails?.salePrice > 0 ? (
+              <div className="flex gap-3 items-center">
+                <span className=" text-[14px] font-bold text-tomato">
+                  {(
+                    ((RideDetails?.rentPrice - RideDetails?.salePrice) /
+                      RideDetails?.rentPrice) *
+                    100
+                  ).toFixed(0)}
+                  %
+                </span>
+                <span className=" text-[14px] font-bold text-slate-800">
+                  {"\u20B9"}
+                  {RideDetails?.salePrice}
+                  <span className="text-[14px] italic mr-10"> /- </span>
+                </span>
+              </div>
+            ) : null}
           </div>
           <div className="flex items-center gap-2 mt-2">
             <div className="flex items-center gap-0.5">
@@ -162,11 +188,12 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
             ) : (
               <Button
                 className="w-full border-gray-600 hover:border-black bg-black text-white   hover:text-white "
-                // onClick={() =>
-                //   handleAddToCart(RideDetails?._id, RideDetails?.totalStock)
-                // }
+                onClick={() => {
+                  navigate("/ride/booking");
+                }}
+                // handleAddToCart(RideDetails?._id, RideDetails?.totalStock)
               >
-                Add to Shop
+                Book Now
               </Button>
             )}
           </div>

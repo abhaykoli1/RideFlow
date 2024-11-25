@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const bookingController = require("../../controllers/user/booking-controller");
 
-// Import the booking controller
-const { bookRide } = require("../../controllers/user/booking-controller");
+router.post("/bookride", bookingController.bookRide);
 
-// Example middleware for authentication (optional, based on your use case)
-// const { authenticateUser } = require("../../middlewares/authMiddleware");
+// Route to get all bookings (for admin)
+router.get("/get", bookingController.getAllBookings);
 
-// Route to book a ride
-// router.post("/user/bookRide", authenticateUser, bookRide); // Uncomment this if authentication is needed
-router.post("/bookride", bookRide); // Using a more RESTful approach with /bookings
+// Route to get bookings for a specific user
+// router.get("/user/:userId/bookings", bookingController.getUserBookings);
+
+router.patch("/status", bookingController.updateBookingStatus);
+
+router.delete("/delete/:bookingId", bookingController.deleteBooking);
 
 module.exports = router;

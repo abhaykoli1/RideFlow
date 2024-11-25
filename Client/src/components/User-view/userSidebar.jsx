@@ -21,32 +21,32 @@ function MenuItems({ setSidebar, setHeaderContent }) {
       id: "1",
       label: "Home",
       path: "/ride/home",
-      icon: <LayoutDashboard size={28} />,
+      icon: <LayoutDashboard size={26} />,
     },
     {
       id: "2",
       label: "About",
-      // path: "/ride/home",
-      icon: <AlbumIcon size={30} />,
+      path: "/ride/about",
+      icon: <AlbumIcon size={26} />,
     },
 
     {
       id: "4",
       label: "Rides",
       path: "/ride/listing",
-      icon: <Bike size={30} />,
+      icon: <Bike size={26} />,
     },
     {
       id: "5",
       label: "Contact Us",
       path: "/ride/Reach-Us",
-      icon: <Contact size={30} />,
+      icon: <Contact size={26} />,
     },
   ];
 
   return (
-    <Box className=" SiderBarBorderRight shadow-sm lg:w-[240px] md:w-[240px] sm:w-[200px]  w-[180px] duration-300 bg">
-      <nav className=" flex-col flex gap-2 pt-4 !-mx-3 h-screen px-2">
+    <Box className="shadow-sm w-[230px] duration-300 SidebarBG">
+      <nav className="flex-col flex gap-1 pt-4 !-mx-3 h-screen px-2">
         {UserNavItems.map((nav) => (
           <label
             key={nav.id}
@@ -58,9 +58,9 @@ function MenuItems({ setSidebar, setHeaderContent }) {
               setSidebar ? setSidebar(false) : null;
             }}
             disablepadding="true"
-            className="flex gap-2 cursor-pointer text-xl items-center rounded-md  Menu_Text pl-2
+            className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
             py-[13px] 
-            mx-3 hover:bg-slate-100 duration-300 "
+            mx-3 duration-300 "
           >
             {nav.icon}
             {nav.label}
@@ -88,7 +88,7 @@ const ShopSidebar = ({ sidebar, setSidebar, setHeaderContent }) => {
   }, [isSmallScreen, islargeScreen]);
 
   return (
-    <div className="overflow-auto h-[100%]  bg transition-all duration-500 lg:mt-[72px] md:mt-[72px]  sm:mt-[60px] mt-[60px] ">
+    <div className=" h-[100%]  transition-all duration-500 lg:mt-[72px] md:mt-[72px]  sm:mt-[60px] mt-[60px] ">
       <div className="flex flex-col  justify-between">
         <MenuItems
           setSidebar={setSidebar}

@@ -1,3 +1,4 @@
+import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -17,9 +18,7 @@ export const fetchAllFilteredRides = createAsyncThunk(
       sortBy: sortParams,
     });
 
-    const result = await axios.get(
-      `http://localhost:8000/api/user/Rides/get?${query}`
-    );
+    const result = await axios.get(`${config.API_URL}/user/Rides/get?${query}`);
     return result?.data;
   }
 );
@@ -27,9 +26,7 @@ export const fetchAllFilteredRides = createAsyncThunk(
 export const fetchRideDetails = createAsyncThunk(
   "/Rides/fetchRideDetails",
   async (id) => {
-    const result = await axios.get(
-      `http://localhost:8000/api/user/Rides/get/${id}`
-    );
+    const result = await axios.get(`${config.API_URL}/user/Rides/get/${id}`);
     return result?.data;
   }
 );

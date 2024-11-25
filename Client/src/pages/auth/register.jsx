@@ -26,8 +26,9 @@ function AuthRegister() {
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
+          description:
+            "Registration successful! Please check your email to verify your account.",
         });
-        navigate("/auth/login");
       } else {
         toast({
           title: data?.payload?.message,

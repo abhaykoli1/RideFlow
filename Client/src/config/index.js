@@ -133,6 +133,7 @@ export const ContactFormElements = [
     placeholder: "Enter Contact Message",
   },
 ];
+
 export const addReviewFormElements = [
   {
     label: "Name",
@@ -188,7 +189,7 @@ export const addRidesFormElements = [
     options: [
       { id: "yamaha", label: "Yamaha" },
       { id: "bajaj", label: "Bajaj" },
-      { id: "royal_enfield", label: "Royal Enfield" },
+      { id: "enfield", label: "Royal Enfield" },
       { id: "hero", label: "Hero" },
       { id: "tvs", label: "TVS" },
       { id: "honda", label: "Honda" },
@@ -197,89 +198,33 @@ export const addRidesFormElements = [
   },
 
   {
-    label: "Rent / Day",
-    name: "rentPerDay",
+    label: "Rent Price",
+    name: "rentPrice",
     componentType: "input",
     type: "number",
-    placeholder: "Enter Ride Rent / Day",
-  },
-  {
-    label: "Rent / Hour",
-    name: "rentPerHour",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter Ride Rent / Hour",
-  },
-  {
-    label: "Rent / week",
-    name: "rentPerWeek",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter Rent Price / week ",
-  },
-
-  {
-    label: "Total Stock",
-    name: "totalStock",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter total stock",
-  },
-];
-
-export const addProductFormElements = [
-  {
-    label: "Title",
-    name: "title",
-    componentType: "input",
-    type: "text",
-    placeholder: "Enter product title",
-  },
-  {
-    label: "Description",
-    name: "description",
-    componentType: "textarea",
-    placeholder: "Enter product description",
-  },
-  {
-    label: "Category",
-    name: "category",
-    componentType: "select",
-    options: [
-      { id: "men", label: "Men" },
-      { id: "women", label: "Women" },
-      { id: "kids", label: "Kids" },
-      { id: "accessories", label: "Accessories" },
-      { id: "footwear", label: "Footwear" },
-    ],
-  },
-  {
-    label: "Brand",
-    name: "brand",
-    componentType: "select",
-    options: [
-      { id: "nike", label: "Nike" },
-      { id: "adidas", label: "Adidas" },
-      { id: "puma", label: "Puma" },
-      { id: "levi", label: "Levi's" },
-      { id: "zara", label: "Zara" },
-      { id: "h&m", label: "H&M" },
-    ],
-  },
-  {
-    label: "Price",
-    name: "price",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter product price",
+    placeholder: "Enter Ride Rent Price",
   },
   {
     label: "Sale Price",
     name: "salePrice",
     componentType: "input",
     type: "number",
-    placeholder: "Enter sale price (optional)",
+    placeholder: "Enter Ride Sale Price",
   },
+  // {
+  //   label: "Rent / Hour",
+  //   name: "rentPerHour",
+  //   componentType: "input",
+  //   type: "number",
+  //   placeholder: "Enter Ride Rent / Hour",
+  // },
+  // {
+  //   label: "Rent / week",
+  //   name: "rentPerWeek",
+  //   componentType: "input",
+  //   type: "number",
+  //   placeholder: "Enter Rent Price / week ",
+  // },
   {
     label: "Total Stock",
     name: "totalStock",
@@ -348,7 +293,7 @@ export const brandOptionsMap = {
 };
 
 export const filterOptions = {
-  category: [
+  Vehicle: [
     { id: "bike", label: "Bike" },
     { id: "scooty", label: "Scooty" },
   ],

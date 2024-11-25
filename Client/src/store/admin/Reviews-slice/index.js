@@ -1,3 +1,4 @@
+import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ export const addnewReview = createAsyncThunk(
   "/Reviews/addnewReview",
   async (formData) => {
     const result = await axios.post(
-      "http://localhost:8000/api/admin/Reviews/add",
+      `${config.API_URL}/admin/Reviews/add`,
       formData,
       {
         headers: {
@@ -28,9 +29,7 @@ export const fetchAllReviews = createAsyncThunk(
   async () => {
     console.log("fetchAllReviews", fetchAllReviews);
 
-    const result = await axios.get(
-      "http://localhost:8000/api/admin/Reviews/get"
-    );
+    const result = await axios.get(`${config.API_URL}/admin/Reviews/get`);
 
     return result?.data;
   }
@@ -40,7 +39,7 @@ export const editReview = createAsyncThunk(
   "/Reviews/editReview",
   async ({ id, formData }) => {
     const result = await axios.put(
-      `http://localhost:8000/api/admin/Reviews/edit/${id}`,
+      `${config.API_URL}/admin/Reviews/edit/${id}`,
       formData,
       {
         headers: {
@@ -57,7 +56,7 @@ export const deleteReview = createAsyncThunk(
   "/Reviews/deleteReview",
   async (id) => {
     const result = await axios.delete(
-      `http://localhost:8000/api/admin/Reviews/delete/${id}`
+      `${config.API_URL}/admin/Reviews/delete/${id}`
     );
 
     return result?.data;

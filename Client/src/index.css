@@ -56,6 +56,9 @@ button:focus-visible {
     color: #213547;
     background-color: white;
   }
+  .LogoBorder {
+    border-bottom: 2px solid #222;
+  }
   .AuthButton {
     background-color: #222;
     color: #fff;
@@ -149,8 +152,13 @@ button:focus-visible {
     color: #222 !important;
     background-color: #fff;
   }
+  /* .HeaderBG {
+    background-color: rgba(0, 0, 0, 0.6);
+  } */
   .HeaderBG {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px); /* Adjust the blur intensity */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
   }
   .card {
     background-color: #fff;
@@ -163,8 +171,13 @@ button:focus-visible {
     background-color: #000;
   }
   .ListingBg {
-    background: linear-gradient(to top, #f4daa7, white);
+    background: linear-gradient(to top, #fdf3e1, white);
   }
+}
+.SidebarBG {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
 }
 @media (prefers-color-scheme: dark) {
   :root,
@@ -172,8 +185,20 @@ button:focus-visible {
     color: white;
     background-color: #000;
   }
+
+  .HeaderBG {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .LogoBorder {
+    border-bottom: 2px solid #fff;
+  }
   .ListingBg {
-    background: linear-gradient(to top left, #f9dda1, black);
+    /* backdrop-filter: blur(10px); */
+    /* -webkit-backdrop-filter: blur(40px); */
+    background: linear-gradient(to top left, #806e4a, black);
   }
   .invertBg {
     color: #000;
@@ -187,9 +212,11 @@ button:focus-visible {
   .card {
     background-color: rgb(61, 61, 61);
   }
+
   Text {
     color: white;
   }
+
   .TextHover:hover {
     color: #ffa600;
   }
@@ -447,7 +474,7 @@ button:focus-visible {
     width: 110px;
   }
   p {
-    font-size: 12px;
+    /* font-size: 12px; */
   }
   .iconBox > p {
     font-size: 12px;
@@ -648,7 +675,7 @@ button:focus-visible {
 
 .custom-calendar {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 8px 8px 8px 8px;
 }
 
 /* Styling individual day cells */
@@ -683,6 +710,7 @@ button:focus-visible {
   flex-direction: column;
   place-content: center;
 }
+
 .react-datepicker__day-name {
   cursor: pointer;
   color: #fff;
@@ -703,7 +731,7 @@ button:focus-visible {
 }
 
 .react-datepicker__navigation {
-  top: 17px;
+  top: 6px;
 }
 
 .react-datepicker__navigation-icon::before {
@@ -719,7 +747,7 @@ button:focus-visible {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #f7f9fc;
   overflow: auto;
-  height: 212px;
+  height: 192px;
 }
 
 .react-datepicker__time-list-item {
@@ -750,17 +778,14 @@ button:focus-visible {
 /* Styling the Today Button */
 .react-datepicker__today-button {
   background-color: #fff;
-  position: absolute;
-  right: -86px;
-
-  width: 83px;
   z-index: 2;
   bottom: 0;
   color: #333;
   font-size: 14px;
   padding: 8px;
   cursor: pointer;
-  border-radius: 0 0 8px 0px;
+
+  border-radius: 0 0px 8px 8px;
 }
 
 .react-datepicker__today-button:hover {
@@ -792,13 +817,13 @@ button:focus-visible {
 }
 
 .date-input {
-  color: #f0f4fa; 
+  color: #f0f4fa;
   background: linear-gradient(
     145deg,
     #1f1f1f,
     #2e2e2e
   ); /* Dark gradient background */
-  border: 1px solid #3a3a3a; 
+  border: 1px solid #3a3a3a;
   padding: 10px 15px;
   border-radius: 8px;
   font-size: 16px;

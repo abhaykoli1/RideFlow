@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import config from "../config";
 
 const initialState = {
   isAuthenticated: false,
@@ -14,7 +15,7 @@ export const registerUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/register",
+        `${config.API_URL}/auth/register`,
         formData,
         {
           withCredentials: true,
@@ -33,7 +34,7 @@ export const loginUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        `${config.API_URL}/auth/login`,
         formData,
         {
           withCredentials: true,
@@ -52,7 +53,7 @@ export const googleAuth = createAsyncThunk(
   async (tokenId, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/google-login",
+        `${config.API_URL}/auth/google-login`,
         { tokenId },
         { withCredentials: true }
       );
@@ -68,12 +69,9 @@ export const checkAuth = createAsyncThunk(
   "/auth/checkauth",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        "http://localhost:8000/api/auth/check-auth",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${config.API_URL}/auth/check-auth`, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -87,7 +85,7 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/logout",
+        `${config.API_URL}/auth/logout`,
         {},
         {
           withCredentials: true,
@@ -116,8 +114,15 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = null;
-        state.isAuthenticated = false;
+        // state.user = null;
+        // state.isAuthenticated = false;
+        if (action.payload.success) {
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+        } else {
+          state.user = null;
+          state.isAuthenticated = false;
+        }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;

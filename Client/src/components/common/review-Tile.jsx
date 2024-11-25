@@ -16,7 +16,7 @@ const ReviewTile = ({
           <img
             src={review?.image}
             alt={review?.userName}
-            className="w-full max-w-[300px] h-[200px] object-cover rounded-t-lg"
+            className="w-full max-w-[300px h-[200px] object-cover rounded-t-lg"
           />
         </div>
         <CardContent>

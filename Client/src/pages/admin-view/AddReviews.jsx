@@ -85,9 +85,10 @@ const AddReviews = () => {
 
   return (
     <Fragment className="bg-white h-[100vh]">
-      <div className="mb-5  w-full flex justify-end ">
+      <div className="mb-5  w-full flex justify-between ">
+        <h1 className="text-3xl font-bold ">Reviews </h1>
         <Button
-          className="!bg-slate-800"
+          className="!bg-slate-800 text-white"
           onClick={() => setOpenAddReviews(true)}
         >
           Add New Review

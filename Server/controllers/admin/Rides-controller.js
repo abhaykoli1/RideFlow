@@ -29,9 +29,10 @@ const addRide = async (req, res) => {
       description,
       category,
       brand,
-      rentPerHour,
-      rentPerDay,
-      rentPerWeek,
+      rentPrice,
+      salePrice,
+      // rentPerDay,
+      // rentPerWeek,
       totalStock,
       averageReview,
     } = req.body;
@@ -44,9 +45,11 @@ const addRide = async (req, res) => {
       description,
       category,
       brand,
-      rentPerHour,
-      rentPerDay,
-      rentPerWeek,
+      rentPrice,
+      salePrice,
+      // rentPerHour,
+      // rentPerDay,
+      // rentPerWeek,
       totalStock,
       averageReview,
     });
@@ -92,9 +95,11 @@ const editRide = async (req, res) => {
       description,
       category,
       brand,
-      rentPerHour,
-      rentPerDay,
-      rentPerWeek,
+      rentPrice,
+      salePrice,
+      // rentPerHour,
+      // rentPerDay,
+      // rentPerWeek,
       totalStock,
       averageReview,
     } = req.body;
@@ -110,13 +115,10 @@ const editRide = async (req, res) => {
     findRide.description = description || findRide.description;
     findRide.category = category || findRide.category;
     findRide.brand = brand || findRide.brand;
-    findRide.rentPerHour =
-      rentPerHour === "" ? 0 : rentPerHour || findRide.rentPerHour;
-
-    findRide.rentPerDay =
-      rentPerDay === "" ? 0 : rentPerDay || findRide.rentPerDay;
-    findRide.rentPerWeek =
-      rentPerWeek === "" ? 0 : rentPerWeek || findRide.rentPerWeek;
+    findRide.rentPrice = rentPrice === "" ? 0 : rentPrice || findRide.rentPrice;
+    findRide.salePrice = salePrice === "" ? 0 : salePrice || findRide.salePrice;
+    // findRide.rentPerWeek =
+    //   rentPerWeek === "" ? 0 : rentPerWeek || findRide.rentPerWeek;
 
     findRide.totalStock = totalStock || findRide.totalStock;
     findRide.image = image || findRide.image;

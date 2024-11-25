@@ -37,7 +37,7 @@ function UserReviews() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [userDetails, setUserDetails] = useState({});
   const [open, setOpen] = useState(false);
-  
+
   const [expandedIndexes, setExpandedIndexes] = useState({}); // Track expanded state for each review
   const limit = 200; // Character limit before showing "Read More"
 

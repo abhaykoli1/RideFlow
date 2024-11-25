@@ -6,18 +6,18 @@ import { useMediaQuery } from "react-responsive";
 
 function AdminLayout() {
   const [sidebar, setSidebar] = useState(true);
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 1024px)" });
-  const islargeScreen = useMediaQuery({ query: "(max-width: 1023px)" });
+  // const isSmallScreen = useMediaQuery({ query: "(max-width: 1024px)" });
+  // const islargeScreen = useMediaQuery({ query: "(max-width: 1023px)" });
 
-  useEffect(() => {
-    {
-      isSmallScreen
-        ? setSidebar(false)
-        : islargeScreen
-        ? setSidebar(true)
-        : null;
-    }
-  }, [isSmallScreen, islargeScreen]);
+  // useEffect(() => {
+  //   {
+  //     isSmallScreen
+  //       ? setSidebar(false)
+  //       : islargeScreen
+  //       ? setSidebar(true)
+  //       : null;
+  //   }
+  // }, [isSmallScreen, islargeScreen]);
 
   return (
     <div className="flex w-full h-screen bg-whitesmoke">

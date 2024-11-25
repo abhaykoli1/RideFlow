@@ -18,7 +18,7 @@ const AuthContainerPageElements = ({
   return (
     <div className="">
       <div className="flex">
-        <Logo />
+        <Logo B={"LogoBorder "} />
       </div>
       <div className=" d-flex-row align-items-center justify-content-center mb-7">
         <h3 className="text-[20px] text-dark  font-bold">{Auth}</h3>

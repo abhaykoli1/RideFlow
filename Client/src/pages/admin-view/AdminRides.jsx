@@ -27,9 +27,8 @@ const initialFormData = {
   description: "",
   category: "",
   brand: "",
-  rentPerHour: "",
-  rentPerDay: "",
-  rentPerWeek: "",
+  rentPrice: "",
+  salePrice: "",
   totalStock: "",
   averageReview: 0,
 };
@@ -107,9 +106,10 @@ function AdminRides() {
 
   return (
     <Fragment className="bg-white h-[100vh]">
-      <div className="mb-5  w-full flex justify-end ">
+      <div className="mb-5  w-full flex justify-between items-center">
+        <h1 className="text-3xl font-bold ">Rides </h1>
         <Button
-          className="bg-slate-800"
+          className="bg-slate-800 text-white"
           onClick={() => setOpenAddRidesDialog(true)}
         >
           Add New Ride

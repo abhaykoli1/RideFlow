@@ -4,9 +4,14 @@ const AboutUs = () => {
   return (
     <div className="pt-20 pb-5 bg-transparent bg-cover">
       <div className="p-6 lg:container mx-auto">
-        <h1 className="text-4xl font-bold  text-tomato">About Us</h1>
+        <h1 className=" text-4xl font-bold text-end text-yellow ">
+          Who We Are...
+        </h1>
+        <div className="w-full flex items-end justify-end ">
+          {/* <p classN ame="border-b-2 w-[300px] text-end  border-yellow mt-2 rounded-full"></p> */}
+        </div>
 
-        <div className="p-6 rounded-lg shadow-md mb-6">
+        <div className=" rounded-lg shadow-md mb-6 mt-10">
           <p className="text-lg">
             Welcome to{" "}
             <span className="font-semibold text-yellow underline">
@@ -21,22 +26,24 @@ const AboutUs = () => {
 
         <div className="grid lg:grid-cols-2 md:grid-cols-2  gap-5 mb-10">
           <div>
-            <h2 className="text-3xl font-semibold mb-4 text-tomato">
+            <h6 className="text-3xl font-semibold mb-4 text-tomato">
               Our Mission
-            </h2>
-            <p className="mb-4 ">
-              We are driven by a mission to promote healthier lifestyles and
-              sustainable transportation. By offering top-notch bikes and
-              unmatched customer service.
-            </p>
+            </h6>
+            <ul>
+              <li className="mb-4 ">
+                We are driven by a mission to promote healthier lifestyles and
+                sustainable transportation. By offering top-notch bikes and
+                unmatched customer service.
+              </li>
+            </ul>
 
             <img src={Home} alt="Bike Rental" className="rounded-lg w-full" />
           </div>
 
           <div>
-            <h2 className="text-3xl font-semibold mb-4 text-tomato">
+            <h6 className="text-3xl font-semibold mb-4 text-tomato">
               Our Values
-            </h2>
+            </h6>
             <ul className="list-disc list-inside mb-4 space-y-2">
               <li className="flex items-center">
                 <span className="mr-2 text-green-500">✓</span>
@@ -63,7 +70,7 @@ const AboutUs = () => {
         </div>
 
         {/* Uncomment this section when ready */}
-        {/* 
+        {/*         
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Meet Our Team</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
         {teamMembers.map((member) => (
@@ -84,9 +91,9 @@ const AboutUs = () => {
       */}
 
         <div className="text-center">
-          <h2 className="text-3xl font-semibold mb-4 text-yellow">
+          <h6 className="text-3xl font-semibold mb-4 text-yellow">
             Join Our Journey!
-          </h2>
+          </h6>
           <p className="mb-4">
             Discover the joy of cycling with us! Whether you're seeking
             adventure, fitness, or simply a fun day out, we have the perfect

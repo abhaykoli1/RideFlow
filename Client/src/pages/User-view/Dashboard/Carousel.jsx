@@ -75,25 +75,3 @@ function CarouselSection() {
 }
 
 export default CarouselSection;
-
-{
-  /* {services.map((service, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-lg shadow-md p-6 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-                    >
-                      <div className="flex items-center">
-                        <ul className="text-3xl text-tomato mr-2">
-                          {service.icon}
-                        </ul>
-
-                        <h2 className="text-2xl font-semibold text-gray-800">
-                          {service.title}
-                        </h2>
-                      </div>
-                      <p className="mt-2 text-gray-600">
-                        {service.description}
-                      </p>
-                    </div>
-                  ))} */
-}

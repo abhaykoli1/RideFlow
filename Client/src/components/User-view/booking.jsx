@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import ShoppingOrderDetailsView from "./order-details";
+import ShoppingOrderDetailsView from "./booking-details";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllOrdersByUserId,

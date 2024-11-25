@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
-const DateCompo = ({ dateCss, setDate, date }) => {
-  const [pickUpDate, setPickUpDate] = useState(null);
+const DateCompo = ({ dateCss, setDate, date, Calendar }) => {
+  const [pickUpDate, setPickUpDate] = useState(new Date());
 
   // // Load pick-up date from sessionStorage on component mount
   useEffect(() => {
@@ -31,11 +31,11 @@ const DateCompo = ({ dateCss, setDate, date }) => {
       <DatePicker
         selected={pickUpDate}
         onChange={(date) => setPickUpDate(date)}
-        dateFormat="dd-MM-yyyy    h:mm aa"
-        showTimeSelect
-        placeholderText="Select a date and time"
+        dateFormat="dd-MM-yyyy"
+        // showTimeSelect
+        placeholderText="Select a date "
         className={`${dateCss} custom-date-picker focus:outline-none text-sm !px-0`}
-        calendarClassName="custom-calendar absolute lg:-left-28 md:-left-28 sm:-left-28 -left-[220px]"
+        calendarClassName={` ${Calendar}custom-calendar z-50 absolute lg:-left-28 md:-left-28 sm:-left-28 -left-[105px]`}
         todayButton="Today"
       />
     </div>

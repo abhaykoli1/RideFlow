@@ -248,7 +248,7 @@ const Services = () => {
             className="text-3xl text-end font-bold text-tomato"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.4 }}
             viewport={{ once: false }}
           >
             What Makes Our Service the Best Choice?
@@ -267,7 +267,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               whileHover={{ rotate: 0, scale: 1.03 }}
               transition={{
-                duration: 0.8,
+                duration: 0.4,
                 delay: index * 0.03,
                 ease: "easeOut",
               }}

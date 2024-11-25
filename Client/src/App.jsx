@@ -7,12 +7,10 @@ import AuthLayout from "./components/authCompo/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
 import AdminLayout from "./components/admin-view/layout";
-import AdminDashboard from "./pages/admin-view/dashboard";
-import AdminOrders from "./pages/admin-view/orders";
-import AdminFeatures from "./pages/admin-view/features";
+import AdminDashboard from "./pages/admin-view/AdminDashboard";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
-import ShopLayout from "./components/User-view/shopLayout";
+import ShopLayout from "./components/User-view/userLayout";
 import UserDashboard from "./pages/User-view/Dashboard";
 import AdminRides from "./pages/admin-view/AdminRides";
 import RideListing from "./pages/User-view/listing";
@@ -24,6 +22,10 @@ import AnimatedGif from "./components/animatedGif";
 import RideDetailsPage from "./pages/User-view/ride-details";
 import AddReviews from "./pages/admin-view/AddReviews";
 import BookingComponent from "./pages/User-view/booking";
+import PrivacyPolicy from "./pages/User-view/PrivacyPolicy";
+import TermsAndConditions from "./pages/User-view/Terms";
+import AdminBookings from "./pages/admin-view/AdminBookings";
+import AdminUsers from "./pages/admin-view/AdminUsers";
 
 // import RideDetailsPage from "./pages/User-view/ride-details";
 // import PaypalReturnPage from "./pages/shopping-view/paypal-return";
@@ -84,9 +86,9 @@ function App() {
           }
         >
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="users" element={<AdminUsers />} />
           <Route path="Rides" element={<AdminRides />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="features" element={<AdminFeatures />} />
+          <Route path="Bookings" element={<AdminBookings />} />
           <Route path="addReviews" element={<AddReviews />} />
         </Route>
         <Route
@@ -104,6 +106,8 @@ function App() {
           <Route path="about" element={<AboutUs />} />
           <Route path="faqs" element={<FAQ />} />
           <Route path="booking" element={<BookingComponent />} />
+          <Route path="Policy" element={<PrivacyPolicy />} />
+          <Route path="Terms&Condition" element={<TermsAndConditions />} />
         </Route>
         <Route path="/unauth-page" element={<UnauthPage />} />
         <Route path="*" element={<NotFound />} />

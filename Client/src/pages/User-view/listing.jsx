@@ -23,6 +23,8 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 import { useMediaQuery } from "react-responsive";
 import useDeviceType from "@/hooks/useDeviceType";
+import DateCompo from "@/components/User-view/date";
+import DayCompo from "@/components/User-view/day";
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -113,8 +115,11 @@ const RideListing = () => {
           </p>
         </div> */
   }
+
+  const [day, setDay] = useState("1");
+  const [date, setDate] = useState(new Date());
   return (
-    <section className={`fixed flex w-full mt-0 left-0 h-[100%] ListingBg`}>
+    <section className={`fixed flex w-full mt-0 left-0 h-[100%] ListingBg `}>
       {/* Filter  */}
       <div
         className={`h-[100%] overflow-scroll duration lg:w-[240px]  BorderRight`}
@@ -130,16 +135,32 @@ const RideListing = () => {
       <div
         className={`flex flex-1 h-[100%] overflow-scroll pt-20 duration-700  flex-col`}
       >
-        <div className=" py-3 mx-3 flex items-center justify-between BorderBotto border-b border-whit">
-          <p className="text-md font-semibold">
-            Displaying {RidesList?.length} Results{" "}
-          </p>
-
+        <div
+          className={`flex lg:items-center lg:flex-row md:flex-row sm:flex-row flex-col-reverse gap-5 mb-7 mt-2 ml-5`}
+        >
+          <DayCompo
+            day={day}
+            setDay={setDay}
+            dayCss={
+              "font-semibold h-8 Text !text-lg   !border-b !pl-2  !rounded-lg  ! h-9"
+            }
+          />
+          <DateCompo
+            date={date}
+            setDate={setDate}
+            Calendar={"!-left-[115px] absolute"}
+            dateCss={
+              "font-semibold !text-lg  Text !border-b !pl-2  !rounded-lg   h-9 w-full"
+            }
+          />
+        </div>
+        <div className=" py-3 mx-3 flex items-center justify-between BorderBottom  border-whit">
+          <h6 className="text- font-semibold">{RidesList?.length} Results</h6>
           <div className="flex items-center gap-3">
             <div className="lg:hidden flex justify-end ">
               <Button
                 onClick={() => setOpenFilterDialog(true)}
-                className=" h-8 invertBg "
+                className=" h-8 invertBg"
               >
                 Filters
               </Button>
@@ -174,7 +195,7 @@ const RideListing = () => {
           </div>
         </div>
 
-        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:gap-4 md:g-3 sm:gap-4 lg:p-4 md:p-3 sm:p-3 p-3">
+        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  p-5">
           {RidesList && RidesList.length > 0
             ? RidesList.map((rideItem, index) => (
                 <UserRideTile
@@ -182,7 +203,7 @@ const RideListing = () => {
                   fleet={true}
                   RidesList={RidesList}
                   className={
-                    "grid bg-white grid-cols-1 shrink-0 w-full relative !rounded-xl overflow-hidden cursor-pointer mx-auto border"
+                    "grid bg-white grid-cols-1  shrink-0 w-full relative !rounded-xl overflow-hidden cursor-pointer mx-auto border"
                   }
                   // setOpenDetailsDialog={setOpenDetailsDialog}
                   // key={rideItem.id}

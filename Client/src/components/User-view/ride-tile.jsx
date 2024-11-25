@@ -150,22 +150,22 @@ function UserRideTile({ className, ride, RidesList, index }) {
           cursor-pointer  duration-500`}
         >
           {ride?.totalStock === 0 ? (
-            <Badge className="absolute z-10 top-2 left-0 rounded-l-none bg-slate-500 hover:bg-slate-700">
+            <Badge className="absolute z-1 top-2 left-0 rounded-l-none bg-slate-500 hover:bg-slate-700">
               Out Of Stock
             </Badge>
-          ) : ride?.totalStock < 10 ? (
-            <Badge className="absolute z-10 top-2 left-0 rounded-l-none bg-tomato hover:bg-red-600">
+          ) : ride?.totalStock < 5 ? (
+            <Badge className="absolute z-1 top-2 left-0 rounded-l-none bg-tomato hover:bg-red-600">
               {`${ride?.totalStock} rides left`}
             </Badge>
-          ) : ride?.rentPerDay > 0 ? (
-            <Badge className="absolute top-2 z-10 left-0 rounded-l-none bg-tomato hover:bg-red-600">
+          ) : ride?.salePrice > 0 ? (
+            <Badge className="absolute top-2 z-1 left-0 rounded-l-none bg-tomato hover:bg-red-600">
               Sale
             </Badge>
           ) : null}
           <div
             className={`
               absolute right-0
-                text-black text-end pr-3 font-semibold pt-2 z-10`}
+                text-black text-end pr-3 font-semibold pt-2 `}
           >
             <div>
               <p className="text-[16px] text-yellow capitalize">{ride.brand}</p>
@@ -184,6 +184,7 @@ function UserRideTile({ className, ride, RidesList, index }) {
           />
 
           <p
+            //  "pt-[70px] h-40"
             className={` ${
               deviceType !== "desktop" ||
               (isHovered === index && deviceType === "desktop"
@@ -193,12 +194,23 @@ function UserRideTile({ className, ride, RidesList, index }) {
                 : ""
             } text-white !z-20 text-[12px] h-[24px] duration-500 font-semibold pl-4 bg-yellow relative`}
           >
-            <>
-              <span>
-                {"\u20B9"} {ride.rentPerHour}
+            <div className="flex justify-between items-center ">
+              <span
+                className={`${
+                  ride?.salePrice > 0 ? "line-through" : ""
+                } text-[14px] font-semibold text-primary`}
+              >
+                {"\u20B9"}
+                {ride?.rentPrice}
               </span>
-              <span className="text-[14px]  italic">/- per hour</span>
-            </>
+              {ride?.salePrice > 0 ? (
+                <span className=" text-[14px] font-bold ">
+                  {"\u20B9"}
+                  {ride?.salePrice}
+                  <span className="text-[14px]  italic mr-10">/- </span>
+                </span>
+              ) : null}
+            </div>
 
             {isInWishlist ? (
               <div
@@ -223,17 +235,30 @@ function UserRideTile({ className, ride, RidesList, index }) {
                 deviceType !== "desktop" || isHovered === index
                   ? "-translate-y-12 "
                   : "translate-y-16"
-              } flex px-3 absolute bottom-0 w-[88%]  z-30 text-white font-semibold transition-transform transform duration-500`}
+              } flex px-3  absolute bottom-0 w-[88%]  z-30 text-white font-semibold transition-transform transform duration-500`}
             >
-              <div>
+              <div className="w-full">
                 <p className=" text-[13px]">110 Km Limit</p>
                 <p className=" text-[11px]">
                   {`( Excess ${"\u20B9"}3/km + GST )`}
                 </p>
-                <p className=" mb-1 text-white text-[13px]">
-                  {"\u20B9"} {ride.rentPerHour}
-                  <span className="italic"> /- </span>
-                </p>
+                <div className="flex justify-between items-center ">
+                  <span
+                    className={`${
+                      ride?.salePrice > 0 ? "line-through" : ""
+                    } text-[14px] font-semibold text-primary`}
+                  >
+                    {"\u20B9"}
+                    {ride?.rentPrice}
+                  </span>
+                  {ride?.salePrice > 0 ? (
+                    <span className=" text-[14px] font-bold -mr-8">
+                      {"\u20B9"}
+                      {ride?.salePrice}
+                      <span className="text-[14px]  italic">/- </span>
+                    </span>
+                  ) : null}
+                </div>
               </div>
             </div>
           )}

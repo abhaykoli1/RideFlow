@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import ShopHeader from "./shopHeader";
-import ShopSidebar from "./shopSidebar";
+import ShopHeader from "./userHeader";
+import ShopSidebar from "./userSidebar";
 import { MyContext } from "../common/Helper/context";
 import Footer from "@/pages/User-view/Dashboard/footer";
 
@@ -46,7 +46,7 @@ function ShopLayout() {
           HeaderContent={HeaderContent}
         />
       </div>
-      <div className="HeaderBG  lg:h-[72px] md:h-[72px] h-[60px] w-full fixed  top-0 z-40"></div>
+      {/* <div className="HeaderBG  lg:h-[72px] md:h-[72px] h-[60px] w-full fixed  top-0 z-40"></div> */}
 
       <main className="absolute top-0 right-0 left-0">
         <div className="  h-full ">

@@ -8,9 +8,11 @@ import UserWishlistSlice from "./user/wishlist-slice";
 import userAddressSlice from "./user/address-slice";
 import userContactSlice from "./user/contact-slice";
 import userBookingSlice from "./user/booking-slice";
+import adminUsersSlice from "./admin/User-slice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    UsersList: adminUsersSlice,
     adminRides: adminRidesSlice,
     adminReviews: adminReviewsSlice,
     userRides: UserRidesSlice,

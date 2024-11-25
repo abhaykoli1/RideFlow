@@ -12,7 +12,6 @@ const UserDashboard = () => {
     <section className="mt-12">
       <main>
         <Hero />
-
         <RideFleet />
         <WhyChooseUs />
         <Services />

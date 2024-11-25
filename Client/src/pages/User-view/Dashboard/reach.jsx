@@ -75,7 +75,7 @@ function ReachUs() {
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.4 }}
         className="container pb-12 mx-auto z-10 pt-10"
       >
         <motion.div className="mb-12 titleHolder">
@@ -94,7 +94,7 @@ function ReachUs() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="flex-col gap-5 w-100"
           >
             {ContactDetails.map((details, index) => (
@@ -102,9 +102,9 @@ function ReachUs() {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }} // Reset animation when out of view
+                exit={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="text-sm flex gap-3 pb-3 items-start"
               >
                 <span className="h-5 mb-2">{details.icon}</span>
@@ -119,14 +119,14 @@ function ReachUs() {
               loading="lazy"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
             ></motion.iframe>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
             className="ContactForm Border p-3 rounded-md w-100 flex flex-col justify-end"
           >
             <h2 className="text-[#ffa500] font-bold text-[25px] mb-2 flex items-end">

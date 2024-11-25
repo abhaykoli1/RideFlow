@@ -1,3 +1,4 @@
+import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -14,7 +15,7 @@ export const addContactQuery = createAsyncThunk(
   "contact/addContactQuery",
   async (formData) => {
     const response = await axios.post(
-      "http://localhost:8000/api/user/contact/add",
+      `${config.API_URL}/user/contact/add`,
       formData
     );
     return response.data; // Return the newly added contact data
@@ -27,7 +28,7 @@ export const addContactQuery = createAsyncThunk(
 //   async ({ id, contactData }, { rejectWithValue }) => {
 //     try {
 //       const response = await axios.put(
-//         `http://localhost:8000/api/user/contact/edit/${id}`,
+//         `${config.API_URL}/user/contact/edit/${id}`,
 //         contactData
 //       );
 //       return response.data.data; // Return the updated contact data
@@ -44,7 +45,7 @@ export const addContactQuery = createAsyncThunk(
 //   "contacts/deleteContactQuery",
 //   async (id, { rejectWithValue }) => {
 //     try {
-//       await axios.delete(`http://localhost:8000/api/user/contact/delete/${id}`);
+//       await axios.delete(`${config.API_URL}/user/contact/delete/${id}`);
 //       return id; // Return the deleted contact's ID
 //     } catch (error) {
 //       return rejectWithValue(
@@ -60,7 +61,7 @@ export const addContactQuery = createAsyncThunk(
 //   async (_, { rejectWithValue }) => {
 //     try {
 //       const response = await axios.get(
-//         "http://localhost:8000/api/user/contact/fetch"
+//         `${config.API_URL}/user/contact/fetch`
 //       );
 //       return response.data.data; // Return the list of contacts
 //     } catch (error) {

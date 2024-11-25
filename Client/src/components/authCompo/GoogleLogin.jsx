@@ -9,7 +9,6 @@ const GoogleLoginButton = () => {
   const dispatch = useDispatch();
 
   const handleGoogleLogin = async (response) => {
-    console.log(response);
     try {
       // Send response.credential (the id_token) to the backend
       const googleResponse = await dispatch(googleAuth(response.credential));

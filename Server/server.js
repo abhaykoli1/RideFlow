@@ -64,7 +64,6 @@
 
 // // Start the server
 // app.listen(PORT, () => console.log(`Server is now running on Post ${PORT}`));
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -78,6 +77,7 @@ dotenv.config();
 
 // Import routes
 const authRouter = require("./routes/auth/auth-routes");
+const usersRouter = require("./routes/admin/Users-routes");
 const adminRidesRouter = require("./routes/admin/Rides-routes");
 const adminReviewsRouter = require("./routes/admin/Reviews-routes");
 const userRidesRouter = require("./routes/user/Rides-routes");
@@ -114,7 +114,7 @@ app.use(
 app.use(
   cors({
     origin: process.env.CLIENT_URL, // Allowed origin for CORS requests
-    methods: ["GET", "POST", "DELETE", "PUT"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
       "Authorization",
@@ -126,8 +126,15 @@ app.use(
   })
 );
 
+// app.get("/api/config", (req, res) => {
+//   res.json({
+//     apiUrl: process.env.REACT_APP_API_URL, // Expose the API base URL
+//   });
+// });
+
 // Route handling
 app.use("/api/auth", authRouter);
+app.use("/api/admin/users", usersRouter);
 app.use("/api/admin/Rides", adminRidesRouter);
 app.use("/api/admin/Reviews", adminReviewsRouter);
 app.use("/api/user/Rides", userRidesRouter);
@@ -135,7 +142,7 @@ app.use("/api/user/cart", userCartRouter);
 app.use("/api/user/wishlist", userWishlistRouter);
 app.use("/api/user/address", userAddressRouter);
 app.use("/api/user/contact", UserContactRouter);
-app.use("/api/user/booking", userBookingRouter);
+app.use("/api/booking", userBookingRouter);
 
 // Start the server
 app.listen(PORT, () => {

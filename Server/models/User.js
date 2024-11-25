@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema(
     userName: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     email: {
       type: String,
@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
     googleId: {
       type: String,
       required: false,
-      unique: true, // Ensure googleId is unique
+      unique: false, // Ensure googleId is unique
     },
     role: {
       type: String,
@@ -33,6 +33,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: String,
   },
   { timestamps: true }
 );

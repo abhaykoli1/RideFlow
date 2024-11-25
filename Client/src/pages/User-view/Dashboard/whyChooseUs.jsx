@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           viewport={{ once: false, amount: 0.3 }} // Repeats animation every time it enters viewport
         >
           <div className="flex flex-col justify-center">
@@ -48,7 +48,7 @@ const WhyChooseUs = () => {
                 className="text-3xl font-bold text-tomato"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.4 }}
                 viewport={{ once: false }}
               >
                 Why Choose Us?
@@ -57,7 +57,7 @@ const WhyChooseUs = () => {
                 className="subtitle mb-5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.4 }}
                 viewport={{ once: false }}
               >
                 Experience the best bike rental service in town with a wide
@@ -68,20 +68,20 @@ const WhyChooseUs = () => {
               src={Home}
               alt="Bike Rental"
               className="rounded-lg w-full"
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.7, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: false }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              viewport={{ once: true }}
             />
           </div>
           <Accordion type="single" collapsible>
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index + 1}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.6 }}
-                  viewport={{ once: false }}
+                  transition={{ delay: index * 0.5 }}
+                  viewport={{ once: true }}
                 >
                   <AccordionTrigger>{faq.question}</AccordionTrigger>
                   <AccordionContent>{faq.answer}</AccordionContent>

@@ -48,6 +48,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+//login user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -156,7 +157,6 @@ const authMiddleware = async (req, res, next) => {
 
 // Initialize Google OAuth2 client
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
 const googleAuth = async (req, res) => {
   const { tokenId } = req.body;
 

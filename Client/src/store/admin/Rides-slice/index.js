@@ -1,3 +1,4 @@
+import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ export const addNewRide = createAsyncThunk(
   "/Rides/addnewRide",
   async (formData) => {
     const result = await axios.post(
-      "http://localhost:8000/api/admin/Rides/add",
+      `${config.API_URL}/admin/Rides/add`,
       formData,
       {
         headers: {
@@ -28,7 +29,7 @@ export const fetchAllRides = createAsyncThunk(
   async () => {
     console.log("fetchAllRides", fetchAllRides);
 
-    const result = await axios.get("http://localhost:8000/api/admin/Rides/get");
+    const result = await axios.get(`${config.API_URL}/admin/Rides/get`);
 
     return result?.data;
   }
@@ -38,7 +39,7 @@ export const editRide = createAsyncThunk(
   "/Rides/editRide",
   async ({ id, formData }) => {
     const result = await axios.put(
-      `http://localhost:8000/api/admin/Rides/edit/${id}`,
+      `${config.API_URL}/admin/Rides/edit/${id}`,
       formData,
       {
         headers: {
@@ -53,7 +54,7 @@ export const editRide = createAsyncThunk(
 
 export const deleteRide = createAsyncThunk("/Rides/deleteRide", async (id) => {
   const result = await axios.delete(
-    `http://localhost:8000/api/admin/Rides/delete/${id}`
+    `${config.API_URL}/admin/Rides/delete/${id}`
   );
 
   return result?.data;

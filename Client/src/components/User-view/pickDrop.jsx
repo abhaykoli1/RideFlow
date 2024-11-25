@@ -23,8 +23,8 @@ const PickDrop = () => {
     });
   }
   return (
-    <div className="mx-auto container lg:max-w-[750px] md:max-w-[650px]  max-w-[400px] lg:px-5 md:px-3 sm:px-2  pt-3  Border border-tomato rounded-lg bg-[rgba(0,0,0,0.5)]">
-      <div className="flex lg:flex-row md:flex-row sm:flex-col flex-col flex-1 w-100 justify-around lg:items-center">
+    <div className="mx-auto container  lg:max-w-[750px] md:max-w-[650px]  max-w-[400px] lg:px-5 md:px-3 sm:px-2  pt-3  Border border-tomato rounded-lg bg-[rgba(0,0,0,0.5)]">
+      <div className="flex lg:flex-row  md:flex-row sm:flex-col flex-col flex-1 w-100 justify-around lg:items-center">
         <div className="px-3 flex flex-[0.65] gap-1 flex-row md:flex-row sm:flex-row  justify-around ">
           <div className="mb-4 text-white  active:border-1  w-100  flex justify-center ">
             <div className=" w-full">
@@ -33,7 +33,12 @@ const PickDrop = () => {
                 Pick Up
               </Label>
               <div className="BorderBottom">
-                <DateCompo date={date} setDate={setDate} dateCss={" "} />
+                <DateCompo
+                  Calendar={"!-left-[99px] absolute"}
+                  date={date}
+                  setDate={setDate}
+                  dateCss={" "}
+                />
               </div>
             </div>
           </div>
@@ -59,7 +64,7 @@ const PickDrop = () => {
                 setLoading(true);
                 setTimeout(() => {
                   navigate("/ride/listing");
-                }, 2000);
+                }, 800);
               }}
               className="bg-transparent SearchBt Border text-[#b8b8b8] hover:border-gray-400 hover:text-[#fff] w-[100%] -mt-2 "
             >

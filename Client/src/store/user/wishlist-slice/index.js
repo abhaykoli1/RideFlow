@@ -10,10 +10,10 @@ const initialState = {
 export const addToWishlist = createAsyncThunk(
   "wishlist/addToWishlist",
   async ({ userId, rideId }) => {
-    const response = await axios.post(
-      "http://localhost:8000/api/user/wishlist/add",
-      { userId, rideId }
-    );
+    const response = await axios.post(`${config.API_URL}/user/wishlist/add`, {
+      userId,
+      rideId,
+    });
     return response.data;
   }
 );
@@ -23,7 +23,7 @@ export const fetchWishlistItems = createAsyncThunk(
   "wishlist/fetchWishlistItems",
   async (userId) => {
     const response = await axios.get(
-      `http://localhost:8000/api/user/wishlist/get/${userId}`
+      `${config.API_URL}/user/wishlist/get/${userId}`
     );
     return response.data;
   }
@@ -34,7 +34,7 @@ export const deleteWishlistItem = createAsyncThunk(
   "wishlist/deleteWishlistItem",
   async ({ userId, rideId }) => {
     const response = await axios.delete(
-      `http://localhost:8000/api/user/wishlist/${userId}/${rideId}`
+      `${config.API_URL}/user/wishlist/${userId}/${rideId}`
     );
     return response.data;
   }

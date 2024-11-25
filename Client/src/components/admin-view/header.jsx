@@ -27,8 +27,7 @@ const AdminHeader = ({ setSidebar }) => {
           color="#222"
           className="h-10  w-11 border rounded-md border-slate-700 p-1 cursor-pointer"
         />
-
-        <Logo L2={"text-slate-800"} />
+        <Logo L2={"text-slate-800"} B={"border border-black"} />
       </div>
       <div>
         <Button
