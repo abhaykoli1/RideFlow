@@ -76,14 +76,12 @@ export const bookRide = createAsyncThunk(
   "userBooking/bookRide", // Action type
   async (bookingData, { rejectWithValue }) => {
     try {
-      // Make the API request to create a booking
       const response = await axios.post(
-        "http://localhost:8000/api/booking/bookride", 
+        "http://localhost:8000/api/booking/bookride",
         bookingData
       );
-      return response.data; // Return the booking response data
+      return response.data;
     } catch (error) {
-      // If error, return the error message
       return rejectWithValue(
         error.response?.data?.message || error.message || "Something went wrong"
       );
@@ -109,23 +107,21 @@ export const getAllBookings = createAsyncThunk(
 );
 
 // Async Thunk for fetching user-specific bookings
-// export const getUserBookings = createAsyncThunk(
-//   "bookings/getUserBookings",
-//   async (userId, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.get(
-//         `${config.API_URL}/user/${userId}/bookings`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(
-//         error.response?.data?.message ||
-//           error.message ||
-//           "Unable to fetch user bookings"
-//       );
-//     }
-//   }
-// );
+export const getUserBookings = createAsyncThunk(
+  "userBooking/getUserBookings",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/booking/user/${userId}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Unable to fetch user bookings."
+      );
+    }
+  }
+);
 
 // Async Thunk for updating booking status
 export const updateBookingStatus = createAsyncThunk(
@@ -210,6 +206,7 @@ const bookingSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload; // Save the error message
       })
+
       // Get All Bookings
       .addCase(getAllBookings.pending, (state) => {
         state.isLoading = true;
@@ -225,18 +222,18 @@ const bookingSlice = createSlice({
       })
 
       // Get User Bookings
-      // .addCase(getUserBookings.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      // })
-      // .addCase(getUserBookings.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.userBookings = action.payload;
-      // })
-      // .addCase(getUserBookings.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
+      .addCase(getUserBookings.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserBookings.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userBookings = action.payload;
+      })
+      .addCase(getUserBookings.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
 
       // Update Booking Status
       .addCase(updateBookingStatus.pending, (state) => {

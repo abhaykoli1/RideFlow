@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { checkAuth } from "./store/auth-slice";
-import { Skeleton } from "./components/ui/skeleton";
 import AuthLayout from "./components/authCompo/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -26,12 +25,7 @@ import PrivacyPolicy from "./pages/User-view/PrivacyPolicy";
 import TermsAndConditions from "./pages/User-view/Terms";
 import AdminBookings from "./pages/admin-view/AdminBookings";
 import AdminUsers from "./pages/admin-view/AdminUsers";
-
-// import RideDetailsPage from "./pages/User-view/ride-details";
-// import PaypalReturnPage from "./pages/shopping-view/paypal-return";
-// import PaymentSuccessPage from "./pages/shopping-view/payment-success";
-// import SearchProducts from "./pages/shopping-view/search";
-
+import ProfilePage from "./components/User-view/profile";
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
@@ -107,6 +101,7 @@ function App() {
           <Route path="faqs" element={<FAQ />} />
           <Route path="booking" element={<BookingComponent />} />
           <Route path="Policy" element={<PrivacyPolicy />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route path="Terms&Condition" element={<TermsAndConditions />} />
         </Route>
         <Route path="/unauth-page" element={<UnauthPage />} />

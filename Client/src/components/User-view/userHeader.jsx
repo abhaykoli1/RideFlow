@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Menu, X } from "lucide-react";
 
@@ -7,12 +7,32 @@ import HeaderWishlistSheet from "./wishlist-sheet";
 import Logo from "./logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserNavItems } from "@/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
+import { getUserBookings } from "@/store/user/booking-slice";
+import { Sheet } from "../ui/sheet";
+// import UserBookingContent from "./bookingSheetContent";
+import RideBookingDialog from "./ride-bookings";
 
 const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  const { userBookings, isLoading, error } = useSelector(
+    (state) => state.userBooking
+  );
+  const dispatch = useDispatch();
+
+  const [openBookingDialog, setOpenBookingDialog] = useState(false);
+
+  function handleGetRideDetails(getCurrentUserId) {
+    setTimeout(() => {
+      setOpenBookingDialog(true);
+    }, 300);
+    if (user?.id) {
+      dispatch(getUserBookings(user?.id));
+    }
+  }
 
   return (
     <header className="backdrop-blur-x HeaderBG HeaderBorderBotto  shadow-md">
@@ -35,9 +55,8 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
           </div>
           <Logo L2={"text-white"} B={"border border-white"} />
         </div>
-
         <div className="flex gap-3 items-center">
-          <div className="lg:flex md:flex hidden ml-6">
+          <div className="lg:flex md:flex hidden items-center ">
             {UserNavItems.map((nav) => (
               <ul
                 key={nav.id}
@@ -57,6 +76,16 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
                 </li>
               </ul>
             ))}
+            <p
+              onClick={() => {
+                handleGetRideDetails();
+                setOpenBookingSheet(true);
+              }}
+              className={`uppercase cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text-white`}
+            >
+              {" "}
+              Bookings
+            </p>
           </div>
 
           {!isAuthenticated ? (
@@ -74,6 +103,14 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
           )}
         </div>
       </div>
+
+      <RideBookingDialog
+        setOpen={setOpenBookingDialog}
+        open={openBookingDialog}
+        userBookings={userBookings}
+        isLoading={isLoading}
+        error={error}
+      />
     </header>
   );
 };
