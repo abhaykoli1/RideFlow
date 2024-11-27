@@ -86,6 +86,7 @@ const userWishlistRouter = require("./routes/user/wishlist-routes");
 const userAddressRouter = require("./routes/user/address-routes");
 const UserContactRouter = require("./routes/user/contact-routes");
 const userBookingRouter = require("./routes/user/booking-routes");
+const profileRoutes = require("./routes/common/profile-routes");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -134,6 +135,7 @@ app.use(
 
 // Route handling
 app.use("/api/auth", authRouter);
+app.use("/api/profile", profileRoutes);
 app.use("/api/admin/users", usersRouter);
 app.use("/api/admin/Rides", adminRidesRouter);
 app.use("/api/admin/Reviews", adminReviewsRouter);

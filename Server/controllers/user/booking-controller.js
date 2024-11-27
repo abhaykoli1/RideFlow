@@ -144,56 +144,6 @@ const User = require("../../models/User"); // Import the User model (for user va
 const Ride = require("../../models/Rides"); // Import the Bike model (for bike validation)
 
 // // Create a new booking
-// const bookRide = async (req, res) => {
-//   try {
-//     const {
-//       userId,
-//       bikeId,
-//       bookedTimeSlots,
-//       totalDays,
-//       totalAmount,
-//       status,
-//       addressInfo,
-//       orderId,
-//     } = req.body;
-
-//     // Validate if user exists
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     // Validate if bike exists
-//     const bike = await Ride.findById(bikeId);
-//     if (!bike) {
-//       return res.status(404).json({ message: "Bike not found" });
-//     }
-
-//     // Create a new booking
-//     const newBooking = new Booking({
-//       userId,
-//       bikeId,
-//       bookedTimeSlots,
-//       totalDays,
-//       totalAmount,
-//       status,
-//       addressInfo,
-//       orderId,
-//     });
-
-//     // Save the booking to the database
-//     await newBooking.save();
-
-//     // Send success response
-//     res.status(201).json({
-//       message: "Booking successful",
-//       booking: newBooking,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Server error. Please try again." });
-//   }
-// };
 const bookRide = async (req, res) => {
   try {
     const {
@@ -259,10 +209,12 @@ const bookRide = async (req, res) => {
       bookedTimeSlots,
       totalDays,
       totalAmount,
-      status,
+      // status,
+      status: status || "Pending", // Default to 'Pending' if not provided
       addressInfo,
       dl,
       phone,
+      // phone: phone.trim(),
       orderId,
     });
 
@@ -296,26 +248,31 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-// // Get bookings by userId (User's own bookings)
-// const getUserBookings = async (req, res) => {
-//   try {
-//     const { userId } = req.params;
+// Get bookings by userId (User's own bookings)
+const getUserBookings = async (req, res) => {
+  try {
+    const { userId } = req.params;
 
-//     // Fetch bookings of the specific user
-//     const bookings = await Booking.find({ userId }).populate("bikeId");
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
 
-//     if (!bookings.length) {
-//       return res
-//         .status(404)
-//         .json({ message: "No bookings found for this user" });
-//     }
+    const bookings = await Booking.find({ userId })
+      .populate("bikeId")
+      .sort({ createdAt: -1 }); // Sort bookings by most recent
 
-//     res.status(200).json(bookings);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Server error. Please try again." });
-//   }
-// };
+    if (!bookings.length) {
+      return res
+        .status(404)
+        .json({ message: "No bookings found for this user." });
+    }
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching user bookings:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+};
 
 // // Update booking status (for example, to Confirmed or Cancelled)
 const updateBookingStatus = async (req, res) => {
@@ -371,7 +328,7 @@ const deleteBooking = async (req, res) => {
 module.exports = {
   bookRide,
   getAllBookings,
-  // getUserBookings,
+  getUserBookings,
   updateBookingStatus,
   deleteBooking,
 };

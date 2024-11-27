@@ -8,7 +8,7 @@ router.post("/bookride", bookingController.bookRide);
 router.get("/get", bookingController.getAllBookings);
 
 // Route to get bookings for a specific user
-// router.get("/user/:userId/bookings", bookingController.getUserBookings);
+router.get("/user/:userId", bookingController.getUserBookings);
 
 router.patch("/status", bookingController.updateBookingStatus);
 
