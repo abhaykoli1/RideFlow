@@ -5,25 +5,23 @@ const UserSchema = new mongoose.Schema(
     userName: {
       type: String,
       required: true,
-      // unique: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/\S+@\S+\.\S+/, "Please use a valid email address"], // Basic email validation
+      match: [/\S+@\S+\.\S+/, "Please use a valid email address"],
     },
     password: {
       type: String,
       required: function () {
-        // Password is required only if there is no googleId (i.e. for email-based authentication)
         return !this.googleId;
       },
     },
     googleId: {
       type: String,
       required: false,
-      unique: false, // Ensure googleId is unique
+      unique: false,
     },
     role: {
       type: String,

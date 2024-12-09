@@ -1,7 +1,6 @@
 import { filterOptions } from "@/config";
 import { Fragment } from "react";
 import { Label } from "../ui/label";
-import { Separator } from "../ui/separator";
 import { Checkbox } from "@mui/material";
 
 function RideFilter({ filters, handleFilter }) {

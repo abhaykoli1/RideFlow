@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
-import DatePicker from "react-datepicker";
 import { DateRange } from "@mui/icons-material";
 import { Label } from "../ui/label";
 import DayCompo from "./day";

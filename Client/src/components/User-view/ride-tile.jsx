@@ -1,21 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router-dom";
-import { Heart, Plus } from "lucide-react";
-import { MyContext } from "../common/Helper/context";
+import { Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRideDetails } from "@/store/user/Rides-slice";
 import RideDetailsDialog from "./ride-details";
-import { addToCart, fetchCartItems } from "@/store/user/cart-slice";
 import useDeviceType from "@/hooks/useDeviceType";
 import { useToast } from "@/hooks/use-toast";
-import {
-  addToWishlist,
-  deleteWishlistItem,
-  fetchWishlistItems,
-} from "@/store/user/wishlist-slice";
-import { Favorite } from "@mui/icons-material";
 
 function UserRideTile({ className, ride, RidesList, index }) {
   const navigate = useNavigate();
@@ -28,106 +20,11 @@ function UserRideTile({ className, ride, RidesList, index }) {
 
   const { RideDetails } = useSelector((state) => state.userRides);
   const { user } = useSelector((state) => state.auth);
-  const { wishlistItems } = useSelector((state) => state.userWishlist);
-
-  const isInWishlist =
-    Array.isArray(wishlistItems.items) &&
-    wishlistItems.items.some((item) => item.rideId === ride?._id);
 
   function handleGetRideDetails(getCurrentRideId) {
     setOpenDetailsDialog(true);
     dispatch(fetchRideDetails(getCurrentRideId));
   }
-
-  useEffect(() => {
-    // Check localStorage for cached wishlist
-    const cachedWishlist = JSON.parse(localStorage.getItem("wishlist"));
-    if (cachedWishlist && cachedWishlist.length > 0) {
-      setWishlist(cachedWishlist);
-    } else {
-      // Fetch from backend if no cached data
-      if (user?.id) {
-        dispatch(fetchWishlistItems(user.id)).then((data) => {
-          if (data?.payload?.success) {
-            const fetchedWishlist = data.payload.wishlist || [];
-            setWishlist(fetchedWishlist);
-            localStorage.setItem("wishlist", JSON.stringify(fetchedWishlist));
-          }
-        });
-      }
-    }
-  }, [user, dispatch]);
-  const handleAddToWishlist = (getCurrentRideId) => {
-    dispatch(
-      addToWishlist({
-        userId: user?.id,
-        rideId: getCurrentRideId,
-      })
-    ).then((data) => {
-      if (data?.payload?.success) {
-        const updatedWishlist = [...wishlist, getCurrentRideId];
-        setWishlist(updatedWishlist);
-        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-        toast({
-          title: "Ride added to Wishlist",
-        });
-      }
-    });
-  };
-
-  const handleWishlistItemsDelete = (rideId) => {
-    dispatch(
-      deleteWishlistItem({
-        userId: user?.id,
-        rideId: rideId,
-      })
-    ).then((data) => {
-      if (data?.payload?.success) {
-        const updatedWishlist = wishlist.filter((id) => id !== rideId);
-        setWishlist(updatedWishlist);
-        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-        toast({
-          title: "Ride removed from Wishlist",
-        });
-      }
-    });
-  };
-
-  // function handleAddToWishlist(getCurrentRideId) {
-  //   dispatch(
-  //     addToWishlist({
-  //       userId: user?.id,
-  //       rideId: getCurrentRideId,
-  //     })
-  //   ).then((data) => {
-  //     console.log(data);
-  //     if (data?.payload?.success) {
-  //       dispatch(fetchWishlistItems(user?.id));
-  //       setWishlist((prevWishlist) => [...prevWishlist, getCurrentRideId]);
-  //       toast({
-  //         title: "Ride added to Wishlist",
-  //       });
-  //     }
-  //   });
-  // }
-
-  // const handleWishlistItemsDelete = (rideId) => {
-  //   dispatch(
-  //     deleteWishlistItem({
-  //       userId: user?.id,
-  //       rideId: rideId,
-  //     })
-  //   ).then((data) => {
-  //     if (data?.payload?.success) {
-  //       setWishlist((prevWishlist) =>
-  //         prevWishlist.filter((id) => id !== rideId)
-  //       );
-  //       toast({
-  //         title: "Ride removed from Wishlist",
-  //       });
-  //     }
-  //   });
-  // };
 
   function handleOrderRide(getCurrentRideId) {
     sessionStorage.setItem("currentRideId", getCurrentRideId);
@@ -144,7 +41,6 @@ function UserRideTile({ className, ride, RidesList, index }) {
         className={className}
       >
         {/* Only in Fleet || View more || Edit */}
-
         <div
           className={` 
           cursor-pointer  duration-500`}
@@ -184,7 +80,6 @@ function UserRideTile({ className, ride, RidesList, index }) {
           />
 
           <p
-            //  "pt-[70px] h-40"
             className={` ${
               deviceType !== "desktop" ||
               (isHovered === index && deviceType === "desktop"
@@ -192,9 +87,9 @@ function UserRideTile({ className, ride, RidesList, index }) {
                 : null)
                 ? "pt-[113px] h-40"
                 : ""
-            } text-white !z-20 text-[12px] h-[24px] duration-500 font-semibold pl-4 bg-yellow relative`}
+            } text-white !z-20 text-[12px] h-[24px] duration-500 font-semibold bg-yellow relative`}
           >
-            <div className="flex justify-between items-center ">
+            <div className="flex justify-between items-end  px-3 ">
               <span
                 className={`${
                   ride?.salePrice > 0 ? "line-through" : ""
@@ -202,31 +97,16 @@ function UserRideTile({ className, ride, RidesList, index }) {
               >
                 {"\u20B9"}
                 {ride?.rentPrice}
+                <span className="text-[14px]  italic">/- </span>
               </span>
               {ride?.salePrice > 0 ? (
-                <span className=" text-[14px] font-bold ">
+                <span className=" text-[14px] font-bold">
                   {"\u20B9"}
                   {ride?.salePrice}
-                  <span className="text-[14px]  italic mr-10">/- </span>
+                  <span className="text-[14px]  italic ">/- </span>
                 </span>
               ) : null}
             </div>
-
-            {isInWishlist ? (
-              <div
-                onClick={() => handleWishlistItemsDelete(ride?._id)}
-                className={` absolute -top-[6px] rounded-tr-none  rounded-tl-xl right-0 flex justify-center items-center bg-yellow px-1 rounded-md text-[#fff] text-[12px] font-semibold h-7 hover:scale-[99%]`}
-              >
-                <Favorite className="text-tomato ml-1" />
-              </div>
-            ) : (
-              <div
-                onClick={() => handleAddToWishlist(ride?._id)}
-                className={`absolute -top-[6px] rounded-tr-none  rounded-tl-xl right-0 flex justify-center items-center bg-yellow px-1 rounded-md text-[#fff] text-[12px] font-semibold h-7 hover:scale-[99%]`}
-              >
-                <Favorite className="text-white ml-1" />
-              </div>
-            )}
           </p>
           {deviceType === "desktop" &&
           index === RidesList.slice(0, 5).length - 1 ? null : (
@@ -288,11 +168,6 @@ function UserRideTile({ className, ride, RidesList, index }) {
                   onClick={() => {
                     toast({
                       title: "Uh oh! Ride is out of stock.",
-                      // action: (
-                      //   <ToastAction className="!bg-white" altText="Try again">
-                      //     Try Later
-                      //   </ToastAction>
-                      // ),
                     });
                   }}
                   className="bg-white w-full opacity-80 text-slate-800 text-[12px] font-semibold h-8  rounded-xl"

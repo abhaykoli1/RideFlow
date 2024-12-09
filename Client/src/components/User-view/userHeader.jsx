@@ -3,40 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 import Avtar from "./Avtar";
-import HeaderWishlistSheet from "./wishlist-sheet";
 import Logo from "./logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserNavItems } from "@/config";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
-import { getUserBookings } from "@/store/user/booking-slice";
-import { Sheet } from "../ui/sheet";
-// import UserBookingContent from "./bookingSheetContent";
-import RideBookingDialog from "./ride-bookings";
 
-const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
+const ShopHeader = ({ setSidebar, sidebar }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-
-  const { userBookings, isLoading, error } = useSelector(
-    (state) => state.userBooking
-  );
-  const dispatch = useDispatch();
-
-  const [openBookingDialog, setOpenBookingDialog] = useState(false);
-
-  function handleGetRideDetails(getCurrentUserId) {
-    setTimeout(() => {
-      setOpenBookingDialog(true);
-    }, 300);
-    if (user?.id) {
-      dispatch(getUserBookings(user?.id));
-    }
-  }
-
   return (
     <header className="backdrop-blur-x HeaderBG HeaderBorderBotto  shadow-md">
-      <div className="  px-3 lg:h-[72px] md:h-[72px]  sm:h-[60px] h-[60px] duration-500 flex items-center justify-between ">
+      <div className="  px-4 lg:h-[72px] md:h-[72px]  sm:h-[60px] h-[60px] duration-500 flex items-center justify-between ">
         <div className="flex gap-2 items-center">
           <div className="border-[0.5px] lg:hidden md:hidden rounded-md">
             {!sidebar ? (
@@ -55,7 +33,7 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
           </div>
           <Logo L2={"text-white"} B={"border border-white"} />
         </div>
-        <div className="flex gap-3 items-center">
+        {/* <div className="flex gap-3 items-center"> */}
           <div className="lg:flex md:flex hidden items-center ">
             {UserNavItems.map((nav) => (
               <ul
@@ -76,16 +54,17 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
                 </li>
               </ul>
             ))}
-            <p
-              onClick={() => {
-                handleGetRideDetails();
-                setOpenBookingSheet(true);
-              }}
-              className={`uppercase cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text-white`}
-            >
-              {" "}
-              Bookings
-            </p>
+            {isAuthenticated && (
+              <p
+                onClick={() => {
+                  navigate("/ride/bookings");
+                }}
+                className={`uppercase cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text-white`}
+              >
+                {" "}
+                Bookings
+              </p>
+            )}
           </div>
 
           {!isAuthenticated ? (
@@ -97,20 +76,12 @@ const ShopHeader = ({ setSidebar, sidebar, HeaderContent }) => {
             </Button>
           ) : (
             <div className="flex items-center">
-              <HeaderWishlistSheet />
               <Avtar />
             </div>
           )}
         </div>
-      </div>
 
-      <RideBookingDialog
-        setOpen={setOpenBookingDialog}
-        open={openBookingDialog}
-        userBookings={userBookings}
-        isLoading={isLoading}
-        error={error}
-      />
+      {/* </div> */}
     </header>
   );
 };

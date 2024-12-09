@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
-  const { UsersList } = useSelector((state) => state.auth);
+  // const { UsersList } = useSelector((state) => state.auth);
 
   // useEffect(() => {
   //   dispatch(fetchAllUsers());

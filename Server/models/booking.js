@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
-// Define the Bike Ride Booking Schema
 const bookingSchema = new mongoose.Schema({
+  // userEmail: {
+  //   type: String,
+  //   required: true,
+  //   ref: "User",
+  //   index: true,
+  // },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -22,7 +27,6 @@ const bookingSchema = new mongoose.Schema({
       required: true,
     },
   },
-
   totalDays: {
     type: Number,
     required: true,
@@ -39,33 +43,19 @@ const bookingSchema = new mongoose.Schema({
     default: "Pending",
   },
   addressInfo: {
-    // address: {
-    //   type: String,
-    //   required: false,
-    // },
-    // city: {
-    //   type: String,
-    //   required: false,
-    // },
-    // pincode: {
-    //   type: String,
-    //   required: false,
-    // },
-    // phone: {
-    //   type: String,
-    //   required: false,
-    // },
     address: { type: String, default: "" },
     city: { type: String, default: "" },
+    state: { type: String, default: "" },
     pincode: { type: String, default: "" },
     phone: { type: String, default: "" },
   },
+
   phone: {
     type: String,
-    required: true,
     minlength: 10,
     maxlength: 15,
-    // match: /^[0-9]{10,15}$/,
+    match: /^[0-9]{10,15}$/,
+    trim: true,
   },
   dl: {
     type: String,
@@ -78,11 +68,11 @@ const bookingSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Timestamp when the booking was created
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now, // Timestamp for when the booking was last updated
+    default: Date.now,
   },
 });
 

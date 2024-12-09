@@ -21,7 +21,7 @@ const footer = [
     path1: "",
 
     item2Icon: <Phone />,
-    item2: "988-743-4494",
+    item2: "9887 434 494",
     path2: "",
 
     item3Icon: "",
@@ -30,7 +30,7 @@ const footer = [
   },
   {
     id: 2,
-    title: "Legal",
+    title: "Legal Terms",
     item1Icon: "",
     item1: "Privacy & Policy",
     path1: "/ride/Policy",

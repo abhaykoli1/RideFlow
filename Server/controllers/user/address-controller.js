@@ -2,9 +2,9 @@ const Address = require("../../models/Address");
 
 const addAddress = async (req, res) => {
   try {
-    const { userId, address, city, pincode, phone } = req.body;
+    const { userEmail, address, city, state, pincode, phone } = req.body;
 
-    if (!userId || !address || !city || !pincode || !phone) {
+    if (!userEmail || !address || !city || !state || !pincode || !phone) {
       return res.status(400).json({
         success: false,
         message: "Invalid data provided!",
@@ -12,9 +12,10 @@ const addAddress = async (req, res) => {
     }
 
     const newlyCreatedAddress = new Address({
-      userId,
+      userEmail,
       address,
       city,
+      state,
       pincode,
       phone,
     });
@@ -36,15 +37,15 @@ const addAddress = async (req, res) => {
 
 const fetchAllAddress = async (req, res) => {
   try {
-    const { userId } = req.params;
-    if (!userId) {
+    const { userEmail } = req.params;
+    if (!userEmail) {
       return res.status(400).json({
         success: false,
         message: "User id is required!",
       });
     }
 
-    const addressList = await Address.find({ userId });
+    const addressList = await Address.find({ userEmail });
 
     res.status(200).json({
       success: true,
@@ -61,10 +62,10 @@ const fetchAllAddress = async (req, res) => {
 
 const editAddress = async (req, res) => {
   try {
-    const { userId, addressId } = req.params;
+    const { userEmail, addressId } = req.params;
     const formData = req.body;
 
-    if (!userId || !addressId) {
+    if (!userEmail || !addressId) {
       return res.status(400).json({
         success: false,
         message: "User and address id is required!",
@@ -74,7 +75,7 @@ const editAddress = async (req, res) => {
     const address = await Address.findOneAndUpdate(
       {
         _id: addressId,
-        userId,
+        userEmail,
       },
       formData,
       { new: true }
@@ -102,15 +103,18 @@ const editAddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
   try {
-    const { userId, addressId } = req.params;
-    if (!userId || !addressId) {
+    const { userEmail, addressId } = req.params;
+    if (!userEmail || !addressId) {
       return res.status(400).json({
         success: false,
         message: "User and address id is required!",
       });
     }
 
-    const address = await Address.findOneAndDelete({ _id: addressId, userId });
+    const address = await Address.findOneAndDelete({
+      _id: addressId,
+      userEmail,
+    });
 
     if (!address) {
       return res.status(404).json({

@@ -35,31 +35,28 @@ function createSearchParamsHelper(filterParams) {
       queryParams.push(`${key}=${encodeURIComponent(paramValue)}`);
     }
   }
-  // console.log("queryParams", queryParams);
+
   return queryParams.join("&");
 }
 
 const RideListing = () => {
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 514px)" });
+  // const isSmallScreen = useMediaQuery({ query: "(max-width: 514px)" });
   const { RidesList } = useSelector((state) => state.userRides);
-  // console.log("RideDetails", RideDetails);
-  // console.log("Ride list", RidesList);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  const { sidebar, setSidebar } = useContext(MyContext);
+  const [day, setDay] = useState("1");
+  const [date, setDate] = useState(new Date());
+  // const { sidebar, setSidebar } = useContext(MyContext);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const categorySearchParam = searchParams.get("category");
-  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  const { setCurrentRideId } = useContext(MyContext);
-  // console.log("RideDetials : ", RideDetails);
   //
   const handleSort = (value) => {
     setSort(value);
-    console.log(value);
   };
+
   function handleFilter(getSectionId, getCurrentOption) {
     console.log(getSectionId, getCurrentOption);
     let cpyFilters = { ...filters };
@@ -77,14 +74,8 @@ const RideListing = () => {
       else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
     }
     setFilters(cpyFilters);
-    // console.log("cpyFilters", cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
   }
-
-  // function handleGetRideDetails(getCurrentRideId) {
-  //   console.log("getCurrentRideId :", getCurrentRideId);
-  //   dispatch(fetchRideDetails(getCurrentRideId));
-  // }
 
   useEffect(() => {
     setSort("price-lowtohigh");
@@ -100,24 +91,12 @@ const RideListing = () => {
   }, [filters]);
 
   useEffect(() => {
-    if (filters !== null && sort !== null)
-      dispatch(
-        fetchAllFilteredRides({ filterParams: filters, sortParams: sort })
-      );
+    if (filters !== null && sort !== null);
+    dispatch(
+      fetchAllFilteredRides({ filterParams: filters, sortParams: sort })
+    );
   }, [dispatch, sort, filters]);
 
-  const deviceType = useDeviceType();
-  {
-    /* <div className="bg-red-300 p-4">
-          <h1 className="text-white text-xl">Device Type Detection</h1>
-          <p className="text-white">
-            You are visiting on a {deviceType} device.
-          </p>
-        </div> */
-  }
-
-  const [day, setDay] = useState("1");
-  const [date, setDate] = useState(new Date());
   return (
     <section className={`fixed flex w-full mt-0 left-0 h-[100%] ListingBg `}>
       {/* Filter  */}
@@ -176,13 +155,13 @@ const RideListing = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-[170px] !py-1 mt-1  Border   shadow-lg
+                className="w-[170px] !py-1 mt-1 Border shadow-lg
                 !bg-white !text-slate-800"
               >
                 <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                   {sortOptions.map((sortItem) => (
                     <DropdownMenuRadioItem
-                      className="hover:!bg-slate-100 "
+                      className="hover:!bg-slate-100"
                       value={sortItem.id}
                       key={sortItem.id}
                     >
@@ -202,15 +181,10 @@ const RideListing = () => {
                   key={index}
                   fleet={true}
                   RidesList={RidesList}
+                  ride={rideItem}
                   className={
                     "grid bg-white grid-cols-1  shrink-0 w-full relative !rounded-xl overflow-hidden cursor-pointer mx-auto border"
                   }
-                  // setOpenDetailsDialog={setOpenDetailsDialog}
-                  // key={rideItem.id}
-                  ride={rideItem}
-                  // handleAddToCart={handleAddToCart}
-                  // handleGetRideDetails={handleGetRideDetails}
-                  // handleAddtoCart={handleAddtoCart} <div>No rides available.</div>
                 />
               ))
             : null}

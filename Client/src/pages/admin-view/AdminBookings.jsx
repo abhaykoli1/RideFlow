@@ -8,45 +8,63 @@ import {
 import { fetchAllRides } from "@/store/admin/Rides-slice";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import AddressSheetContent from "@/components/admin-view/Booking-Details";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const AdminBookings = () => {
   const dispatch = useDispatch();
   const { allBookings, isLoading, error } = useSelector(
     (state) => state.userBooking
   );
+
+  const { user } = useSelector((state) => state.auth);
+
   const { RidesList } = useSelector((state) => state.adminRides);
 
+  console.log(RidesList);
   useEffect(() => {
     dispatch(getAllBookings());
     dispatch(fetchAllRides());
   }, [dispatch]);
 
+  if (user?.email === allBookings?.userEmail) {
+    console.log(user?.userName);
+  }
+
   const getRideImage = (bikeId) => {
     const ride = RidesList.find((ride) => ride._id === bikeId);
-    return ride?.image || "/default-bike.png"; // Default image if no match
+    return ride?.image || "/default-bike.png";
   };
 
+  const [openSheet, setOpenSheet] = useState(false);
   const [updatingId, setUpdatingId] = useState(null);
 
   const handleStatusChange = (bookingId, status) => {
     console.log("bookingId", bookingId);
     if (!status) return;
-    setUpdatingId(bookingId); // Show loading state for the specific booking
+    setUpdatingId(bookingId);
     dispatch(
       updateBookingStatus({
         bookingId,
         status,
       })
     ).then(() => {
-      setUpdatingId(null); // Reset loading state after the update
+      setUpdatingId(null);
     });
   };
-
+  console.log(allBookings);
   const handleDelete = (bookingId) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       dispatch(deleteBooking(bookingId));
     }
   };
+
   return (
     <div className=" mx-aut   text-slate-800">
       <h1 className="text-3xl font-bold mb-3">Bookings</h1>
@@ -122,12 +140,31 @@ const AdminBookings = () => {
                   <strong>Booking ID:</strong> {booking._id || "N/A"}
                 </p>
                 <div className="flex justify-between mt-2">
-                  <div
-                    // onClick={() => handleDelete(booking._id)}
-                    className="bg-slate-800  flex items-center rounded px-2 py-1 !text-[12px] cursor-pointer text-white    "
-                  >
-                    Details
-                  </div>
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <div
+                        variant="outline"
+                        size="icon"
+                        className="bg-slate-800  flex items-center rounded px-2 py-1 !text-[12px] cursor-pointer text-white    "
+                      >
+                        Details
+                      </div>
+                    </SheetTrigger>
+                    <SheetContent
+                      side="right"
+                      className="w-full max-w-xs !bg-white "
+                    >
+                      <SheetHeader>
+                        <SheetTitle className="text-black mb-4">
+                          Additional Details
+                        </SheetTitle>
+                      </SheetHeader>
+                      <AddressSheetContent
+                        allBookings={allBookings}
+                        booking={booking}
+                      />
+                    </SheetContent>
+                  </Sheet>
                   <div
                     onClick={() => handleDelete(booking._id)}
                     className="bg-slate-800  rounded px-2 py-1 !text-[12px] cursor-pointer text-white    "
@@ -142,6 +179,11 @@ const AdminBookings = () => {
       ) : (
         <p className="text-center">No bookings found.</p>
       )}
+      <Sheet open={openSheet} onOpenChange={() => setOpenSheet(false)}>
+        {/* <SheetContent> */}
+
+        {/* </SheetContent> */}
+      </Sheet>
     </div>
   );
 };

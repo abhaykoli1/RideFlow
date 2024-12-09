@@ -11,8 +11,6 @@ const initialState = {
 export const fetchAllFilteredRides = createAsyncThunk(
   "/Rides/fetchAllRides",
   async ({ filterParams, sortParams }) => {
-    // console.log("fetchAllFilteredRides", fetchAllFilteredRides);
-
     const query = new URLSearchParams({
       ...filterParams,
       sortBy: sortParams,

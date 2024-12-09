@@ -1,5 +1,5 @@
 import { ReceiptText } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
@@ -33,38 +33,46 @@ const BillingDetails = ({
   DropOffDate,
   daysToAdd,
   deliveryOption,
-  //   drivingLicenceNo,
-  //   mobileNo,
+  currentSelectedAddress,
+  deliveryCharge,
+  // drivingLicenceNo,
+  // mobileNo,
 }) => {
   const [drivingLicenceNo, setDrivingLicenceNo] = useState(
     sessionStorage.getItem("drivingLicenceNo") || ""
   );
+
   const [mobileNo, setMobileNo] = useState(
     sessionStorage.getItem("mobileNo") || ""
   );
   const [bookingData, setBookingData] = useState(initialBookingFormData);
+
   const { isLoading, bookingDetails, error } = useSelector(
     (state) => state.userBooking
   );
 
-  console.log("dl", mobileNo);
-
-  const { addressList } = useSelector((state) => state.userAddress);
-
-  console.log("addressList", addressList?.city);
-
+  // const { addressList } = useSelector((state) => state.userAddress);
   const { user } = useSelector((state) => state.auth);
+
+  console.log("dl", user?.id);
+
+  // console.log("Generated UUID:", OrderId);
+  // console.log("addressList", addressList?.city);
 
   const OrderId = uuidv4();
 
-  console.log("Generated UUID:", OrderId);
-
-  function calculateChargesWithDiscount(baseCharge, daysToAdd, deliveryOption) {
+  function calculateChargesWithDiscount(
+    baseCharge,
+    daysToAdd,
+    deliveryOption,
+    deliveryCharge
+  ) {
     let charges = baseCharge;
     let totalDiscount = 0;
     const fixedReduction = 3;
     let percent = 2;
     const reductionRate = 0.2;
+
     for (let day = 1; day <= daysToAdd; day++) {
       if (day === 1) {
         continue;
@@ -78,15 +86,22 @@ const BillingDetails = ({
         percent = Math.max(percent - reductionRate, 0);
       }
     }
-    if (deliveryOption === "Home") {
-      charges += 100;
+
+    // Add delivery charge if the delivery option is "Home"
+    if (deliveryOption === "Home" && deliveryCharge !== undefined) {
+      charges += parseFloat(deliveryCharge) || 0;
+      // console.log("Final Charges (Home):", charges);
     }
+    // console.log("Type of charges:", typeof ExtraCharge);
+    // console.log("Type of charges:", typeof charges);
+
     return {
       finalCharge: charges.toFixed(2),
       totalDiscount: totalDiscount.toFixed(0),
     };
   }
 
+  // Example Usage:
   const charges =
     RideDetails?.salePrice !== 0
       ? RideDetails?.rentPrice > RideDetails?.salePrice
@@ -99,18 +114,18 @@ const BillingDetails = ({
   const result = calculateChargesWithDiscount(
     baseCharge,
     daysToAdd,
-    deliveryOption
+    deliveryOption,
+    deliveryCharge
   );
 
-  console.log(`Final charge after ${daysToAdd} days: ₹${result.finalCharge}`);
-  console.log(`Total discount given: ₹${result.totalDiscount}`);
+  // console.log(`Final charge after ${daysToAdd} days: ₹${result.finalCharge}`);
+  // console.log(`Total discount given: ₹${result.totalDiscount}`);
 
-  console.log("Date", Date);
+  // console.log("Date", Date);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Booking Data:", bookingData);
     dispatch(
       bookRide({
         userId: user?.id,
@@ -121,16 +136,23 @@ const BillingDetails = ({
         },
         totalDays: daysToAdd,
         totalAmount: result.finalCharge,
-        status: "Pending", // Default status
+        status: "Pending",
         addressInfo: {
-          userId: "",
-          address: "",
-          city: "",
-          pincode: "",
-          phone: "5343435434343",
+          userId:
+            deliveryOption === "Home" ? currentSelectedAddress?.userId : "",
+          address:
+            deliveryOption === "Home" ? currentSelectedAddress?.address : "",
+          city: deliveryOption === "Home" ? currentSelectedAddress?.city : "",
+          state: deliveryOption === "Home" ? currentSelectedAddress?.state : "",
+          pincode:
+            deliveryOption === "Home" ? currentSelectedAddress?.pincode : "",
+          phone: deliveryOption === "Home" ? currentSelectedAddress?.phone : "",
         },
         dl: sessionStorage.getItem("drivingLicenceNo"),
-        phone: sessionStorage.getItem("mobileNo"),
+        phone:
+          deliveryOption === "Pick"
+            ? sessionStorage.getItem("mobileNo")
+            : currentSelectedAddress?.phone,
         orderId: OrderId,
       })
     );
@@ -146,20 +168,12 @@ const BillingDetails = ({
         <span className="text-lg font-semibold underline flex gap-2 items-center">
           <ReceiptText /> Billing Details
         </span>
-
-        <p className="mt-4">
-          <strong>Stored in session:</strong>
-          <br />
-          Driving Licence No.: {sessionStorage.getItem("drivingLicenceNo")}
-          <br />
-          Mobile No.: {sessionStorage.getItem("mobileNo")}
-        </p>
         <div className="flex justify-between items-center pb-1 pt-2">
           <span className="text-md font-medium text-gray-700">
             Ride Charges
           </span>
           <span className="text-md font-semibold text-gray-900">
-            ₹{charges * daysToAdd} /-
+            ₹ {charges * daysToAdd} /-
           </span>
         </div>
 
@@ -168,7 +182,7 @@ const BillingDetails = ({
             Additional Discount
           </span>
           <span className="text-md font-semibold text-tomato">
-            {result.totalDiscount} %
+            ₹ -{result.totalDiscount}
           </span>
         </div>
 
@@ -176,7 +190,7 @@ const BillingDetails = ({
           <span className="text-sm font-medium text-gray-700">
             Security Deposit
           </span>
-          <span className="text-sm font-semibold text-green-600">₹ 0 /-</span>
+          <span className="text-sm font-semibold text-green-600">₹ 0</span>
         </div>
 
         <div
@@ -187,9 +201,13 @@ const BillingDetails = ({
           <span className="text-sm font-medium text-gray-700">
             Home Delivery Charges
           </span>
-          <span className="text-sm font-semibold text-green-600">
-            + ₹ 100 /-
-          </span>
+          {deliveryCharge ? (
+            <p className="text-sm font-semibold text-green-600">
+              ₹{deliveryCharge}
+            </p>
+          ) : (
+            "NaN"
+          )}
         </div>
 
         <Separator />
@@ -198,14 +216,16 @@ const BillingDetails = ({
             Total Charges
           </span>
           <span className="text-[15.5px] font-bold text-slate-800">
-            ₹ {result.finalCharge} /-
+            ₹ {result.finalCharge}
           </span>
         </div>
 
         <Button
           disabled={
+            (deliveryOption === "Home" && !currentSelectedAddress) ||
             !sessionStorage.getItem("drivingLicenceNo") ||
-            !sessionStorage.getItem("mobileNo") ||
+            (deliveryOption === "Pick" &&
+              !sessionStorage.getItem("mobileNo")) ||
             isLoading
           }
           onClick={handleSubmit}
@@ -233,43 +253,3 @@ const BillingDetails = ({
 };
 
 export default BillingDetails;
-
-{
-  /* <BillingDetails
-deliveryOption={deliveryOption}
-RideDetails={RideDetails}
-daysToAdd={daysToAdd}
-/> */
-}
-{
-  /* <div className="flex items-center ">
-    <Checkbox
-      className="!text-slate-800"
-      sx={{
-        color: "slategray", // Corrected color value for valid CSS
-        "&.Mui-checked": {
-          color: "tomato",
-        },
-      }}
-      checked={isChecked}
-      onChange={handleCod} // Bind the handler
-    />
-    <span className="text-sm font-medium text-gray-700">
-      Cash on Delivery
-    </span>
-  </div> */
-}
-{
-  /* {isChecked ? ( */
-}
-
-{
-  /* ) : (
-    <Button className="w-full bg-slate-800 text-white mt-1">
-      Pay Now ₹{" "}
-      {deliveryOption === "Pick"
-        ? RideDetails?.rentPerDay * daysToAdd
-        : RideDetails?.rentPerDay * daysToAdd + 100}
-    </Button>
-  )} */
-}

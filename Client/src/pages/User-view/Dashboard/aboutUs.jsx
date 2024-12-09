@@ -11,7 +11,7 @@ const AboutUs = () => {
           {/* <p classN ame="border-b-2 w-[300px] text-end  border-yellow mt-2 rounded-full"></p> */}
         </div>
 
-        <div className=" rounded-lg shadow-md mb-6 mt-10">
+        <div className=" rounded-lg  mb-6 mt-10">
           <p className="text-lg">
             Welcome to{" "}
             <span className="font-semibold text-yellow underline">

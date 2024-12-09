@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { BadgeCheck, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { logoutUser } from "@/store/auth-slice";
 import { Sheet } from "../ui/sheet";
+// import UserProfileContent from "./profile";
 // import { getUserBookings } from "@/store/user/booking-slice";
 // import UserBookingContent from "./bookingSheetContent";
 
@@ -12,11 +13,10 @@ const Avtar = () => {
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
   const closeDropdown = () => setDropdownOpen(false);
   const dispatch = useDispatch();
-  const [openBookingSheet, setOpenBookingSheet] = useState(false);
+  // const [openProfileSheet, setOpenProfileSheet] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
-
-  console.log(user?.role);
+  console.log("from Avtar", user.id);
   function handleLogout() {
     dispatch(logoutUser())
       .then(() => {
@@ -26,19 +26,6 @@ const Avtar = () => {
         console.log("Logout failed", error);
       });
   }
-
-  console.log(user?.image);
-
-  // const { userBookings, isLoading, error } = useSelector(
-  //   (state) => state.userBooking
-  // );
-
-  // //   Fetch bookings on component mount
-  // useEffect(() => {
-  //   if (user?.id) {
-  //     dispatch(getUserBookings(user?.id));
-  //   }
-  // }, [user?.id, dispatch]);
 
   return (
     <Fragment>
@@ -61,15 +48,15 @@ const Avtar = () => {
             </div>
             {/* <button
               onClick={() => {
-                // setOpenBookingSheet(true);
+                setOpenProfileSheet(true);
 
                 closeDropdown();
               }}
               className="w-full text-left px-4 py-2 hover:bg-slate-200/55 rounded-t-none flex items-center"
             >
               {" "}
-              <BadgeCheck className="-ml-0.5 mr-2 h-5 w-5" />
-              Bookings
+              <User className="-ml-0.5 mr-2 h-5 w-5" />
+              Profile
             </button> */}
             <button
               onClick={() => {
@@ -85,14 +72,14 @@ const Avtar = () => {
           </div>
         )}
         {/* <Sheet
-          open={openBookingSheet}
-          onOpenChange={() => setOpenBookingSheet(false)}
+          open={openProfileSheet}
+          onOpenChange={() => setOpenProfileSheet(false)}
         >
-          <UserBookingContent
-            setOpenBookingSheet={setOpenBookingSheet}
-            userBookings={userBookings}
-            isLoading={isLoading}
-            error={error}
+          <UserProfileContent
+            setOpenProfileSheet={setOpenProfileSheet}
+            // userBookings={userBookings}
+            // isLoading={isLoading}
+            // error={error}
           />
         </Sheet> */}
       </div>

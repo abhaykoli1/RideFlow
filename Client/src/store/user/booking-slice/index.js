@@ -1,72 +1,3 @@
-// // src/store/bookingSlice.js
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
-// import config from "@/store/config";
-
-// // Initial State
-// const initialState = {
-//   isLoading: false, // Tracks loading state
-//   bookingDetails: null, // Stores successful booking details
-//   error: null, // Stores error messages on failure
-// };
-
-// // Async Thunk for creating a booking
-// export const bookRide = createAsyncThunk(
-//   "booking/bookride",
-//   async (bookingDetails, { rejectWithValue }) => {
-//     try {
-//       console.log("Booking Details:", bookingDetails); // Debugging the booking data
-//       const response = await axios.post(
-//         `http://localhost:8000/api/user/booking/bookride`, // API URL
-//         bookingDetails
-//       );
-//       return response.data; // Return the response data (like bookingId)
-//     } catch (error) {
-//       // Handle errors gracefully if no response is available
-//       return rejectWithValue(
-//         error.response?.data?.message ||
-//           error.message ||
-//           "An unknown error occurred."
-//       );
-//     }
-//   }
-// );
-
-// // Redux Slice for handling the booking state
-// const bookingSlice = createSlice({
-//   name: "booking",
-//   initialState,
-//   reducers: {
-//     // Action to reset the booking state
-//     resetBookingState: (state) => {
-//       state.bookingDetails = null;
-//       state.error = null;
-//     },
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       // When booking request is pending
-//       .addCase(bookRide.pending, (state) => {
-//         state.isLoading = true;
-//         state.error = null; // Clear previous errors
-//       })
-//       // When booking is successfully completed
-//       .addCase(bookRide.fulfilled, (state, action) => {
-//         state.isLoading = false;
-//         state.bookingDetails = action.payload; // Save booking details (like bookingId)
-//       })
-//       // When booking request fails
-//       .addCase(bookRide.rejected, (state, action) => {
-//         state.isLoading = false;
-//         state.error = action.payload; // Save the error message
-//       });
-//   },
-// });
-
-// // Export actions and reducer
-// export const { resetBookingState } = bookingSlice.actions;
-// export default bookingSlice.reducer;
-
 import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -164,6 +95,7 @@ export const deleteBooking = createAsyncThunk(
     }
   }
 );
+
 // Initial state of the booking slice
 const initialState = {
   isLoading: false, // Tracks loading state

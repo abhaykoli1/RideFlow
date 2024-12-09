@@ -9,7 +9,6 @@ const RideSchema = new mongoose.Schema(
     brand: String,
     rentPrice: Number,
     salePrice: Number,
-    // rentPerWeek: Number,
     totalStock: Number,
     averageReview: Number,
   },

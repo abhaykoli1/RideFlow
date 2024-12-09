@@ -9,7 +9,6 @@ function AddressCard({
   setCurrentSelectedAddress,
   selectedId,
 }) {
-  console.log(addressInfo);
   return (
     <Card
       onClick={
@@ -24,22 +23,21 @@ function AddressCard({
       }`}
     >
       <CardContent className="flex flex-col p-4 gap-1 !px-3 py-2">
-        <Label className="text-md">
+        <Label className="text-md capitalize">
           {addressInfo?.address},
-          <span className="uppercase">{addressInfo?.city}</span>,
-          <span className="uppercase">Rajisthan</span>, {addressInfo?.pincode}
+          <span className="uppercase"> {addressInfo?.city}</span>,
+          <span className="uppercase"> {addressInfo?.state},</span>{" "}
+          {addressInfo?.pincode}
         </Label>
         <Label className="text-md ">Phone : {addressInfo?.phone}</Label>
-        {/* <Button className="w-16 h-7 mt-1   bg-transparent rounded Border">
-          Home
-        </Button> */}
-        <div
-        // className={`${
-        //   selectedId?._id === addressInfo?._id
-        //     ? "flex flex-col gap-2"
-        //     : "flex items-center"
-        // } justify-between `}
-        ></div>
+        {/* <div
+          className={`${
+            selectedId?._id === addressInfo?._id
+              ? "flex flex-col gap-2"
+              : "flex items-center"
+          } justify-between `}
+        >
+        </div> */}
       </CardContent>
       <CardFooter
         className={`${

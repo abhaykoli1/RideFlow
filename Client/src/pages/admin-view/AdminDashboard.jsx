@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { MyContext } from "@/components/common/Helper/context";
+import RideImageUpload from "@/components/admin-view/image-upload";
 
 const AdminDashboard = () => {
   const { sliderImages } = useContext(MyContext);
@@ -24,7 +25,6 @@ const AdminDashboard = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
   const [isDisable, setDisable] = useState(true);
- 
 
   const [currentEditedId, setCurrentEditedId] = useState(null);
   const [sliderImage, setSliderImage] = useState([]);
@@ -37,24 +37,14 @@ const AdminDashboard = () => {
         <h1 className="text-2xl font-bold ">Dashboard </h1>
         <Button
           className="bg-slate-800 lg:h-10 lg:px-2 text-white  md:h-9 md:px-2 sm:h-9  h-8 px-2 py-1 text-[11px]"
-          // onClick={() => setOpenAddSlider(true)}
+          onClick={() => setOpenAddSlider(true)}
         >
           Add Slider JPG
         </Button>
       </div>
-      <div className="overflow-y-scroll flex flex-row  gap-4 whitespace-nowrap w-full no-scrollbar mb-8">
-        {/* {sliderImages && sliderImages.length > 0
-          ? sliderImages.map((items, index) => (
-              <div key={index}>
-                <h2 className="font-medium text-lg mb-2 ">{items.Alt} :</h2>
-                <div className="h-40 overflow-hidden w-72 flex items-center justify-center bg-white rounded-md ">
-                  <img src={items.imageUrl} alt="" className="rounded-md" />
-                </div>
-              </div>
-            ))
-          : null} */}
-      </div>
+      <div className="overflow-y-scroll flex flex-row  gap-4 whitespace-nowrap w-full no-scrollbar mb-8"></div>
 
+      <RideImageUpload />
       <Sheet
         open={OpenAddSlider}
         onOpenChange={() => {
@@ -63,7 +53,10 @@ const AdminDashboard = () => {
           // setFormData(initialFormData);
         }}
       >
-        <SheetContent side="right" className="overflow-auto">
+        <SheetContent
+          side="right"
+          className="overflow-auto !bg-white !text-slate-800"
+        >
           <SheetHeader className="text-left">
             <SheetTitle>Add Image To Slider</SheetTitle>
           </SheetHeader>

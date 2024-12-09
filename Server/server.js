@@ -1,74 +1,8 @@
-// const express = require("express");
-// const cookieParser = require("cookie-parser");
-// const cors = require("cors");
-// const connectDB = require("./config/db");
-// const session = require("express-session");
-
-// // Load environment variables
-// const dotenv = require("dotenv");
-// dotenv.config();
-
-// // Connect to the database
-// connectDB();
-
-// // Import routes
-// const authRouter = require("./routes/auth/auth-routes");
-// const adminRidesRouter = require("./routes/admin/Rides-routes");
-// const adminReviewsRouter = require("./routes/admin/Reviews-routes");
-// const userRidesRouter = require("./routes/user/Rides-routes");
-// const userCartRouter = require("./routes/user/cart-routes");
-// const userWishlistRouter = require("./routes/user/wishlist-routes");
-// const userAddressRouter = require("./routes/user/address-routes");
-// const UserContactRouter = require("./routes/user/contact-routes");
-// const userBookingRouter = require("./routes/user/booking-routes");
-
-// const app = express();
-// const PORT = process.env.PORT || 8000;
-// app.use(cookieParser());
-// app.use(express.json());
-
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
-
-// // Middleware
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL,
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//     allowedHeaders: [
-//       "Content-Type",
-//       "Authorization",
-//       "Cache-Control",
-//       "Expires",
-//       "Pragma",
-//     ],
-//     credentials: true,
-//   })
-// );
-
-// // Route handling
-// app.use("/api/auth", authRouter);
-// app.use("/api/admin/Rides", adminRidesRouter);
-// app.use("/api/admin/Reviews", adminReviewsRouter);
-// app.use("/api/user/Rides", userRidesRouter);
-// app.use("/api/user/cart", userCartRouter);
-// app.use("/api/user/wishlist", userWishlistRouter);
-// app.use("/api/user/address", userAddressRouter);
-// app.use("/api/user/contact", UserContactRouter);
-// app.use("/api/user/booking", userBookingRouter);
-
-// // Start the server
-// app.listen(PORT, () => console.log(`Server is now running on Post ${PORT}`));
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const session = require("express-session");
-const connectDB = require("./config/db"); // Import the DB connection function
+const connectDB = require("./config/db");
 const MongoStore = require("connect-mongo");
 const dotenv = require("dotenv");
 
@@ -81,12 +15,9 @@ const usersRouter = require("./routes/admin/Users-routes");
 const adminRidesRouter = require("./routes/admin/Rides-routes");
 const adminReviewsRouter = require("./routes/admin/Reviews-routes");
 const userRidesRouter = require("./routes/user/Rides-routes");
-const userCartRouter = require("./routes/user/cart-routes");
-const userWishlistRouter = require("./routes/user/wishlist-routes");
 const userAddressRouter = require("./routes/user/address-routes");
 const UserContactRouter = require("./routes/user/contact-routes");
 const userBookingRouter = require("./routes/user/booking-routes");
-const profileRoutes = require("./routes/common/profile-routes");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -101,7 +32,7 @@ app.use(express.json());
 // Session configuration using MongoDB store
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "your-secret-key", // Session secret from .env file
+    secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
@@ -111,6 +42,19 @@ app.use(
   })
 );
 
+// app.get("/api/geocode", async (req, res) => {
+//   const { lat, lng } = req.query;
+//   const apiKey = "YOUR_API_KEY"; // Replace with your API key
+
+//   try {
+//     const response = await axios.get(
+//       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+//     );
+//     res.json(response.data);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 // CORS configuration
 app.use(
   cors({
@@ -123,25 +67,16 @@ app.use(
       "Expires",
       "Pragma",
     ],
-    credentials: true, // Allow credentials (cookies, headers)
+    credentials: true,
   })
 );
 
-// app.get("/api/config", (req, res) => {
-//   res.json({
-//     apiUrl: process.env.REACT_APP_API_URL, // Expose the API base URL
-//   });
-// });
-
 // Route handling
 app.use("/api/auth", authRouter);
-app.use("/api/profile", profileRoutes);
 app.use("/api/admin/users", usersRouter);
 app.use("/api/admin/Rides", adminRidesRouter);
 app.use("/api/admin/Reviews", adminReviewsRouter);
 app.use("/api/user/Rides", userRidesRouter);
-app.use("/api/user/cart", userCartRouter);
-app.use("/api/user/wishlist", userWishlistRouter);
 app.use("/api/user/address", userAddressRouter);
 app.use("/api/user/contact", UserContactRouter);
 app.use("/api/booking", userBookingRouter);

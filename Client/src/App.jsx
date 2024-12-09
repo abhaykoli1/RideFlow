@@ -25,7 +25,8 @@ import PrivacyPolicy from "./pages/User-view/PrivacyPolicy";
 import TermsAndConditions from "./pages/User-view/Terms";
 import AdminBookings from "./pages/admin-view/AdminBookings";
 import AdminUsers from "./pages/admin-view/AdminUsers";
-import ProfilePage from "./components/User-view/profile";
+import Bookings from "./pages/User-view/ride-Bookings";
+
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
@@ -100,8 +101,8 @@ function App() {
           <Route path="about" element={<AboutUs />} />
           <Route path="faqs" element={<FAQ />} />
           <Route path="booking" element={<BookingComponent />} />
+          <Route path="bookings" element={<Bookings />} />
           <Route path="Policy" element={<PrivacyPolicy />} />
-          <Route path="profile" element={<ProfilePage />} />
           <Route path="Terms&Condition" element={<TermsAndConditions />} />
         </Route>
         <Route path="/unauth-page" element={<UnauthPage />} />

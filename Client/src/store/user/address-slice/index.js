@@ -21,9 +21,9 @@ export const addNewAddress = createAsyncThunk(
 
 export const fetchAllAddresses = createAsyncThunk(
   "/addresses/fetchAllAddresses",
-  async (userId) => {
+  async (userEmail) => {
     const response = await axios.get(
-      `${config.API_URL}/user/address/get/${userId}`
+      `${config.API_URL}/user/address/get/${userEmail}`
     );
 
     return response.data;
@@ -32,9 +32,9 @@ export const fetchAllAddresses = createAsyncThunk(
 
 export const editaAddress = createAsyncThunk(
   "/addresses/editaAddress",
-  async ({ userId, addressId, formData }) => {
+  async ({ userEmail, addressId, formData }) => {
     const response = await axios.put(
-      `${config.API_URL}/user/address/update/${userId}/${addressId}`,
+      `${config.API_URL}/user/address/update/${userEmail}/${addressId}`,
       formData
     );
 
@@ -44,9 +44,9 @@ export const editaAddress = createAsyncThunk(
 
 export const deleteAddress = createAsyncThunk(
   "/addresses/deleteAddress",
-  async ({ userId, addressId }) => {
+  async ({ userEmail, addressId }) => {
     const response = await axios.delete(
-      `${config.API_URL}/user/address/delete/${userId}/${addressId}`
+      `${config.API_URL}/user/address/delete/${userEmail}/${addressId}`
     );
 
     return response.data;

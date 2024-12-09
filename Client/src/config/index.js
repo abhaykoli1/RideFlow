@@ -331,6 +331,13 @@ export const addressFormControls = [
     placeholder: "Enter your city",
   },
   {
+    label: "State",
+    name: "state",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your State",
+  },
+  {
     label: "Pincode",
     name: "pincode",
     componentType: "input",

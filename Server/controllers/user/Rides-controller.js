@@ -18,13 +18,13 @@ const getFilteredRides = async (req, res) => {
 
     switch (sortBy) {
       case "price-lowtohigh":
-        sort.rentPerHour = 1;
+        sort.salePrice = 1;
         break;
       case "price-hightolow":
-        sort.rentPerHour = -1;
+        sort.salePrice = -1;
         break;
       default:
-        sort.rentPerHour = 1;
+        sort.salePrice = 1;
         break;
     }
 
@@ -51,7 +51,7 @@ const getRideDetails = async (req, res) => {
     if (!ride)
       return res.status(404).json({
         success: false,
-        message: "Product not found!",
+        message: "Ride not found!",
       });
 
     res.status(200).json({

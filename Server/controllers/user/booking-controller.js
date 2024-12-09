@@ -186,21 +186,21 @@ const bookRide = async (req, res) => {
     }
 
     // Check for overlapping bookings
-    const overlappingBookings = await Booking.findOne({
-      bikeId,
-      $or: [
-        {
-          "bookedTimeSlots.from": { $lt: bookedTimeSlots.to },
-          "bookedTimeSlots.to": { $gt: bookedTimeSlots.from },
-        },
-      ],
-    });
+    // const overlappingBookings = await Booking.findOne({
+    //   bikeId,
+    //   $or: [
+    //     {
+    //       "bookedTimeSlots.from": { $lt: bookedTimeSlots.to },
+    //       "bookedTimeSlots.to": { $gt: bookedTimeSlots.from },
+    //     },
+    //   ],
+    // });
 
-    if (overlappingBookings) {
-      return res.status(400).json({
-        message: "Bike is already booked for the selected time slots",
-      });
-    }
+    // if (overlappingBookings) {
+    //   return res.status(400).json({
+    //     message: "Bike is already booked for the selected time slots",
+    //   });
+    // }
 
     // Create a new booking
     const newBooking = new Booking({
