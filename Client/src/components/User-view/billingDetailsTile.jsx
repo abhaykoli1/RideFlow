@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { bookRide, resetBookingState } from "@/store/user/booking-slice";
-import { v4 as uuidv4 } from "uuid";
-import { add } from "date-fns";
+import { Dialog, DialogContent } from "../ui/dialog";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const initialBookingFormData = {
   userId: "",
@@ -38,6 +39,8 @@ const BillingDetails = ({
   // drivingLicenceNo,
   // mobileNo,
 }) => {
+  const { toast } = useToast();
+
   const [drivingLicenceNo, setDrivingLicenceNo] = useState(
     sessionStorage.getItem("drivingLicenceNo") || ""
   );
@@ -53,13 +56,6 @@ const BillingDetails = ({
 
   // const { addressList } = useSelector((state) => state.userAddress);
   const { user } = useSelector((state) => state.auth);
-
-  console.log("dl", user?.id);
-
-  // console.log("Generated UUID:", OrderId);
-  // console.log("addressList", addressList?.city);
-
-  const OrderId = uuidv4();
 
   function calculateChargesWithDiscount(
     baseCharge,
@@ -100,7 +96,6 @@ const BillingDetails = ({
       totalDiscount: totalDiscount.toFixed(0),
     };
   }
-
   // Example Usage:
   const charges =
     RideDetails?.salePrice !== 0
@@ -120,10 +115,12 @@ const BillingDetails = ({
 
   // console.log(`Final charge after ${daysToAdd} days: ₹${result.finalCharge}`);
   // console.log(`Total discount given: ₹${result.totalDiscount}`);
-
   // console.log("Date", Date);
 
+  const [Message, setMessage] = useState();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
@@ -153,14 +150,42 @@ const BillingDetails = ({
           deliveryOption === "Pick"
             ? sessionStorage.getItem("mobileNo")
             : currentSelectedAddress?.phone,
-        orderId: OrderId,
       })
-    );
+    )
+      .then((booking) => {
+        const success = booking?.payload?.success;
+        const message = booking?.payload?.message;
+
+        if (success) {
+          setMessage(message);
+          toast({
+            title: "Ride Placed",
+            description: "",
+          });
+
+          setTimeout(() => {
+            navigate("/ride/bookings");
+          }, 3000);
+        } else if (!success || data.error) {
+          const errorMessage =
+            data?.payload?.message ||
+            data?.error?.message ||
+            "There was a problem.";
+          toast({
+            title: "There was a problem",
+            description:
+              errorMessage || "Sorry for this Glitch! Try after some time",
+          });
+        }
+      })
+      .finally(() => {});
   };
 
-  const handleReset = () => {
-    dispatch(resetBookingState());
-  };
+  const [openDialog, setOpenDialog] = useState(false);
+
+  // const handleReset = () => {
+  //   dispatch(resetBookingState());
+  // };
 
   return (
     <div>
@@ -173,7 +198,7 @@ const BillingDetails = ({
             Ride Charges
           </span>
           <span className="text-md font-semibold text-gray-900">
-            ₹ {charges * daysToAdd} /-
+            {charges * daysToAdd} ₹
           </span>
         </div>
 
@@ -182,7 +207,7 @@ const BillingDetails = ({
             Additional Discount
           </span>
           <span className="text-md font-semibold text-tomato">
-            ₹ -{result.totalDiscount}
+            - {result.totalDiscount} ₹
           </span>
         </div>
 
@@ -190,7 +215,7 @@ const BillingDetails = ({
           <span className="text-sm font-medium text-gray-700">
             Security Deposit
           </span>
-          <span className="text-sm font-semibold text-green-600">₹ 0</span>
+          <span className="text-sm font-semibold text-green-600">0 ₹ </span>
         </div>
 
         <div
@@ -203,7 +228,7 @@ const BillingDetails = ({
           </span>
           {deliveryCharge ? (
             <p className="text-sm font-semibold text-green-600">
-              ₹{deliveryCharge}
+              {deliveryCharge} ₹
             </p>
           ) : (
             "NaN"
@@ -216,7 +241,7 @@ const BillingDetails = ({
             Total Charges
           </span>
           <span className="text-[15.5px] font-bold text-slate-800">
-            ₹ {result.finalCharge}
+            {result.finalCharge} ₹
           </span>
         </div>
 
@@ -233,21 +258,31 @@ const BillingDetails = ({
         >
           {isLoading ? "Booking..." : "Book Ride"}
         </Button>
-        {bookingDetails && (
+        {/* {bookingDetails && (
           <div className="success-message text-">
             Booking Successful! Booking ID: {bookingDetails.bookingId}
           </div>
-        )}
-        {error && <div className="error-message">Error: {error}</div>}
+        )} */}
+        {/* {error && <div className="error-message">Error: {error}</div>}
         <button className="text-black" onClick={handleReset}>
           Reset
-        </button>
+        </button> */}
 
-        <p className="text-center text-sm">
+        <p className="text-center text-sm font-medium mt-2">
           By clicking on place ride you are accepting the{" "}
           <a>Terms & Conditions</a> of BikeRental
         </p>
       </div>
+
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="bg-teal-500 text-white rounded-lg p-10 text-center max-w-lg w-full">
+          <h1 className="text-4xl font-bold mb-4">You're All Set!</h1>
+          <p className="text-lg font-medium mb-6">
+            Your bike rental has been successfully booked. We’ll be in touch
+            shortly with more information.
+          </p>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

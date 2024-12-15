@@ -53,6 +53,7 @@ const FAQ = () => {
   return (
     <section className="w-100 h-full overflow-y-auto bg- flex flex-col justify-between pt-16">
       <div className="container mx-auto h-full p-6">
+      <div className="titleHolder">
         <h1 className="text-3xl font-bold text-tomato">
           Frequently Asked Questions
         </h1>
@@ -68,6 +69,7 @@ const FAQ = () => {
             contact us!
           </span>
         </h6>
+        </div>
         <Accordion type="single" collapsible>
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index + 1}`}>

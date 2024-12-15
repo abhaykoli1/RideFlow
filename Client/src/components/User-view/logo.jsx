@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Logo = ({ L2, B }) => {
+const Logo = ({ L2, B, Path }) => {
   const navigate = useNavigate();
   return (
     <title
       onClick={() => {
-        navigate("/ride/home");
+        navigate(Path);
       }}
       className={`${L2}  mt-2  items-center relative h-[60px] justify-center flex cursor-pointer`}
     >

@@ -15,6 +15,7 @@ const {
   logoutUser,
   authMiddleware,
   googleAuth,
+  fetchAllUsers,
 } = require("../../controllers/auth/auth-controller");
 
 const router = express.Router();
@@ -23,6 +24,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/google-login", googleAuth);
+router.get("/admin/users", authMiddleware, fetchAllUsers);
 
 router.get("/check-auth", authMiddleware, (req, res) => {
   const user = req.user;

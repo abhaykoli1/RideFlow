@@ -14,17 +14,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
+#WhasappText {
+  font-weight: 600;
+  color: rgb(2, 151, 2);
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
+#WhasappText:hover {
+  text-decoration: underline;
+  color: rgb(2, 151, 2) !important;
 }
 
 body {
+  font-family: "Exo 2", sans-serif;
+  /* font-family: "Ubuntu", sans-serif; */
   margin: 0;
   color: var(--foreground);
 }
@@ -56,6 +58,7 @@ button:focus-visible {
     color: #213547;
     background-color: white;
   }
+
   .LogoBorder {
     border-bottom: 2px solid #222;
   }
@@ -441,6 +444,13 @@ button:focus-visible {
   z-index: 0;
 }
 
+.titleHolder > h1 {
+  font-size: 28px;
+}
+.titleHolder > h6 {
+  font-size: 16px;
+}
+
 @media screen and (max-width: 1023px) {
   #topBook {
     visibility: hidden;
@@ -465,20 +475,21 @@ button:focus-visible {
     grid-template-columns: 1fr 1fr;
   }
   .serviceBox {
-    height: 110px;
+    height: 130px;
   }
   .iconBox,
   .iconBox > span,
   .iconBox > p {
-    height: 110px;
-    width: 110px;
+    height: 130px;
+    width: 127px;
   }
   p {
     /* font-size: 12px; */
   }
   .iconBox > p {
-    font-size: 12px;
+    font-size: 14px;
   }
+
   .ContactForm {
     margin: 10px 0 -35px 0;
   }
@@ -496,6 +507,7 @@ button:focus-visible {
     transition-duration: 1ms;
   }
 }
+
 @media screen and (max-width: 639px) {
   .titleHolder > h1 {
     font-size: 26px;
@@ -521,9 +533,23 @@ button:focus-visible {
     margin: 15px 0px;
   }
 }
+@media screen and (max-width: 606px) {
+} /* @media screen and (max-width: 606px) {
+  .serviceDescription {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 606px) {
+  .serviceDescription {
+    font-size: 15px;
+  }
+} */
 @media screen and (max-width: 570px) {
   .dialog {
     box-shadow: none;
+  }
+  .RideDetails {
+    margin-top: -100px;
   }
   .detailsDialog {
     display: grid;
@@ -555,19 +581,23 @@ button:focus-visible {
     top: -40px !important;
   }
   .serviceBox {
-    height: 90px;
+    height: 115px;
   }
   .iconBox,
   .iconBox > span,
   .iconBox > p {
-    height: 90px;
-    width: 90px;
+    height: 115px;
+    width: 115px;
   }
+
   p {
-    font-size: 10px;
+    font-size: 15px;
+  }
+  li {
+    font-size: 14px;
   }
   .iconBox > p {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .ContactForm {
@@ -590,9 +620,6 @@ button:focus-visible {
   }
 }
 @media screen and (max-width: 490px) {
-  p {
-    font-size: small;
-  }
   .serviceGrid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -602,10 +629,15 @@ button:focus-visible {
 }
 @media screen and (max-width: 430px) {
   .titleHolder > h1 {
-    font-size: 23px;
+    font-size: 24px;
+  }
+  .bookingBikeImage {
+    height: 98px;
+    width: 98px;
+    top: 3px;
   }
   .titleHolder > h6 {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .serviceBox {
@@ -618,7 +650,10 @@ button:focus-visible {
     width: 110px;
   }
   p {
-    font-size: 12px;
+    font-size: 14px;
+  }
+  li {
+    font-size: 14px;
   }
   .iconBox > p {
     font-size: 12px;
@@ -687,6 +722,25 @@ button:focus-visible {
   color: #333;
 }
 
+/* .react-datepicker__day {
+  width: 24px;
+  line-height: 26px;
+  margin: -0px;
+  font-size: 12px;
+  color: #333;
+} */
+
+/* Header  styling */
+.react-datepicker__header {
+  background-color: #ffa600;
+  color: white !important;
+  padding: 6px;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+}
+
 /* Hover effect on day cells */
 .react-datepicker__day:hover {
   background-color: #e6f2ff;
@@ -697,18 +751,6 @@ button:focus-visible {
   background-color: #ffa600;
   color: white;
   border-radius: 15%;
-}
-
-/* Header styling */
-.react-datepicker__header {
-  background-color: #ffa600;
-  color: white;
-  font-size: 16px;
-  padding: 10px;
-  height: 62px;
-  display: flex;
-  flex-direction: column;
-  place-content: center;
 }
 
 .react-datepicker__day-name {
@@ -740,14 +782,20 @@ button:focus-visible {
 
 .react-datepicker__time-container {
   z-index: 0;
-  border-radius: 0px 8px 8px 0;
+  /* border-radius: 0px 8px 8px 0; */
+  /* width: 20px; */
+  top: -0.5px;
+  border-radius: 0px 8px 0px 0;
+  right: -85px;
 }
 
 .react-datepicker__time {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
+  /* box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); */
   background-color: #f7f9fc;
   overflow: auto;
-  height: 192px;
+  height: 213px;
+  /* width: 20px; */
 }
 
 .react-datepicker__time-list-item {
@@ -780,16 +828,20 @@ button:focus-visible {
   background-color: #fff;
   z-index: 2;
   bottom: 0;
+  right: -85px;
+  position: absolute;
   color: #333;
   font-size: 14px;
   padding: 8px;
   cursor: pointer;
 
+  width: 80px;
   border-radius: 0 0px 8px 8px;
 }
 
 .react-datepicker__today-button:hover {
   background-color: #f2f8fd;
+  border: 1px solid black;
 }
 
 /* html  */

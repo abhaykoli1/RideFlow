@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-  // userEmail: {
-  //   type: String,
-  //   required: true,
-  //   ref: "User",
-  //   index: true,
-  // },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -49,7 +43,6 @@ const bookingSchema = new mongoose.Schema({
     pincode: { type: String, default: "" },
     phone: { type: String, default: "" },
   },
-
   phone: {
     type: String,
     minlength: 10,
@@ -60,11 +53,6 @@ const bookingSchema = new mongoose.Schema({
   dl: {
     type: String,
     required: true,
-  },
-  orderId: {
-    type: String,
-    required: true,
-    unique: true,
   },
   createdAt: {
     type: Date,

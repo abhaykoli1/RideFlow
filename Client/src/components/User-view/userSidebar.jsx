@@ -1,15 +1,18 @@
 // import { UserNavItems } from "@/config";
-import { Album } from "@mui/icons-material";
+import { Album, RecentActors } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import {
   AlbumIcon,
   Bike,
+  BookIcon,
   ChevronLeftIcon,
   Contact,
   LayoutDashboard,
+  ListOrderedIcon,
   Settings,
 } from "lucide-react";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -43,6 +46,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
       icon: <Contact size={26} />,
     },
   ];
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <Box className="shadow-sm w-[230px] duration-300 SidebarBG">
@@ -51,6 +55,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
           <label
             key={nav.id}
             onClick={() => {
+              goTop();
               {
                 nav.id === "rides" ? setHeaderContent(false) : null;
               }
@@ -66,6 +71,22 @@ function MenuItems({ setSidebar, setHeaderContent }) {
             {nav.label}
           </label>
         ))}
+        {isAuthenticated && (
+          <label
+            onClick={() => {
+              goTop();
+              navigate("/ride/bookings");
+
+              setSidebar ? setSidebar(false) : null;
+            }}
+            className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
+            py-[13px] 
+            mx-3 duration-300 items-center"
+          >
+            <RecentActors fontSize="large" className="p-1" />
+            Bookings
+          </label>
+        )}
       </nav>
     </Box>
   );

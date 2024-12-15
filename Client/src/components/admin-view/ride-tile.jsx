@@ -8,7 +8,6 @@ function AdminRideTile({
   setCurrentEditedId,
   handleDelete,
 }) {
-  console.log("ride", ride);
   return (
     <Card className="w-full max-w- mx-auto h-[360px]">
       <div>

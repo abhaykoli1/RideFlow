@@ -1,8 +1,5 @@
 import { MyContext } from "@/components/common/Helper/context";
-import {
-  fetchAllFilteredRides,
-  fetchRideDetails,
-} from "@/store/user/Rides-slice";
+import { fetchAllFilteredRides } from "@/store/user/Rides-slice";
 import { MoveRight, Plus } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,37 +21,12 @@ function createSearchParamsHelper(filterParams) {
 const RideFleet = () => {
   const { RidesList, RideDetails } = useSelector((state) => state.userRides);
   const dispatch = useDispatch();
-  const { sidebar, setSidebar } = useContext(MyContext);
+  // const { sidebar, setSidebar } = useContext(MyContext);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const categorySearchParam = searchParams.get("category");
-  const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSort = (value) => setSort(value);
-
-  const handleFilter = (getSectionId, getCurrentOption) => {
-    let cpyFilters = { ...filters };
-    const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId);
-    if (indexOfCurrentSection === -1) {
-      cpyFilters = { ...cpyFilters, [getSectionId]: [getCurrentOption] };
-    } else {
-      const indexOfCurrentOption =
-        cpyFilters[getSectionId].indexOf(getCurrentOption);
-      if (indexOfCurrentOption === -1)
-        cpyFilters[getSectionId].push(getCurrentOption);
-      else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
-    }
-    setFilters(cpyFilters);
-    sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
-  };
-
-  const handleGetRideDetails = (getCurrentRideId) => {
-    dispatch(fetchRideDetails(getCurrentRideId));
-  };
 
   useEffect(() => {
     setSort("price-lowtohigh");
@@ -90,23 +62,25 @@ const RideFleet = () => {
             Ride with Us!
           </p>
         </div>
-        <h1 className="font-bold text-4xl -mt-3">
-          Choose the Perfect Bike for Your Adventure!
-        </h1>
-        <h6 className="-mt-3 subtitle">
-          As Jaipur's largest bike rental inventory, we offer unmatched options
-          for every rider.
-        </h6>
-        <div className="flex gap-5 justify-center items-center pb-6 pt-2 subtitle">
-          <p className=""> Simply Book</p>
+        <div className="titleHolder px-3">
+          <h1 className="font-bold text-4xl -mt-2">
+            Choose the Perfect Bike for Your Adventure!
+          </h1>
+          <h6 className="mt-2 subtitle">
+            As Jaipur's largest bike rental inventory, we offer unmatched
+            options for every rider.
+          </h6>
+        </div>
+        <div className="titleHolder flex gap-5 justify-center items-center pb-6 pt-2 subtitle">
+          <h6 className=""> Simply Book</h6>
           <span className="animate-bounce ">
             <MoveRight />
           </span>
-          <p className="">Pick Up</p>
+          <h6 className="">Pick Up</h6>
           <span className="animate-bounce flex">
             <MoveRight />
           </span>
-          <p className="">Enjoy Your Journey!</p>
+          <h6 className="">Enjoy Your Journey!</h6>
         </div>
       </div>
 

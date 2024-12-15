@@ -157,12 +157,12 @@ const Services = () => {
         />
       ),
       description:
-        "We offer a diverse fleet of well-maintained, high-quality bikes for a smooth and enjoyable ride.",
+        "We offer a diverse fleet of quality bikes for a smooth, enjoyable ride.",
     },
     {
       title: "Bike Accessories",
       description:
-        "We provide helmets and safety gear for your peace of mind and other accessories to ensure a safe ride.",
+        "We provide helmets, safety gear, and accessories for a safe ride.",
       icon: (
         <AnimatedGif
           src={
@@ -197,7 +197,7 @@ const Services = () => {
         />
       ),
       description:
-        "Enjoy competitive rental rates with flexible packages to fit your budget and adventure needs.",
+        "Enjoy competitive rates with flexible packages to fit your budget and needs.",
     },
     {
       title: "Group Rentals",
@@ -225,7 +225,7 @@ const Services = () => {
         />
       ),
       description:
-        "Our team is here to ensure a seamless experience, from selecting the right bike for you.",
+        "Our team ensures a seamless experience, helping you select the right bike.",
     },
     {
       title: "Flexible Rental Options",
@@ -236,7 +236,7 @@ const Services = () => {
         />
       ),
       description:
-        "Whether it’s for an hour, a day, or a week, we have flexible rental periods to match your plans.",
+        "Whether for an hour, day, or week, we offer flexible rental periods to match your plans.",
     },
   ];
 
@@ -258,11 +258,11 @@ const Services = () => {
             Discover Excellence in Every Ride
           </h6>
         </div>
-        <div className="serviceGrid grid grid-cols-2 xl:grid-cols-3 lg:gap-5 md:gap-5 sm:gap-4 gap-2">
+        <div className="serviceGrid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 lg:gap-5 md:gap-5 sm:gap-4 gap-3">
           {services.map((feature, index) => (
             <motion.div
               key={index}
-              className="serviceBox  flex w-full items-center max-h-36 bg-white rounded-lg shadow-md hover:shadow-lg transform transition-transform duration-0 hover:scale-105 cursor-default"
+              className="serviceBox  flex w-full items-center max-h-  bg-white rounded-lg shadow-md hover:shadow-lg transform transition-transform duration-0 hover:scale-105 cursor-default"
               initial={{ opacity: 0, y: 30, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               whileHover={{ rotate: 0, scale: 1.03 }}
@@ -284,7 +284,7 @@ const Services = () => {
                 </p>
               </motion.div>
               <p
-                className="text-gray-800 p-3"
+                className="text-gray-800 p-3 serviceDescription"
                 // initial={{ x: -10 }}
                 // whileHover={{ x: 0, color: "#FF6347" }}
                 // transition={{ duration: 0.3 }}

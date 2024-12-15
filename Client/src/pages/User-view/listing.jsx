@@ -1,12 +1,8 @@
-import { MyContext } from "@/components/common/Helper/context";
 import RideFilter from "@/components/User-view/filter";
 import UserRideTile from "@/components/User-view/ride-tile";
-import {
-  fetchAllFilteredRides,
-  // fetchRideDetails,
-} from "@/store/user/Rides-slice";
+import { fetchAllFilteredRides } from "@/store/user/Rides-slice";
 import { ArrowUpDownIcon } from "lucide-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,12 +13,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
-// import RideDetailsDialog from "@/components/User-view/ride-details";
+import { useSearchParams } from "react-router-dom";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-
-import { useMediaQuery } from "react-responsive";
-import useDeviceType from "@/hooks/useDeviceType";
 import DateCompo from "@/components/User-view/date";
 import DayCompo from "@/components/User-view/day";
 
@@ -40,19 +32,16 @@ function createSearchParamsHelper(filterParams) {
 }
 
 const RideListing = () => {
-  // const isSmallScreen = useMediaQuery({ query: "(max-width: 514px)" });
   const { RidesList } = useSelector((state) => state.userRides);
-
   const dispatch = useDispatch();
   const [day, setDay] = useState("1");
   const [date, setDate] = useState(new Date());
-  // const { sidebar, setSidebar } = useContext(MyContext);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const categorySearchParam = searchParams.get("category");
-  //
+
   const handleSort = (value) => {
     setSort(value);
   };
@@ -121,7 +110,7 @@ const RideListing = () => {
             day={day}
             setDay={setDay}
             dayCss={
-              "font-semibold h-8 Text !text-lg   !border-b !pl-2  !rounded-lg  ! h-9"
+              "font-semibold h-8 Text !text-lg !border-b !pl-2 !rounded-lg ! h-9"
             }
           />
           <DateCompo
@@ -133,7 +122,7 @@ const RideListing = () => {
             }
           />
         </div>
-        <div className=" py-3 mx-3 flex items-center justify-between BorderBottom  border-whit">
+        <div className=" py-3 mx-6 x-3 flex items-center justify-between BorderBottom  border-whit">
           <h6 className="text- font-semibold">{RidesList?.length} Results</h6>
           <div className="flex items-center gap-3">
             <div className="lg:hidden flex justify-end ">

@@ -27,7 +27,6 @@ const AdminBookings = () => {
 
   const { RidesList } = useSelector((state) => state.adminRides);
 
-  console.log(RidesList);
   useEffect(() => {
     dispatch(getAllBookings());
     dispatch(fetchAllRides());
@@ -58,7 +57,7 @@ const AdminBookings = () => {
       setUpdatingId(null);
     });
   };
-  console.log(allBookings);
+
   const handleDelete = (bookingId) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       dispatch(deleteBooking(bookingId));

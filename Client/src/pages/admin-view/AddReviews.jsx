@@ -33,7 +33,7 @@ const AddReviews = () => {
   const [imageLoadingState, setImageLoadingState] = useState(false);
   const [currentEditedId, setCurrentEditedId] = useState(null);
   const { ReviewsList } = useSelector((state) => state.adminReviews);
-  console.log(ReviewsList);
+
   const dispatch = useDispatch();
 
   function onSubmit(event) {
@@ -86,7 +86,7 @@ const AddReviews = () => {
   return (
     <Fragment className="bg-white h-[100vh]">
       <div className="mb-5  w-full flex justify-between ">
-        <h1 className="text-3xl font-bold ">Reviews </h1>
+        <h1 className="text-3xl text-slate-800 font-bold ">Reviews </h1>
         <Button
           className="!bg-slate-800 text-white"
           onClick={() => setOpenAddReviews(true)}

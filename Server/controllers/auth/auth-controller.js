@@ -133,6 +133,7 @@ const logoutUser = (req, res) => {
 // Auth Middleware
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
+
   if (!token)
     return res.status(401).json({
       success: false,
@@ -151,6 +152,33 @@ const authMiddleware = async (req, res, next) => {
         error.name === "TokenExpiredError"
           ? "Session expired. Please log in again."
           : "Unauthorized user! Invalid token.",
+    });
+  }
+};
+
+// Fetch All Users (Admin)
+const fetchAllUsers = async (req, res) => {
+  try {
+    // Check if the requesting user is an admin
+    if (!req.user || req.user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied. Admin privileges required.",
+      });
+    }
+
+    // Fetch all users from the database
+    const users = await User.find({}, "-password -__v"); // Exclude sensitive fields like password and version key
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch users. Please try again later.",
     });
   }
 };
@@ -178,33 +206,28 @@ const googleAuth = async (req, res) => {
       user = await User.findOne({ email });
 
       if (!user) {
-        // If the user doesn't exist by email or googleId, create a new user
         user = new User({
           email,
-          userName: name, // Keep the name as it is from Google
+          userName: name,
           googleId: sub,
-          image: picture, // Save the image URL here
+          image: picture,
         });
 
-        // Check if the userName already exists, if so, append a number to make it unique
         const existingUserName = await User.findOne({ userName: name });
 
         if (existingUserName) {
           let counter = 1;
           let newUserName = `${name}_${counter}`;
 
-          // Keep checking until we find a unique username
           while (await User.findOne({ userName: newUserName })) {
             counter++;
             newUserName = `${name}_${counter}`;
           }
-
-          user.userName = newUserName; // Assign the new unique userName
+          user.userName = newUserName;
         }
 
         await user.save();
       } else {
-        // If the user with the same email exists, just update the googleId if it's not there
         if (!user.googleId) {
           user.googleId = sub;
           await user.save();
@@ -239,4 +262,250 @@ module.exports = {
   logoutUser,
   authMiddleware,
   googleAuth,
+  fetchAllUsers,
 };
+
+// Required Dependencies
+// const express = require("express");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
+// const dotenv = require("dotenv");
+// const cookieParser = require("cookie-parser");
+// const rateLimit = require("express-rate-limit");
+// const { OAuth2Client } = require("google-auth-library");
+// const User = require("../../models/User");
+
+// // Load environment variables
+// dotenv.config();
+
+// const router = express.Router();
+// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// // Middleware for Parsing Cookies
+// router.use(cookieParser());
+
+// // Rate Limiter for Authentication Routes
+// const authLimiter = rateLimit({
+//   windowMs: 1 * 60 * 1000, // 1 minute
+//   max: 5, // Limit each IP to 5 requests per window
+//   message: "Too many requests. Please try again later.",
+// });
+
+// // Helper: Generate JWT Token
+// const generateToken = (user) => {
+//   return jwt.sign(
+//     {
+//       id: user._id,
+//       email: user.email,
+//       userName: user.userName,
+//       role: user.role,
+//     },
+//     process.env.CLIENT_SECRET_KEY,
+//     { expiresIn: "60m" }
+//   );
+// };
+
+// // Middleware: Authentication
+// const authMiddleware = async (req, res, next) => {
+//   const token = req.cookies.token;
+//   if (!token) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Unauthorized user! Please log in.",
+//     });
+//   }
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     return res.status(401).json({
+//       success: false,
+//       message:
+//         error.name === "TokenExpiredError"
+//           ? "Session expired. Please log in again."
+//           : "Invalid token.",
+//     });
+//   }
+// };
+
+// // Route: Register User
+// router.post("/register", async (req, res) => {
+//   const { userName, email, password } = req.body;
+
+//   try {
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "User already exists with the same email!",
+//       });
+//     }
+
+//     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password)) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Password must be at least 6 characters and include a number.",
+//       });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 12);
+//     const newUser = new User({
+//       userName,
+//       email,
+//       password: hashedPassword,
+//       image: userName[0],
+//     });
+
+//     await newUser.save();
+//     res.status(201).json({
+//       success: true,
+//       message: "Registration successful",
+//     });
+//   } catch (error) {
+//     console.error("Error during registration:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "An error occurred. Please try again.",
+//     });
+//   }
+// });
+
+// // Route: Login User
+// router.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found. Please register first.",
+//       });
+//     }
+
+//     if (user.googleId) {
+//       return res.status(403).json({
+//         success: false,
+//         message: "Account is linked with Google. Use Google login.",
+//       });
+//     }
+
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Incorrect password.",
+//       });
+//     }
+
+//     const token = generateToken(user);
+//     res.cookie("token", token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === "production",
+//     });
+
+//     res.json({
+//       success: true,
+//       message: "Login successful",
+//       user: {
+//         email: user.email,
+//         userName: user.userName,
+//         role: user.role,
+//         id: user._id,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Error during login:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "An error occurred. Please try again.",
+//     });
+//   }
+// });
+
+// // Route: Google Login
+// router.post("/google-login", authLimiter, async (req, res) => {
+//   const { tokenId } = req.body;
+
+//   try {
+//     const ticket = await client.verifyIdToken({
+//       idToken: tokenId,
+//       audience: process.env.GOOGLE_CLIENT_ID,
+//     });
+
+//     const { sub, email, name, picture } = ticket.getPayload();
+//     let user = await User.findOne({ googleId: sub });
+
+//     if (!user) {
+//       user = await User.findOne({ email });
+
+//       if (!user) {
+//         user = new User({
+//           userName: name,
+//           email,
+//           googleId: sub,
+//           image: picture,
+//         });
+
+//         const baseName = name.replace(/\s+/g, "_");
+//         const uniqueSuffix = Date.now();
+//         user.userName = `${baseName}_${uniqueSuffix}`;
+
+//         await user.save();
+//       } else if (!user.googleId) {
+//         user.googleId = sub;
+//         await user.save();
+//       }
+//     }
+
+//     const token = generateToken(user);
+//     res.cookie("token", token, { httpOnly: true });
+//     res.json({
+//       success: true,
+//       message: "Google login successful",
+//       user,
+//     });
+//   } catch (error) {
+//     console.error("Google login error:", error);
+//     res.status(400).json({
+//       success: false,
+//       message: "Google login failed",
+//     });
+//   }
+// });
+
+// // Route: Logout
+// router.post("/logout", (req, res) => {
+//   res.clearCookie("token").json({
+//     success: true,
+//     message: "Logged out successfully",
+//   });
+// });
+
+// // Route: Fetch All Users (Admin Only)
+// router.get("/users", authMiddleware, async (req, res) => {
+//   if (req.user.role !== "admin") {
+//     return res.status(403).json({
+//       success: false,
+//       message: "Admin privileges required.",
+//     });
+//   }
+
+//   try {
+//     const users = await User.find({}, "-password -__v");
+//     res.status(200).json({
+//       success: true,
+//       users,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Failed to fetch users.",
+//     });
+//   }
+// });
+
+// module.exports = router;

@@ -1,12 +1,22 @@
-import React from "react";
+import { fetchContactInfo } from "@/store/common/dashboard-slice";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const TermsAndConditions = () => {
+  const { ContactInfo, isLoading } = useSelector((state) => state.dasboard);
+  const dispatch = useDispatch();
+  useState(() => {
+    dispatch(fetchContactInfo());
+  }, [dispatch]);
+
   return (
     <div className="ListingBg">
-      <div className="container text-xl mx-auto py-8 lg:pt-28 md:pt-24 pt-20">
-        <h1 className="text-4xl font-bold text-center mb-6 text-yellow">
-          Terms and Conditions
-        </h1>
+      <div className="container px-5 text-xl mx-auto py-8 lg:pt-28 md:pt-24 pt-20">
+        <div className="titleHolder">
+          <h1 className=" font-bold text-center mb-6 text-yellow">
+            Terms and Conditions
+          </h1>
+        </div>
         <p className="text-lg mb-4">
           <strong>Effective Date:</strong> [Insert Date]
         </p>
@@ -61,17 +71,21 @@ const TermsAndConditions = () => {
         <p className="mb-6">
           We may update these terms periodically. For questions, contact us at:
         </p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>
-            <strong>Email:</strong> [Insert Email]
-          </li>
-          <li>
-            <strong>Phone:</strong> [Insert Phone Number]
-          </li>
-          <li>
-            <strong>Address:</strong> [Insert Address]
-          </li>
-        </ul>
+        {ContactInfo && ContactInfo.length > 0
+          ? ContactInfo.map((content, index) => (
+              <ul key={index} className="list-disc  mb-6">
+                <li className="flex gap-2">
+                  <strong>Email: </strong> {content.email}
+                </li>
+                <li className="flex gap-2">
+                  <strong>Phone: </strong> {content.phone}
+                </li>
+                <li className="flex gap-2">
+                  <strong>Address: </strong> {content.address}
+                </li>
+              </ul>
+            ))
+          : null}
         <p className="text-center font-semibold">
           Thank you for choosing RideFlow!
         </p>

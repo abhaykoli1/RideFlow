@@ -6,6 +6,7 @@ import AddressCard from "@/components/User-view/address-card";
 import BillingDetails from "@/components/User-view/billingDetailsTile";
 import DateCompo from "@/components/User-view/date";
 import DayCompo from "@/components/User-view/day";
+import Header from "@/components/User-view/header";
 import HomeDeliveryChargesCalculator from "@/components/User-view/homeDeliveryChargesCalc";
 import RentalLocation from "@/components/User-view/RentalLocation";
 import BookingRideDetailsTile from "@/components/User-view/rideDetailsTile";
@@ -70,8 +71,6 @@ const BookingComponent = () => {
     sessionStorage.getItem("mobileNo") || ""
   );
 
-  //  handleLicenceChange and handleMobileChange
-
   const handleLicenceChange = (e) => {
     const value = e.target.value;
     setDrivingLicenceNo(value);
@@ -83,8 +82,6 @@ const BookingComponent = () => {
     setMobileNo(value);
     sessionStorage.setItem("mobileNo", value);
   };
-
-  console.log("mobileNo", mobileNo);
 
   // Addresss
   const [formData, setFormData] = useState(initialAddressFormData);
@@ -227,7 +224,7 @@ const BookingComponent = () => {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="Home" id="r2" />
                     <Label htmlFor="r2" className="cursor-pointer">
-                      Home Delivery
+                      Drop Home
                     </Label>
                   </div>
                 </RadioGroup>
@@ -238,7 +235,7 @@ const BookingComponent = () => {
                   deliveryOption === "Pick" ? "hidden" : "flex"
                 } text-black font-semibold px-2  underline rounded-sm py-1 bg- hover:text-tomato hover:scale-[99%] cursor-pointer`}
               >
-                Add Address
+                Add
               </p>
             </div>
 

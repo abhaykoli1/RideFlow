@@ -29,6 +29,7 @@ const addRide = async (req, res) => {
       description,
       category,
       brand,
+      cc,
       rentPrice,
       salePrice,
       // rentPerDay,
@@ -45,6 +46,7 @@ const addRide = async (req, res) => {
       description,
       category,
       brand,
+      cc,
       rentPrice,
       salePrice,
       // rentPerHour,
@@ -95,6 +97,7 @@ const editRide = async (req, res) => {
       description,
       category,
       brand,
+      cc,
       rentPrice,
       salePrice,
       // rentPerHour,
@@ -115,6 +118,7 @@ const editRide = async (req, res) => {
     findRide.description = description || findRide.description;
     findRide.category = category || findRide.category;
     findRide.brand = brand || findRide.brand;
+    findRide.cc = cc || findRide.cc;
     findRide.rentPrice = rentPrice === "" ? 0 : rentPrice || findRide.rentPrice;
     findRide.salePrice = salePrice === "" ? 0 : salePrice || findRide.salePrice;
     // findRide.rentPerWeek =

@@ -1,15 +1,27 @@
-import React from "react";
+import { fetchContactInfo } from "@/store/common/dashboard-slice";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const PrivacyPolicy = () => {
+  const { ContactInfo, isLoading } = useSelector((state) => state.dasboard);
+  const dispatch = useDispatch();
+  useState(() => {
+    dispatch(fetchContactInfo());
+  }, [dispatch]);
+
   return (
     <div className=" ListingBg ">
-      <div className="container text-xl mx-auto py-8 lg:pt-28 md:pt-24 pt-20   ">
-        <h1 className="text-4xl font-bold text-center mb-6 text-yellow">
-          Privacy Policy
-        </h1>
+      <div className="container px-5 text-xl mx-auto py-8 lg:pt-28 md:pt-24 pt-20   ">
+        <div className="titleHolder">
+          <h1 className=" font-bold text-center mb-6 text-yellow">
+            Privacy Policy
+          </h1>
+        </div>
+
         <p className="text-lg mb-4">
           <strong>Effective Date:</strong> [Insert Date]
         </p>
+
         <p className="mb-6">
           Welcome to <span className="font-semibold">RideFlow</span> (or "we,"
           "our," or "us"). Your privacy is critically important to us. This
@@ -30,9 +42,8 @@ const PrivacyPolicy = () => {
           <li>Full Name</li>
           <li>Email Address</li>
           <li>Phone Number</li>
-          <li>Date of Birth</li>
           <li>Address</li>
-          <li>Driver’s License or ID details</li>
+          <li>Driver’s License No.</li>
         </ul>
         <h3 className="text-xl font-medium mb-2">b. Payment Information</h3>
         <p className="mb-4">
@@ -125,10 +136,16 @@ const PrivacyPolicy = () => {
             <strong>Opt-out:</strong> Unsubscribe from marketing communications.
           </li>
         </ul>
-        <p className="mb-6">
-          To exercise your rights, contact us at{" "}
-          <strong>[Insert Contact Email]</strong>.
-        </p>
+        {ContactInfo && ContactInfo.length > 0
+          ? ContactInfo.map((content, index) => (
+              <p className="mb-6">
+                To exercise your rights, contact us at{" "}
+                <strong className="underline text-yellow">
+                  {content.email}.
+                </strong>
+              </p>
+            ))
+          : null}
 
         <h6 className="text-2xl font-semibold mt-8 mb-4 text-[#f4c76d]">
           6. Contact Us
@@ -137,17 +154,23 @@ const PrivacyPolicy = () => {
           If you have any questions or concerns about this Privacy Policy,
           please contact us:
         </p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>
-            <strong>Email:</strong> [Insert Email]
-          </li>
-          <li>
-            <strong>Phone:</strong> [Insert Phone Number]
-          </li>
-          <li>
-            <strong>Address:</strong> [Insert Business Address]
-          </li>
-        </ul>
+
+        {ContactInfo && ContactInfo.length > 0
+          ? ContactInfo.map((content, index) => (
+              <ul key={index} className="list-disc pl-4 mb-6">
+                <li className="flex gap-2">
+                  <strong>Email: </strong> {content.email}
+                </li>
+                <li className="flex gap-2">
+                  <strong>Phone: </strong> {content.phone}
+                </li>
+                <li className="flex gap-2">
+                  <strong>Address: </strong> {content.address}
+                </li>
+              </ul>
+            ))
+          : null}
+
         <p className="text-center font-semibold">
           Thank you for trusting RideFlow with your information.
         </p>

@@ -16,6 +16,8 @@ const GoogleLoginButton = () => {
         toast({
           title: googleResponse?.payload?.message,
         });
+        // Reload the page after successful login
+        window.location.reload();
       } else {
         toast({
           title: googleResponse?.payload?.message,

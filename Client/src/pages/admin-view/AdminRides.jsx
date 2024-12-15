@@ -27,6 +27,7 @@ const initialFormData = {
   description: "",
   category: "",
   brand: "",
+  cc: "",
   rentPrice: "",
   salePrice: "",
   totalStock: "",
@@ -35,14 +36,11 @@ const initialFormData = {
 
 function AdminRides() {
   const [OpenAddRidesDialog, setOpenAddRidesDialog] = useState(false);
-
   const [formData, setFormData] = useState(initialFormData);
   const [imageFile, setImageFile] = useState(null);
-
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
   const [currentEditedId, setCurrentEditedId] = useState(null);
-
   const { RidesList } = useSelector((state) => state.adminRides);
   const dispatch = useDispatch();
   const { toast } = useToast();
@@ -92,22 +90,22 @@ function AdminRides() {
   }
 
   function isFormValid() {
-    return Object.keys(formData)
-      .filter((currentKey) => currentKey !== "averageReview")
-      .map((key) => formData[key] !== "")
-      .every((item) => item);
+    return (
+      Object.keys(formData)
+        .filter((key) => key !== "averageReview")
+        .every((key) => formData[key] !== "") && !imageLoadingState
+      // imageFile !== null
+    );
   }
 
   useEffect(() => {
     dispatch(fetchAllRides());
   }, [dispatch]);
 
-  console.log(formData, "RideList");
-
   return (
     <Fragment className="bg-white h-[100vh]">
       <div className="mb-5  w-full flex justify-between items-center">
-        <h1 className="text-3xl font-bold ">Rides </h1>
+        <h1 className="text-3xl text-slate-800 font-bold ">Rides </h1>
         <Button
           className="bg-slate-800 text-white"
           onClick={() => setOpenAddRidesDialog(true)}

@@ -28,21 +28,21 @@ export const registerFormControls = [
   {
     name: "userName",
     label: "User Name",
-    placeholder: "Enter your user name",
+    placeholder: "Your Full Name",
     componentType: "input",
     type: "text",
   },
   {
     name: "email",
     label: "Email",
-    placeholder: "Enter your email",
+    placeholder: "Your Email Address",
     componentType: "input",
     type: "email",
   },
   {
     name: "password",
     label: "Password",
-    placeholder: "Enter your password",
+    placeholder: "Password",
     componentType: "input",
     type: "password",
   },
@@ -127,7 +127,7 @@ export const ContactFormElements = [
     placeholder: "Enter Contact Number",
   },
   {
-    name: "message",
+    name: "comment",
     label: "",
     componentType: "textarea",
     placeholder: "Enter Contact Message",
@@ -156,6 +156,53 @@ export const addReviewFormElements = [
     name: "review",
     componentType: "textarea",
     placeholder: "Enter a Review",
+  },
+];
+
+export const addDashboardFormElements = [
+  {
+    label: "Heading",
+    name: "heading",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Dashboard heading",
+  },
+];
+
+export const addContactDetails = [
+  {
+    name: "phone",
+    label: "Phone No.",
+    placeholder: "Enter Phone number",
+    componentType: "input",
+    type: "text",
+  },
+  {
+    label: "Email",
+    name: "email",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Ride Name",
+  },
+  {
+    label: "Instagram Link",
+    name: "instagram",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Instagram Link",
+  },
+  {
+    label: "Whatsapp Link",
+    name: "whatsapp",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Whatsapp Link",
+  },
+  {
+    label: "Location",
+    name: "address",
+    componentType: "textarea",
+    placeholder: "Enter Location",
   },
 ];
 
@@ -196,7 +243,13 @@ export const addRidesFormElements = [
       { id: "jawa", label: "Jawa" },
     ],
   },
-
+  {
+    label: "CC",
+    name: "cc",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Ride CC",
+  },
   {
     label: "Rent Price",
     name: "rentPrice",
@@ -234,49 +287,6 @@ export const addRidesFormElements = [
   },
 ];
 
-export const shoppingViewHeaderMenuItems = [
-  {
-    id: "home",
-    label: "Home",
-    path: "/shop/home",
-  },
-  {
-    id: "products",
-    label: "Products",
-    path: "/shop/listing",
-  },
-  {
-    id: "men",
-    label: "Men",
-    path: "/shop/listing",
-  },
-  {
-    id: "women",
-    label: "Women",
-    path: "/shop/listing",
-  },
-  {
-    id: "kids",
-    label: "Kids",
-    path: "/shop/listing",
-  },
-  {
-    id: "footwear",
-    label: "Footwear",
-    path: "/shop/listing",
-  },
-  {
-    id: "accessories",
-    label: "Accessories",
-    path: "/shop/listing",
-  },
-  {
-    id: "search",
-    label: "Search",
-    path: "/shop/search",
-  },
-];
-
 export const categoryOptionsMap = {
   bike: "Bike",
   scooty: "Scooty",
@@ -293,7 +303,7 @@ export const brandOptionsMap = {
 };
 
 export const filterOptions = {
-  Vehicle: [
+  category: [
     { id: "bike", label: "Bike" },
     { id: "scooty", label: "Scooty" },
   ],

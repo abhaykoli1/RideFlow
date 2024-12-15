@@ -26,6 +26,7 @@ import TermsAndConditions from "./pages/User-view/Terms";
 import AdminBookings from "./pages/admin-view/AdminBookings";
 import AdminUsers from "./pages/admin-view/AdminUsers";
 import Bookings from "./pages/User-view/ride-Bookings";
+import ContactList from "./pages/admin-view/NeedAssist";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -80,7 +81,8 @@ function App() {
             </CheckAuth>
           }
         >
-          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="" element={<AdminDashboard />} />
+          <Route path="contacts" element={<ContactList />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="Rides" element={<AdminRides />} />
           <Route path="Bookings" element={<AdminBookings />} />

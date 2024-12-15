@@ -87,10 +87,12 @@ function UserReviews() {
   return (
     <section id="revies" className="bg-cover bg-top bg-black">
       <div className="bg-[url('http://res.cloudinary.com/dulkmeadg/image/upload/v1730099191/vq0a5xtthaml3m8g1zch.jpg')] bg-cover">
-        <div className="titleHolder bg-[rgba(0,0,0,0.5)] pt-4  pb-4  px-3">
-          <h1 className="text-3xl md:text-3xl font-extrabold text-tomato  mt-8 mb-4 text-center drop-shadow-lg">
-            Customer Stories and Feedback
-          </h1>
+        <div className=" bg-[rgba(0,0,0,0.5)] pt-4  pb-4  px-3">
+          <div className="titleHolder">
+            <h1 className="font-extrabold text-tomato  mt-8 mb-4 text-center drop-shadow-lg">
+              Customer Stories and Feedback
+            </h1>
+          </div>
           <Swiper
             ref={swiperRef}
             effect={"coverflow"}

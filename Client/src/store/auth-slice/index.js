@@ -7,6 +7,7 @@ const initialState = {
   isLoading: true,
   user: null,
   error: null,
+  allUsers: [], // To store the list of all users
 };
 
 // Register User (Email-based)
@@ -98,6 +99,38 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+export const fetchAllUsers = createAsyncThunk(
+  "/auth/fetchAllUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${config.API_URL}/auth/admin/users`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Fetch All Users Error:", error);
+      return rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
+);
+
+// Fetch All Users (Admin)
+// export const fetchAllUsers = createAsyncThunk(
+//   "/admin/users",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(`${config.API_URL}/auth/admin/users`, {
+//         withCredentials: true,
+//       });
+//       return response.data; // Assuming the API returns { success: true, users: [...] }
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -118,7 +151,7 @@ const authSlice = createSlice({
         // state.isAuthenticated = false;
         if (action.payload.success) {
           state.user = action.payload.user;
-          state.isAuthenticated = true;
+          state.isAuthenticated = false;
         } else {
           state.user = null;
           state.isAuthenticated = false;
@@ -184,6 +217,20 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
+      // Fetch All Users
+      .addCase(fetchAllUsers.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allUsers = action.payload.users;
+        state.error = null;
+      })
+      .addCase(fetchAllUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to fetch users";
+      })
       // Google login fulfilled case
       .addCase(googleAuth.fulfilled, (state, action) => {
         state.isLoading = false;

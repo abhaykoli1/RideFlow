@@ -5,6 +5,8 @@ import ShopSidebar from "./userSidebar";
 import { MyContext } from "../common/Helper/context";
 import Footer from "@/pages/User-view/Dashboard/footer";
 
+import Header from "./header";
+
 function ShopLayout() {
   const { sidebar, setSidebar } = useContext(MyContext);
   const [HeaderContent, setHeaderContent] = useState();
@@ -26,7 +28,7 @@ function ShopLayout() {
     <div className="h-screen flex-1 flex min-h-screen w-full ">
       {/* sidebar */}
       <div
-        className={`z-30 h-full mt-0 fixed duration-500 transition-all  shadow-xl
+        className={`z-30 h-full top-0 fixed duration-500 transition-all  shadow-xl
           ${sidebar ? "left-0" : "-left-[241px] "}`}
       >
         <ShopSidebar
@@ -37,6 +39,7 @@ function ShopLayout() {
         />
       </div>
       {/* header  */}
+
       <div className="fixed top-0 w-full right-0 bg-transparent z-50">
         <ShopHeader
           setOpen={setSidebar}
@@ -46,19 +49,13 @@ function ShopLayout() {
           HeaderContent={HeaderContent}
         />
       </div>
-      {/* <div className="HeaderBG  lg:h-[72px] md:h-[72px] h-[60px] w-full fixed  top-0 z-40"></div> */}
 
       <main className="absolute top-0 right-0 left-0">
-        <div className="  h-full ">
+        <div className="h-full">
           <Outlet />
         </div>
         {footerVisible ? <Footer /> : null}
       </main>
-      {/* <main
-        className={`flex flex-col absolute top-0  left-0 right-0 bottom-0  duration-500 transition-all scroll bg-cover  h-100 justify-between`}
-      >
-      {/* {footerVisible ? <Footer /> : null} */}
-      {/* </main> */}
 
       {sidebar ? (
         <div

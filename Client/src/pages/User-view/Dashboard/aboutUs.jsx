@@ -3,10 +3,14 @@ import Home from "../../../assets/Home.png";
 const AboutUs = () => {
   return (
     <div className="pt-20 pb-5 bg-transparent bg-cover">
-      <div className="p-6 lg:container mx-auto">
-        <h1 className=" text-4xl font-bold text-end text-yellow ">
-          Who We Are...
-        </h1>
+      <div className="px-6 py-3 lg:container mx-auto">
+        <div className="titleHolder">
+          <h1 className=" font-bold text-center text-yellow ">Who We Are?</h1>
+          <h6 className="subtitle text-center mt-2">
+            We are a passionate team dedicated to providing the best bike rental
+            experience.
+          </h6>
+        </div>
         <div className="w-full flex items-end justify-end ">
           {/* <p classN ame="border-b-2 w-[300px] text-end  border-yellow mt-2 rounded-full"></p> */}
         </div>

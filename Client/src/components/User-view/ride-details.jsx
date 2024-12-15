@@ -24,7 +24,7 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
           </div>
         </div>
         <div>
-          <div className="pt-10">
+          <div className="pt-10 RideDetails">
             <DialogTitle className=" font-extrabold ">
               <p className="text-yellow capitalize mb-1 text-2xl">
                 {RideDetails?.brand}
@@ -90,23 +90,27 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
                 <DialogDescription className="flex justify-between">
                   Model:
                 </DialogDescription>
-                <DialogDescription className="flex justify-between">
-                  Consumption:
-                </DialogDescription>
-                <DialogDescription className="flex justify-between">
-                  HD:
-                </DialogDescription>{" "}
+
                 <DialogDescription className="flex justify-between">
                   CC:
                 </DialogDescription>
               </div>
               <div className="flex-[.5] flex gap-1 flex-col">
-                <DialogDescription>SCOOTER</DialogDescription>
-                <DialogDescription>TVS</DialogDescription>
-                <DialogDescription>Scooty </DialogDescription>
-                <DialogDescription>40</DialogDescription>{" "}
-                <DialogDescription>5.4 pS @ 6500</DialogDescription>
-                <DialogDescription>87.8</DialogDescription>
+                <DialogDescription className="">
+                  {RideDetails?.category === "scooty" ? "Scooter" : "Bike"}
+                </DialogDescription>
+                <DialogDescription className="capitalize">
+                  {" "}
+                  {RideDetails?.brand}
+                </DialogDescription>
+                <DialogDescription className="capitalize">
+                  {" "}
+                  {RideDetails?.rideName}{" "}
+                </DialogDescription>
+
+                <DialogDescription className="capitalize">
+                  {RideDetails?.cc}{" "}
+                </DialogDescription>
               </div>
             </div>
           </div>

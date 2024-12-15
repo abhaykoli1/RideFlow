@@ -31,55 +31,56 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
               />
             )}
           </div>
-          <Logo L2={"text-white"} B={"border border-white"} />
+          <Logo
+            Path={"/ride/home"}
+            L2={"text-white"}
+            B={"border border-white"}
+          />
         </div>
         {/* <div className="flex gap-3 items-center"> */}
-          <div className="lg:flex md:flex hidden items-center ">
-            {UserNavItems.map((nav) => (
-              <ul
-                key={nav.id}
-                className="flex gap-5 text-md font-bold uppercase"
-              >
-                <li className="mr-5">
-                  <NavLink
-                    to={nav.path}
-                    className={({ isActive }) =>
-                      `cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text- ${
-                        isActive ? "text-yellow" : "!text-white"
-                      }`
-                    }
-                  >
-                    {nav.label}
-                  </NavLink>
-                </li>
-              </ul>
-            ))}
-            {isAuthenticated && (
-              <p
-                onClick={() => {
-                  navigate("/ride/bookings");
-                }}
-                className={`uppercase cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text-white`}
-              >
-                {" "}
-                Bookings
-              </p>
-            )}
-          </div>
-
-          {!isAuthenticated ? (
-            <Button
-              onClick={() => navigate("/auth/login")}
-              className="h-9 text-[15px] hover:!bg-slate-100 text-black duration-500 font-bold  !border-none  px-4 !-py-4 bg-white flex items-center  "
+        <div className="lg:flex md:flex hidden items-center ">
+          {UserNavItems.map((nav) => (
+            <ul key={nav.id} className="flex gap-5 text-md font-bold uppercase">
+              <li className="mr-5">
+                <NavLink
+                  to={nav.path}
+                  className={({ isActive }) =>
+                    `cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text- ${
+                      isActive ? "text-yellow" : "!text-white"
+                    }`
+                  }
+                >
+                  {nav.label}
+                </NavLink>
+              </li>
+            </ul>
+          ))}
+          {isAuthenticated && (
+            <p
+              onClick={() => {
+                navigate("/ride/bookings");
+              }}
+              className={`uppercase cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text-white`}
             >
-              SIGN IN
-            </Button>
-          ) : (
-            <div className="flex items-center">
-              <Avtar />
-            </div>
+              {" "}
+              Bookings
+            </p>
           )}
         </div>
+
+        {!isAuthenticated ? (
+          <Button
+            onClick={() => navigate("/auth/login")}
+            className="h-9 text-[15px] hover:!bg-slate-100 text-black duration-500 font-bold  !border-none  px-4 !-py-4 bg-white flex items-center  "
+          >
+            SIGN IN
+          </Button>
+        ) : (
+          <div className="flex items-center">
+            <Avtar />
+          </div>
+        )}
+      </div>
 
       {/* </div> */}
     </header>

@@ -7,6 +7,7 @@ const RideSchema = new mongoose.Schema(
     description: String,
     category: String,
     brand: String,
+    cc: String,
     rentPrice: Number,
     salePrice: Number,
     totalStock: Number,

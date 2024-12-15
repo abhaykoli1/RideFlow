@@ -13,9 +13,11 @@ export const bookRide = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
-      );
+      // Handle server error (e.g., 400 response)
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      throw error;
     }
   }
 );
@@ -28,11 +30,10 @@ export const getAllBookings = createAsyncThunk(
       const response = await axios.get(`http://localhost:8000/api/booking/get`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message ||
-          error.message ||
-          "Unable to fetch bookings"
-      );
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      throw error;
     }
   }
 );
@@ -121,6 +122,7 @@ const bookingSlice = createSlice({
       state.userBookings = [];
     },
   },
+
   extraReducers: (builder) => {
     builder
       // When booking request is pending (loading state)

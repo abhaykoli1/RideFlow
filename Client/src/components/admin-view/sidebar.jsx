@@ -1,9 +1,10 @@
-import { Reviews, ReviewsOutlined } from "@mui/icons-material";
+import { QueryStats, Reviews, ReviewsOutlined } from "@mui/icons-material";
 import {
   BadgeCheck,
   Bike,
   ChartNoAxesCombined,
   ChevronLeftIcon,
+  Contact,
   LayoutDashboard,
   User,
 } from "lucide-react";
@@ -15,7 +16,7 @@ const adminSidebarMenuItems = [
   {
     id: "dashboard",
     label: "Dashboard",
-    path: "/admin/dashboard",
+    path: "/admin",
     icon: <LayoutDashboard className="text-slate-700" />,
   },
   {
@@ -42,9 +43,15 @@ const adminSidebarMenuItems = [
     path: "/admin/addReviews",
     icon: <ReviewsOutlined className="text-slate-700" />,
   },
+  {
+    id: "contacts",
+    label: "Queries",
+    path: "/admin/contacts",
+    icon: <QueryStats className="text-slate-700" />,
+  },
 ];
 
-function MenuItems({ setSidebar }) {
+function MenuItems({ setSidebar, handleClose }) {
   const navigate = useNavigate();
 
   return (
@@ -54,7 +61,7 @@ function MenuItems({ setSidebar }) {
           key={menuItem.id}
           onClick={() => {
             navigate(menuItem.path);
-            setSidebar ? setSidebar(false) : null;
+            handleClose();
           }}
           className="text-slate-700  flex cursor-pointer text-xl items-center gap-4 rounded-md px-3 py-2 text-muted-foregroun hover:bg-muted hover:text-slate-700"
         >
@@ -69,6 +76,15 @@ function MenuItems({ setSidebar }) {
 const AdminSidebar = ({ setSidebar, sidebar }) => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 1024px)" });
   const islargeScreen = useMediaQuery({ query: "(max-width: 1023px)" });
+  function handleClose() {
+    {
+      isSmallScreen
+        ? setSidebar(false)
+        : islargeScreen
+        ? setSidebar(true)
+        : null;
+    }
+  }
   useEffect(() => {
     {
       isSmallScreen
@@ -102,7 +118,7 @@ const AdminSidebar = ({ setSidebar, sidebar }) => {
             Admin Panel
           </h1>
         </div>
-        <MenuItems setSidebar={setSidebar} />
+        <MenuItems setSidebar={setSidebar} handleClose={handleClose} />
       </aside>
     </div>
   );

@@ -7,12 +7,12 @@ import userAddressSlice from "./user/address-slice";
 import userContactSlice from "./user/contact-slice";
 import userBookingSlice from "./user/booking-slice";
 import adminUsersSlice from "./admin/User-slice";
-// import ProfileSlice from "./common/profile-slice";
+import dashboardSlice from "./common/dashboard-slice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    // profile: ProfileSlice,
+    dasboard: dashboardSlice,
     UsersList: adminUsersSlice,
     adminRides: adminRidesSlice,
     adminReviews: adminReviewsSlice,

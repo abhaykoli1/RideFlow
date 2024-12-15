@@ -11,6 +11,8 @@ function CheckAuth({ isAuthenticated, user, children }) {
     "/ride/details",
     "/ride/about",
     "/ride/faqs",
+    "/ride/Terms&Condition",
+    "/ride/Policy",
   ];
 
   // Allow access to public paths without requiring authentication
@@ -38,7 +40,7 @@ function CheckAuth({ isAuthenticated, user, children }) {
 
   // Redirect admin users away from "/ride" routes to dashboard
   if (user?.role === "admin" && location.pathname.includes("/ride")) {
-    return <Navigate to="/admin/dashboard" />;
+    return <Navigate to="/admin" />;
   }
 
   // Restrict non-admin users from accessing "/admin" routes

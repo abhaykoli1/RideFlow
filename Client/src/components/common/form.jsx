@@ -9,6 +9,8 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function CommonForm({
   FormCss,
@@ -23,7 +25,11 @@ function CommonForm({
   onSubmit,
   buttonText,
   isBtnDisabled,
+  To,
 }) {
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
   function renderInputsByComponentType(getControlItem) {
     let element = null;
     const value = formData[getControlItem.name] || "";
@@ -133,6 +139,7 @@ function CommonForm({
           </div>
         ))}
       </div>
+
       <Button
         disabled={isBtnDisabled}
         type="submit"
@@ -145,3 +152,14 @@ function CommonForm({
 }
 
 export default CommonForm;
+
+// {!isAuthenticated ? (
+//   <Button onClick={} className={`${buttonCss} mt-2 w-full`}>
+//     <Link
+//       className={`${buttonCss} !border-none  w-full`}
+//       href="/auth/login"
+//     >
+//       {buttonText || "Submit"}
+//     </Link>
+//   </Button>
+// ) : (
