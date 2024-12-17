@@ -29,7 +29,7 @@ function ShopLayout() {
       {/* sidebar */}
       <div
         className={`z-30 h-full top-0 fixed duration-500 transition-all  shadow-xl
-          ${sidebar ? "left-0" : "-left-[241px] "}`}
+          ${sidebar ? "right-0" : "-right-[241px] "}`}
       >
         <ShopSidebar
           sidebar={sidebar}

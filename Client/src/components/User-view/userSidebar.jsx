@@ -1,4 +1,5 @@
 // import { UserNavItems } from "@/config";
+import { logoutUser } from "@/store/auth-slice";
 import { Album, RecentActors } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import {
@@ -9,12 +10,15 @@ import {
   Contact,
   LayoutDashboard,
   ListOrderedIcon,
+  LogOut,
   Settings,
 } from "lucide-react";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import { Label } from "../ui/label";
 
 function MenuItems({ setSidebar, setHeaderContent }) {
   const navigate = useNavigate();
@@ -47,10 +51,38 @@ function MenuItems({ setSidebar, setHeaderContent }) {
     },
   ];
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // const [openProfileSheet, setOpenProfileSheet] = useState(false);
 
+  function handleLogout() {
+    dispatch(logoutUser())
+      .then(() => {
+        console.log("User logged out successfully!");
+      })
+      .catch((error) => {
+        console.log("Logout failed", error);
+      });
+  }
   return (
     <Box className="shadow-sm w-[230px] duration-300 SidebarBG">
       <nav className="flex-col flex gap-1 pt-4 !-mx-3 h-screen px-2">
+        <div className="px-6 flex items-center">
+          <Avatar
+            // onClick={toggleDropdown}
+            className="relative h-10 w-10 cursor-pointer   !bg-white !text-slate-800 flex items-center justify-center  capitalize font-bold text-xl "
+          >
+            {user?.image?.length === 1
+              ? user?.image.toUpperCase() || user?.userName[0]
+              : <AvatarImage src={user?.image} /> || user?.userName[0]}
+          </Avatar>
+          <Label className="p-3 text-white text-lg font-semibold">
+            {" "}
+            Hi,{" "}
+            <span className="capitalize">
+              {user?.userName?.replace(/(_\d+)$/, "")}
+            </span>
+          </Label>
+        </div>
         {UserNavItems.map((nav) => (
           <label
             key={nav.id}
@@ -72,20 +104,33 @@ function MenuItems({ setSidebar, setHeaderContent }) {
           </label>
         ))}
         {isAuthenticated && (
-          <label
-            onClick={() => {
-              goTop();
-              navigate("/ride/bookings");
+          <div>
+            <label
+              onClick={() => {
+                goTop();
+                navigate("/ride/bookings");
 
-              setSidebar ? setSidebar(false) : null;
-            }}
-            className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
+                setSidebar ? setSidebar(false) : null;
+              }}
+              className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
             py-[13px] 
             mx-3 duration-300 items-center"
-          >
-            <RecentActors fontSize="large" className="p-1" />
-            Bookings
-          </label>
+            >
+              <RecentActors fontSize="large" className="p-1" />
+              Bookings
+            </label>
+            <label
+              onClick={() => {
+                handleLogout();
+                setSidebar ? setSidebar(false) : null;
+              }}
+              className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
+            py-[13px] 
+            mx-3 duration-300 items-center"
+            >
+              <LogOut className=" h-6 w-6 ml-1" /> Logout
+            </label>
+          </div>
         )}
       </nav>
     </Box>

@@ -27,7 +27,7 @@ function AuthRegister() {
         toast({
           title: data?.payload?.message,
           description:
-            "Registration successful! Please check your email to verify your account.",
+            "Registration successfull! Please check your email to verify your account.",
         });
       } else {
         toast({

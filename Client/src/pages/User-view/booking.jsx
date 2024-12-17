@@ -24,8 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const initialAddressFormData = {
   address: "",
-  city: "",
-  state: "",
+  city: "JAIPUR",
+  state: "RAJASTHAN",
   phone: "",
   pincode: "",
 };
@@ -67,23 +67,57 @@ const BookingComponent = () => {
   const [drivingLicenceNo, setDrivingLicenceNo] = useState(
     sessionStorage.getItem("drivingLicenceNo") || ""
   );
-  const [mobileNo, setMobileNo] = useState(
-    sessionStorage.getItem("mobileNo") || ""
+
+  const [dlError, setDlError] = useState(
+    sessionStorage.getItem("dlError") || ""
   );
+
+  // Regular Expression for Driving Licence Validation
+  const validateDrivingLicence = (value) =>
+    /^[A-Z]{2}[0-9]{2}[A-Z]{1}[0-9]{11}$/.test(value);
 
   const handleLicenceChange = (e) => {
     const value = e.target.value;
     setDrivingLicenceNo(value);
     sessionStorage.setItem("drivingLicenceNo", value);
+
+    // Validate while typing
+    if (!validateDrivingLicence(value)) {
+      setDlError(
+        sessionStorage.setItem("dlError", "Enter a valid Driving Licence.")
+      );
+    } else {
+      setDlError(sessionStorage.setItem("dlError", ""));
+    }
   };
+
+  const [mobileNo, setMobileNo] = useState(
+    sessionStorage.getItem("mobileNo") || ""
+  );
+
+  const [mobileError, setMobileError] = useState(
+    sessionStorage.getItem("mobileNoError") || ""
+  );
+
+  const validateMobileNo = (value) => /^[0-9]{10}$/.test(value);
 
   const handleMobileChange = (e) => {
     const value = e.target.value;
     setMobileNo(value);
     sessionStorage.setItem("mobileNo", value);
+
+    if (!validateMobileNo(value)) {
+      setMobileError(
+        sessionStorage.setItem(
+          "mobileNoError",
+          "Enter a valid 10-digit mobile number."
+        )
+      );
+    } else {
+      setMobileError(sessionStorage.setItem("mobileNoError", ""));
+    }
   };
 
-  // Addresss
   const [formData, setFormData] = useState(initialAddressFormData);
   const [currentEditedId, setCurrentEditedId] = useState(null);
   const [deliveryCharge, setDeliveryCharge] = useState();
@@ -136,6 +170,20 @@ const BookingComponent = () => {
         });
   }
 
+  // if (formData) {
+  useState(() => {
+    console.log("phone =" + formData);
+  });
+  // if (!validateMobileNo(formData.phone)) {
+
+  // setMobileError(
+  //   sessionStorage.setItem(
+  //     "mobileNoError",
+  //     "Enter a valid 10-digit mobile number."
+  //   )
+  // );
+  // }
+
   function handleDeleteAddress(getCurrentAddress) {
     dispatch(
       deleteAddress({
@@ -186,10 +234,15 @@ const BookingComponent = () => {
 
   return (
     <div className="ListingBg">
-      <div className="lg:pt-28  md:pt-28 pt-20  lg:pb-10  md:pb-10 pb-5 lg:px-5 md:px-5 sm:px-4 px-3 xl:container mx-auto ">
+      <div className="lg:pt-28 md:pt-28 pt-20  lg:pb-10  md:pb-10 pb-5 lg:px-5 md:px-5 sm:px-4 px-3 xl:container mx-auto ">
         <h1 className="lg:text-4xl md:text-xl sm:text-3xl text-2xl font-bold text-yello  mb-2 bg-gradient-to-t from-[#ffae00] to-[#fff9ee] bg-clip-text text-transparent">
           Ride Booking
         </h1>
+
+        {/* || "" === null ? (
+          <p className="text-tomato text-sm mb-3">{mobileError}</p>
+        ) : null} */}
+
         <div className="grid lg:grid-cols-[2fr_1.3fr] md:grid-cols-[2fr_1.5fr] grid-cols-1 gap-3">
           <div className="flex flex-col gap-3">
             <BookingRideDetailsTile
@@ -268,53 +321,88 @@ const BookingComponent = () => {
 
             {/* Billing  */}
             <div className="flex-col pt-3 Borde Rounded px-3 pb-3 rounded-md bg-gradient-to-b from-[#ffedca]  to-white shadow-lg text-black flex ">
-              <Label>If You want to change the dates:</Label>
+              <Label>If you want to change the Timings:</Label>
               <div className={`flex items-center gap-3 mt-2`}>
                 <DateCompo
                   date={date}
                   Calendar={"!-left-[100px] absolute"}
                   setDate={setDate}
                   dateCss={
-                    "font-semibold text-black !border-2 !pl-2 !py-2 !rounded-lg !bg-[#ffff]  h-9 w-full"
+                    "font-semibold text-black !border-2 !pl-2  !rounded-lg !bg-[#ffff]  h-9 w-full"
                   }
                 />
                 <DayCompo
                   day={day}
                   setDay={setDay}
                   dayCss={
-                    "font-semibold text-black !border-2 !pl-2 !py-2 !rounded-lg !bg-white !text-black h-9"
+                    "font-semibold text-black !border-2 !pl-2 !pb-[1px] !rounded-lg !bg-white !text-black h-9"
                   }
                 />
               </div>
-              <div className={`flex w-full gap-2`}>
-                <span className="bg-white flex  w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3">
-                  DL
-                </span>
-                <input
-                  type="text"
-                  value={drivingLicenceNo}
-                  onChange={handleLicenceChange}
-                  className="bg-white focus:outline-none border rounded-md mt-2 w-full py-1.5 px-3"
-                  placeholder="Driving Licence No."
-                />
+              <div className="flex flex-col -gap-4">
+                {/* Driving Licence Input */}
+                <div className="flex w-full gap-2 ">
+                  <span
+                    className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3
+                    ${
+                      sessionStorage.getItem("dlError") || "" === null
+                        ? "border-red-500"
+                        : " border-green-500"
+                    }`}
+                  >
+                    DL
+                  </span>
+                  <input
+                    type="text"
+                    value={drivingLicenceNo}
+                    onChange={handleLicenceChange}
+                    className={`bg-white w-full focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
+                      sessionStorage.getItem("dlError") || "" === null
+                        ? "border-red-500"
+                        : " border-green-500"
+                    }`}
+                    placeholder="Driving Licence No."
+                  />
+                </div>
+                <p className="text-tomato text-sm ">
+                  {sessionStorage.getItem("dlError")}
+                </p>
+                {/* Mobile Number Input */}
+                <div
+                  className={`${
+                    deliveryOption === "Home" ? "hidden" : "flex"
+                  } w-full gap-2`}
+                >
+                  {" "}
+                  <span
+                    className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
+                      sessionStorage.getItem("mobileNoError") || "" === null
+                        ? "border-red-500"
+                        : " border-green-500"
+                    }`}
+                  >
+                    +91
+                  </span>
+                  <input
+                    type="number"
+                    value={mobileNo}
+                    onChange={handleMobileChange}
+                    className={`bg-white w-full focus:outline-none border rounded-md mt-2  py-1.5 px-3 ${
+                      sessionStorage.getItem("mobileNoError") || "" === null
+                        ? "border-red-500"
+                        : " border-green-500"
+                    }`}
+                    placeholder="Mobile No."
+                  />
+                </div>
+                <p
+                  className={`${
+                    deliveryOption === "Home" ? "hidden" : "flex"
+                  } text-tomato text-sm `}
+                >
+                  {sessionStorage.getItem("mobileNoError")}
+                </p>
               </div>
-              <div
-                className={`
-                ${deliveryOption === "Home" ? "hidden" : "flex"}
-                w-full  gap-2`}
-              >
-                <span className="bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3">
-                  +91
-                </span>
-                <input
-                  type="number"
-                  value={mobileNo}
-                  onChange={handleMobileChange}
-                  className="bg-white w-full focus:outline-none border rounded-md mt-2 py-1.5 px-3"
-                  placeholder="Mobile No."
-                />
-              </div>
-
               <BillingDetails
                 deliveryCharge={deliveryCharge}
                 currentSelectedAddress={currentSelectedAddress}

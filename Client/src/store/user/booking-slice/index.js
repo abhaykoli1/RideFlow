@@ -13,11 +13,11 @@ export const bookRide = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      // Handle server error (e.g., 400 response)
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
-      }
-      throw error;
+      return rejectWithValue(error.response.data);
+      // if (error.response && error.response.data) {
+      //   return rejectWithValue(error.response.data);
+      // }
+      // throw error;
     }
   }
 );

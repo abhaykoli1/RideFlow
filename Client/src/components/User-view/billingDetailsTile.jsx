@@ -36,26 +36,21 @@ const BillingDetails = ({
   deliveryOption,
   currentSelectedAddress,
   deliveryCharge,
-  // drivingLicenceNo,
-  // mobileNo,
 }) => {
   const { toast } = useToast();
 
-  const [drivingLicenceNo, setDrivingLicenceNo] = useState(
-    sessionStorage.getItem("drivingLicenceNo") || ""
-  );
+  // const [drivingLicenceNo, setDrivingLicenceNo] = useState(
+  //   sessionStorage.getItem("drivingLicenceNo") || ""
+  // );
 
-  const [mobileNo, setMobileNo] = useState(
-    sessionStorage.getItem("mobileNo") || ""
-  );
-  const [bookingData, setBookingData] = useState(initialBookingFormData);
+  // const [mobileNo, setMobileNo] = useState(
+  //   sessionStorage.getItem("mobileNo") || ""
+  // );
+  // const [bookingData, setBookingData] = useState(initialBookingFormData);
 
-  const { isLoading, bookingDetails, error } = useSelector(
-    (state) => state.userBooking
-  );
-
-  // const { addressList } = useSelector((state) => state.userAddress);
+  const { isLoading } = useSelector((state) => state.userBooking);
   const { user } = useSelector((state) => state.auth);
+  const [openDialog, setOpenDialog] = useState(false);
 
   function calculateChargesWithDiscount(
     baseCharge,
@@ -151,41 +146,26 @@ const BillingDetails = ({
             ? sessionStorage.getItem("mobileNo")
             : currentSelectedAddress?.phone,
       })
-    )
-      .then((booking) => {
-        const success = booking?.payload?.success;
-        const message = booking?.payload?.message;
-
-        if (success) {
-          setMessage(message);
-          toast({
-            title: "Ride Placed",
-            description: "",
-          });
-
-          setTimeout(() => {
-            navigate("/ride/bookings");
-          }, 3000);
-        } else if (!success || data.error) {
-          const errorMessage =
-            data?.payload?.message ||
-            data?.error?.message ||
-            "There was a problem.";
-          toast({
-            title: "There was a problem",
-            description:
-              errorMessage || "Sorry for this Glitch! Try after some time",
-          });
-        }
-      })
-      .finally(() => {});
+    ).then((booking) => {
+      if (booking?.payload?.success) {
+        // toast({
+        //   title:
+        //     booking?.payload?.message || "Your Booking Placed successfully",
+        //   description:
+        //     "Booking successfull! We’ll be in touch shortly with more information.",
+        // });
+        setOpenDialog(true);
+        setTimeout(() => {
+          navigate("/ride/bookings");
+        }, 3000);
+      } else {
+        toast({
+          title: booking?.payload?.message,
+          variant: "destructive",
+        });
+      }
+    });
   };
-
-  const [openDialog, setOpenDialog] = useState(false);
-
-  // const handleReset = () => {
-  //   dispatch(resetBookingState());
-  // };
 
   return (
     <div>
@@ -246,40 +226,23 @@ const BillingDetails = ({
         </div>
 
         <Button
-          disabled={
-            (deliveryOption === "Home" && !currentSelectedAddress) ||
-            !sessionStorage.getItem("drivingLicenceNo") ||
-            (deliveryOption === "Pick" &&
-              !sessionStorage.getItem("mobileNo")) ||
-            isLoading
-          }
+          disabled={isLoading}
           onClick={handleSubmit}
           className="w-full bg-slate-800 text-white mt-1"
         >
           {isLoading ? "Booking..." : "Book Ride"}
         </Button>
-        {/* {bookingDetails && (
-          <div className="success-message text-">
-            Booking Successful! Booking ID: {bookingDetails.bookingId}
-          </div>
-        )} */}
-        {/* {error && <div className="error-message">Error: {error}</div>}
-        <button className="text-black" onClick={handleReset}>
-          Reset
-        </button> */}
-
         <p className="text-center text-sm font-medium mt-2">
           By clicking on place ride you are accepting the{" "}
           <a>Terms & Conditions</a> of BikeRental
         </p>
       </div>
-
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="bg-teal-500 text-white rounded-lg p-10 text-center max-w-lg w-full">
           <h1 className="text-4xl font-bold mb-4">You're All Set!</h1>
+          <p>Your Booking Placed successfully</p>
           <p className="text-lg font-medium mb-6">
-            Your bike rental has been successfully booked. We’ll be in touch
-            shortly with more information.
+            We’ll be in touch shortly with more information.
           </p>
         </DialogContent>
       </Dialog>

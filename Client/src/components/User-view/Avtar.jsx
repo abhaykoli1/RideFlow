@@ -16,7 +16,6 @@ const Avtar = () => {
   // const [openProfileSheet, setOpenProfileSheet] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
-  console.log("from Avtar", user.id);
   function handleLogout() {
     dispatch(logoutUser())
       .then(() => {
