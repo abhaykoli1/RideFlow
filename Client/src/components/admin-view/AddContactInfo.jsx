@@ -17,6 +17,8 @@ const AddContactInfo = () => {
     phone: "",
     email: "",
     instagram: "",
+    facebook: "",
+    twitter: "",
     whatsapp: "",
     address: "",
   };
@@ -64,17 +66,14 @@ const AddContactInfo = () => {
   }, [dispatch]);
 
   return (
-    <Fragment className="w-full ">
+    <Fragment className="w-full">
       <div className="mt-20 mb-6 w-full flex justify-between items-center">
-        <h1 className="text-3xl text-slate-800 font-bold ">
-          Add Contact Info{" "}
-        </h1>
-
+        <h1 className="text-3xl text-slate-800 font-bold ">Add Contact Info</h1>
         {ContactInfo.length > 0 ? (
           <Button
             className="bg-slate-800 text-white"
             onClick={() => {
-              setCurrentEditedId("675ddaf9fd8852060da37b22");
+              setCurrentEditedId("6769b37095251b5b118ab301");
               setOpenAddContactInfo(true);
             }}
           >
@@ -118,36 +117,50 @@ const AddContactInfo = () => {
         </SheetContent>
       </Sheet>
 
-      {ContactInfo && ContactInfo.length > 0
-        ? ContactInfo.map((content, index) => (
-            <div className=" text-lg text-slate-800">
-              <p>
-                <strong>Id :</strong>
-                {content._id}
-              </p>
-              <p>
-                <strong>Email : </strong>
-                {content.email}
-              </p>
-              <p>
-                <strong>Phone : </strong>
-                {content.phone}
-              </p>
-              <p>
-                <strong>Instagram Link : </strong>
-                {content.instagram}
-              </p>
-              <p>
-                <strong>Whatsapp Link : </strong>
-                {content.whatsapp}
-              </p>
-              <p>
-                <strong>Location : </strong>
-                {content.address}
-              </p>
-            </div>
-          ))
-        : null}
+      {!isLoading && ContactInfo && ContactInfo.length > 0 && (
+        <table className="min-w-full bg-white border text-black border-gray-200 shadow-md rounded-lg">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="py-2 px-4 text-left w-[150px]">Field</th>
+              <th className="py-2 px-4 text-left">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ContactInfo.map((content, index) => (
+              <>
+                <tr key={`${content._id}-email`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Email</td>
+                  <td className="py-2 px-4">{content.email}</td>
+                </tr>
+                <tr key={`${content._id}-phone`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Phone</td>
+                  <td className="py-2 px-4">{content.phone}</td>
+                </tr>
+                <tr key={`${content._id}-instagram`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Instagram Link</td>
+                  <td className="py-2 px-4">{content.instagram}</td>
+                </tr>
+                <tr key={`${content._id}-instagram`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Facebook Link</td>
+                  <td className="py-2 px-4">{content.facebook}</td>
+                </tr>
+                <tr key={`${content._id}-instagram`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Twitter Link</td>
+                  <td className="py-2 px-4">{content.twitter}</td>
+                </tr>
+                <tr key={`${content._id}-whatsapp`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Whatsapp Link</td>
+                  <td className="py-2 px-4">{content.whatsapp}</td>
+                </tr>
+                <tr key={`${content._id}-location`} className="border-t">
+                  <td className="py-2 px-4 font-bold">Location</td>
+                  <td className="py-2 px-4">{content.address}</td>
+                </tr>
+              </>
+            ))}
+          </tbody>
+        </table>
+      )}
     </Fragment>
   );
 };

@@ -1,5 +1,6 @@
 import RideImageUpload from "@/components/admin-view/image-upload";
 import CommonForm from "@/components/common/form";
+import { MyContext } from "@/components/common/Helper/context";
 import ReviewTile from "@/components/common/review-Tile";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +16,7 @@ import {
   editReview,
   fetchAllReviews,
 } from "@/store/admin/Reviews-slice";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const initialFormData = {
@@ -26,7 +27,7 @@ const initialFormData = {
 };
 
 const AddReviews = () => {
-  const [openAddReviews, setOpenAddReviews] = useState(false);
+  const { openAddReviews, setOpenAddReviews } = useContext(MyContext);
   const [formData, setFormData] = useState(initialFormData);
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -85,27 +86,20 @@ const AddReviews = () => {
 
   return (
     <Fragment className="bg-white h-[100vh]">
-      <div className="mb-5  w-full flex justify-between ">
-        <h1 className="text-3xl text-slate-800 font-bold ">Reviews </h1>
-        <Button
-          className="!bg-slate-800 text-white"
-          onClick={() => setOpenAddReviews(true)}
-        >
-          Add New Review
-        </Button>
-      </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-        {ReviewsList && ReviewsList.length > 0
-          ? ReviewsList.map((items) => (
-              <ReviewTile
-                review={items}
-                setFormData={setFormData}
-                setOpenAddReviews={setOpenAddReviews}
-                setCurrentEditedId={setCurrentEditedId}
-                handleDelete={handleDelete}
-              />
-            ))
-          : null}
+        {ReviewsList && ReviewsList.length > 0 ? (
+          ReviewsList.map((items) => (
+            <ReviewTile
+              review={items}
+              setFormData={setFormData}
+              setOpenAddReviews={setOpenAddReviews}
+              setCurrentEditedId={setCurrentEditedId}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <p className="text-slate-800">No Reviews found.</p>
+        )}
       </div>
       <Sheet
         open={openAddReviews}

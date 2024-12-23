@@ -21,14 +21,14 @@ function AdminLayout() {
 
   return (
     <div className="flex w-full h-screen bg-whitesmoke">
-      <div className="fixed top-0 w-full right-0 z-10  ">
+      <div className="fixed  top-0 w-full right-0 z-10  ">
         <AdminHeader setSidebar={setSidebar} sidebar={sidebar} />
       </div>
       <div className="z-10">
         <AdminSidebar sidebar={sidebar} setSidebar={setSidebar} />
       </div>
       <main
-        className={`flex  p-4 md:p-6  flex-1 flex-col  top-20 absolute right-0 bottom-0  z-0 duration-500 overflow-auto bg-whitesmoke ${
+        className={`flex  p-4 md:p-6  flex-1 flex-col  lg:top-[70px] top-[60px]  absolute right-0 bottom-0  z-0 duration-500 overflow-auto bg-whitesmoke ${
           sidebar ? "lg:left-60 left-0" : "!left-0"
         }`}
       >

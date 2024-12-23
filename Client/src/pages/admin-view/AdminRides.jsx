@@ -1,6 +1,7 @@
 import RideImageUpload from "@/components/admin-view/image-upload";
 import AdminRideTile from "@/components/admin-view/ride-tile";
 import CommonForm from "@/components/common/form";
+import { MyContext } from "@/components/common/Helper/context";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,7 +19,7 @@ import {
   fetchAllRides,
 } from "@/store/admin/Rides-slice";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const initialFormData = {
@@ -35,7 +36,7 @@ const initialFormData = {
 };
 
 function AdminRides() {
-  const [OpenAddRidesDialog, setOpenAddRidesDialog] = useState(false);
+  const { OpenAddRidesDialog, setOpenAddRidesDialog } = useContext(MyContext);
   const [formData, setFormData] = useState(initialFormData);
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -104,27 +105,20 @@ function AdminRides() {
 
   return (
     <Fragment className="bg-white h-[100vh]">
-      <div className="mb-5  w-full flex justify-between items-center">
-        <h1 className="text-3xl text-slate-800 font-bold ">Rides </h1>
-        <Button
-          className="bg-slate-800 text-white"
-          onClick={() => setOpenAddRidesDialog(true)}
-        >
-          Add New Ride
-        </Button>
-      </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {RidesList && RidesList.length > 0
-          ? RidesList.map((RidesListItem) => (
-              <AdminRideTile
-                setFormData={setFormData}
-                setOpenAddRidesDialog={setOpenAddRidesDialog}
-                setCurrentEditedId={setCurrentEditedId}
-                ride={RidesListItem}
-                handleDelete={handleDelete}
-              />
-            ))
-          : null}
+        {RidesList && RidesList.length > 0 ? (
+          RidesList.map((RidesListItem) => (
+            <AdminRideTile
+              setFormData={setFormData}
+              setOpenAddRidesDialog={setOpenAddRidesDialog}
+              setCurrentEditedId={setCurrentEditedId}
+              ride={RidesListItem}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <p className="text-slate-800">No Rides found.</p>
+        )}
       </div>
       <Sheet
         open={OpenAddRidesDialog}

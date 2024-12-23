@@ -27,7 +27,11 @@ import AdminBookings from "./pages/admin-view/AdminBookings";
 import AdminUsers from "./pages/admin-view/AdminUsers";
 import Bookings from "./pages/User-view/ride-Bookings";
 import ContactList from "./pages/admin-view/NeedAssist";
-
+import OTP from "./pages/auth/otp";
+import VerifyEmail from "./pages/auth/verify";
+import ForgotPassword from "./pages/auth/forgetPassword";
+import ResetPassword from "./pages/auth/resetPassword";
+import Ebike from "./assets/ebike.gif";
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
@@ -37,16 +41,12 @@ function App() {
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
+  // "http://res.cloudinary.com/dulkmeadg/image/upload/v1730524986/o9ce5ixqmq9fgihbqmon.gif"
 
   if (isLoading)
     return (
       <div className="bg-black h-[100vh] flex justify-center items-center">
-        <AnimatedGif
-          src={
-            "http://res.cloudinary.com/dulkmeadg/image/upload/v1730524986/o9ce5ixqmq9fgihbqmon.gif"
-          }
-          className="h-16 w-16"
-        />
+        <AnimatedGif src={Ebike} className="h-16 w-16" />
       </div>
     );
 
@@ -72,6 +72,11 @@ function App() {
         >
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
+          <Route path="/auth/verify-email/:token" element={<VerifyEmail />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password/:token" element={<ResetPassword />} />
+
+          <Route path="otp" element={<OTP />} />
         </Route>
         <Route
           path="/admin"

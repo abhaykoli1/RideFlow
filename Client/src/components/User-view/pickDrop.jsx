@@ -33,7 +33,7 @@ const PickDrop = () => {
               </Label>
               <div className="BorderBottom">
                 <DateCompo
-                  Calendar={"!-left-[99px] absolute"}
+                  Calendar={`CalenderPosition !-left-[101px] absolute`}
                   date={date}
                   setDate={setDate}
                   dateCss={" "}
@@ -62,6 +62,7 @@ const PickDrop = () => {
               onClick={() => {
                 setLoading(true);
                 setTimeout(() => {
+                  goTop();
                   navigate("/ride/listing");
                 }, 800);
               }}

@@ -45,10 +45,7 @@ const bookingSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    minlength: 10,
-    maxlength: 15,
-    match: /^[0-9]{10,15}$/,
-    trim: true,
+    // trim: true,
   },
   dl: {
     type: String,

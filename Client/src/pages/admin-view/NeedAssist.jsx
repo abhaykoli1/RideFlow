@@ -29,10 +29,7 @@ const ContactList = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-6 text-slate-800">
-      <h1 className="text-3xl font-bold mb-6">Contact Queries</h1>
-
-      {/* Contacts Section */}
+    <div className=" text-slate-800">
       <div className="mb-8">
         {contactLoading ? (
           <p>Loading contacts...</p>

@@ -3,41 +3,32 @@ const mongoose = require("mongoose");
 const ContactInfoSchema = new mongoose.Schema(
   {
     infoid: {
-      type: String, // Use 'type' instead of 'typeof'
-      default: "uni", // Default value for the field
+      type: String,
+      default: "uni",
     },
     phone: {
-      type: Number, // Define the type for the phone field
+      type: Number,
     },
     email: {
-      type: String, // Define the type for the email field
+      type: String,
     },
     instagram: {
-      type: String, // Define the type for the Instagram field
+      type: String,
+    },
+    facebook: {
+      type: String,
+    },
+    twitter: {
+      type: String,
     },
     whatsapp: {
-      type: String, // Define the type for the WhatsApp field
+      type: String,
     },
     address: {
-      type: String, // Define the type for the address field
+      type: String,
     },
   },
-  { timestamps: true } // Add timestamps for createdAt and updatedAt
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("ContactInfo", ContactInfoSchema);
-
-// const mongoose = require("mongoose");
-
-// const ContactInfoSchema = new mongoose.Schema(
-//   {
-//     phone: Number, // Define the type for the phone field
-//     email: String,
-//     instagram: String,
-//     whatsapp: String,
-//     address: String,
-//   },
-//   { timestamps: true } // Add timestamps for createdAt and updatedAt
-// );
-
-// module.exports = mongoose.model("ContactInfo", ContactInfoSchema);

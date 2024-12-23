@@ -48,12 +48,15 @@ const addToDashboard = async (req, res) => {
 //add
 const addContactInfo = async (req, res) => {
   try {
-    const { phone, email, instagram, whatsapp, address } = req.body;
+    const { phone, email, instagram, facebook, twitter, whatsapp, address } =
+      req.body;
 
     const newlyCreatedContactInfo = new ContactInfo({
       phone,
       email,
       instagram,
+      twitter,
+      facebook,
       whatsapp,
       address,
     });
@@ -98,7 +101,8 @@ const fetchInfo = async (req, res) => {
 const editContactInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { phone, email, instagram, whatsapp, address } = req.body;
+    const { phone, email, facebook, twitter, instagram, whatsapp, address } =
+      req.body;
 
     let findInfo = await ContactInfo.findById(id);
     if (!findInfo)
@@ -110,6 +114,8 @@ const editContactInfo = async (req, res) => {
     findInfo.phone = phone || findInfo.phone;
     findInfo.email = email || findInfo.email;
     findInfo.instagram = instagram || findInfo.instagram;
+    findInfo.facebook = facebook || findInfo.facebook;
+    findInfo.twitter = twitter || findInfo.twitter;
     findInfo.whatsapp = whatsapp || findInfo.whatsapp;
     findInfo.address = address || findInfo.address;
 

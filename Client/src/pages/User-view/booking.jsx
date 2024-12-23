@@ -74,7 +74,7 @@ const BookingComponent = () => {
 
   // Regular Expression for Driving Licence Validation
   const validateDrivingLicence = (value) =>
-    /^[A-Z]{2}[0-9]{2}[A-Z]{1}[0-9]{11}$/.test(value);
+    /^[A-Za-z]{2}[0-9]{2}(?: [0-9]{11}|[A-Za-z][0-9]{11})$/.test(value);
 
   const handleLicenceChange = (e) => {
     const value = e.target.value;
@@ -92,29 +92,37 @@ const BookingComponent = () => {
   };
 
   const [mobileNo, setMobileNo] = useState(
-    sessionStorage.getItem("mobileNo") || ""
+    sessionStorage.getItem("mobileNo") || "+91 "
   );
 
   const [mobileError, setMobileError] = useState(
     sessionStorage.getItem("mobileNoError") || ""
   );
 
-  const validateMobileNo = (value) => /^[0-9]{10}$/.test(value);
+  // Validate mobile number to ensure it starts with "+91 " and has 10 digits after
+  const validateMobileNo = (value) => /^[0-9]{10}$/.test(value.slice(0)); // Validate only digits after "+91 "
 
   const handleMobileChange = (e) => {
     const value = e.target.value;
+
+    // Ensure "+91 " prefix is preserved
+    if (!value.startsWith("+91 ")) {
+      setMobileNo("+91 ");
+      return;
+    }
+
     setMobileNo(value);
     sessionStorage.setItem("mobileNo", value);
 
-    if (!validateMobileNo(value)) {
-      setMobileError(
-        sessionStorage.setItem(
-          "mobileNoError",
-          "Enter a valid 10-digit mobile number."
-        )
-      );
+    // Validate the mobile number
+    const mobilePart = value.slice(4); // Extract the part after "+91 "
+    if (!validateMobileNo(mobilePart)) {
+      const errorMessage = "Enter a valid 10-digit mobile number.";
+      setMobileError(errorMessage);
+      sessionStorage.setItem("mobileNoError", errorMessage);
     } else {
-      setMobileError(sessionStorage.setItem("mobileNoError", ""));
+      setMobileError("");
+      sessionStorage.setItem("mobileNoError", "");
     }
   };
 
@@ -342,7 +350,7 @@ const BookingComponent = () => {
               <div className="flex flex-col -gap-4">
                 {/* Driving Licence Input */}
                 <div className="flex w-full gap-2 ">
-                  <span
+                  {/* <span
                     className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3
                     ${
                       sessionStorage.getItem("dlError") || "" === null
@@ -351,12 +359,12 @@ const BookingComponent = () => {
                     }`}
                   >
                     DL
-                  </span>
+                  </span> */}
                   <input
                     type="text"
                     value={drivingLicenceNo}
                     onChange={handleLicenceChange}
-                    className={`bg-white w-full focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
+                    className={`uppercase bg-white w-full focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
                       sessionStorage.getItem("dlError") || "" === null
                         ? "border-red-500"
                         : " border-green-500"
@@ -374,7 +382,7 @@ const BookingComponent = () => {
                   } w-full gap-2`}
                 >
                   {" "}
-                  <span
+                  {/* <span
                     className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
                       sessionStorage.getItem("mobileNoError") || "" === null
                         ? "border-red-500"
@@ -382,9 +390,9 @@ const BookingComponent = () => {
                     }`}
                   >
                     +91
-                  </span>
+                  </span> */}
                   <input
-                    type="number"
+                    type="text"
                     value={mobileNo}
                     onChange={handleMobileChange}
                     className={`bg-white w-full focus:outline-none border rounded-md mt-2  py-1.5 px-3 ${

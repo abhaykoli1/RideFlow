@@ -4,8 +4,8 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: ["class"],
-  // content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  // darkMode: ["class"],
+  darkMode: "dark",
   theme: {
     extend: {
       fontFamily: {

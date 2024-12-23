@@ -10,79 +10,22 @@ import { Divider } from "@mui/material";
 import { ChevronUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
 // import { Col, Container, Row } from "react-bootstrap";
-import whatsapp from "../../../assets/whatsapp.png";
+import whatsapp from "../../../assets/wp.png";
+import tw from "../../../assets/tw.png";
+import ig from "../../../assets/ig.png";
+import fb from "../../../assets/fb.png";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContactInfo } from "@/store/common/dashboard-slice";
 
 const Footer = () => {
-  // const footer = [
-  //   {
-  //     id: 1,
-  //     title: "Ride Flow",
-  //     item1Icon: <Mail />,
-  //     item1: "RideFlow@Outlook.com",
-  //     path1: "/ride/Reach-Us",
-
-  //     item2Icon: <Phone />,
-  //     item2: "9887434494",
-  //     path2: "/ride/Reach-Us",
-
-  //     item3Icon: "",
-  //     item3: "",
-  //     path3: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Legal Terms",
-  //     item1Icon: "",
-  //     item1: "Privacy & Policy",
-  //     path1: "/ride/Policy",
-
-  //     item2Icon: "",
-  //     item2: "Terms & Conditions",
-  //     path2: "/ride/Terms&Condition",
-
-  //     item3Icon: "",
-  //     item3: "",
-  //     path3: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Links",
-  //     item1Icon: "",
-  //     item1: "About Us",
-  //     path1: "/ride/about",
-
-  //     item2Icon: "",
-  //     item2: "FAQ's",
-  //     path2: "/ride/faqs",
-
-  //     item3Icon: "",
-  //     item3: "",
-  //     path3: "",
-  //   },
-  // ];
-  const Socials = [
-    {
-      link: "",
-      icon: <Facebook />,
-    },
-    {
-      link: "",
-      icon: <Instagram />,
-    },
-    {
-      link: "",
-      icon: <Twitter />,
-    },
-  ];
-
+  const [Socials, setSocials] = useState([]);
   const navigate = useNavigate();
   const { ContactInfo, isLoading } = useSelector((state) => state.dasboard);
-
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const [footer, setFooter] = useState([]);
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -92,16 +35,34 @@ const Footer = () => {
       }
     });
   }, []);
+
   const dispatch = useDispatch();
   useState(() => {
     dispatch(fetchContactInfo());
   }, [dispatch]);
 
-  const [footer, setFooter] = useState([]);
-
   useEffect(() => {
     if (ContactInfo && ContactInfo.length > 0) {
-      const { address, phone, whatsapp, email } = ContactInfo[0];
+      const { address, phone, whatsapp, email, instagram, twitter, facebook } =
+        ContactInfo[0];
+      setSocials([
+        {
+          id: 1,
+          link: twitter || "",
+          icon: tw,
+        },
+        {
+          id: 2,
+          link: instagram || "",
+          icon: ig,
+        },
+        {
+          id: 3,
+          link: facebook || "",
+          icon: fb,
+        },
+      ]);
+
       setFooter([
         {
           id: 1,
@@ -150,8 +111,9 @@ const Footer = () => {
       path3: "",
     },
   ];
+
   return (
-    <section className=" items-center ">
+    <section className="items-center">
       <Divider />
       <div className=" flex-1 gap-7 justify-between lg:px-6 md:px-6 sm:px-5 px-5 BorderTop">
         <div className="container mt-2 mx-auto grid md:grid-cols-3 sm:grid-cols-2 lg:gap-16 lg:grid-cols-3 py-3">
@@ -240,7 +202,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* yellow */}
       <div className="bg-[#ffa500] text-white h-28 w-full flex justify-center items-center ">
         <div>
           <div className="flex-1 text-center font-semibold cursor-default">
@@ -248,9 +209,19 @@ const Footer = () => {
           </div>
           <div className="mt-3  flex gap-5 items-center justify-center cursor-pointer">
             {Socials.map((items, index) => (
-              <div className="" key={index}>
-                <div className="">{items.icon}</div>
-              </div>
+              <a
+                href={items.link}
+                target="_blank"
+                className="flex items-center"
+                key={index}
+              >
+                <img
+                  src={items.icon}
+                  className={` ${
+                    items.link === " " ? "hidden" : "flex"
+                  } h-10 w-10`}
+                />
+              </a>
             ))}
           </div>
         </div>
@@ -270,7 +241,7 @@ const Footer = () => {
             <a
               target="_black"
               href={content.whatsapp}
-              className="flex  justify-center items-center  lg:h-14 lg:w-14 md:h-10 md:w-10 h-10 w-10 fixed right-5 bottom-5 rounded-md z-50 cursor-pointer"
+              className="flex justify-center items-center lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 fixed right-5 bottom-[7px] rounded-md z-50 cursor-pointer"
             >
               <img src={whatsapp} />
             </a>

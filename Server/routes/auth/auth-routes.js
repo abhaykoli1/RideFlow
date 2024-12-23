@@ -1,12 +1,6 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
-
-const User = require("../../models/User");
-const { OAuth2Client } = require("google-auth-library");
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const client = new OAuth2Client(CLIENT_ID);
-
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const {
@@ -16,15 +10,22 @@ const {
   authMiddleware,
   googleAuth,
   fetchAllUsers,
+  verifyEmail,
+  requestPasswordReset,
+  resetPassword,
 } = require("../../controllers/auth/auth-controller");
 
 const router = express.Router();
 
 router.post("/register", registerUser);
+router.post("/verify-email", verifyEmail);
+
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/google-login", googleAuth);
 router.get("/admin/users", authMiddleware, fetchAllUsers);
+router.post("/forgot-password", requestPasswordReset); // Request password reset
+router.post("/reset-password", resetPassword); // Reset password
 
 router.get("/check-auth", authMiddleware, (req, res) => {
   const user = req.user;

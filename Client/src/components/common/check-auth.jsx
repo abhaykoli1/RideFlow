@@ -3,6 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 function CheckAuth({ isAuthenticated, user, children }) {
   const location = useLocation();
 
+  console.log(user?.role);
   // Define public paths accessible without authentication
   const publicPaths = [
     "/ride/home",
@@ -26,12 +27,19 @@ function CheckAuth({ isAuthenticated, user, children }) {
   } else if (!isAuthenticated) {
     if (
       !location.pathname.includes("/login") &&
-      location.pathname !== "/ride/home" &&
-      location.pathname !== "/auth/register" // Allow unauthenticated access to register page
+      location.pathname !== "/ride/home"
     ) {
       return <Navigate to="/auth/login" />;
     }
   }
+
+  if (!isAuthenticated)
+    if (
+      location.pathname === "/ride/booking" ||
+      location.pathname === "/ride/bookings"
+    ) {
+      return <Navigate to="/auth/login" />;
+    }
 
   // Redirect authenticated users away from "/auth" routes
   if (isAuthenticated && location.pathname.startsWith("/auth")) {
@@ -42,7 +50,9 @@ function CheckAuth({ isAuthenticated, user, children }) {
   if (user?.role === "admin" && location.pathname.includes("/ride")) {
     return <Navigate to="/admin" />;
   }
-
+  if (!isAuthenticated && location.pathname.includes("/admin")) {
+    return <Navigate to="/ride/home" />;
+  }
   // Restrict non-admin users from accessing "/admin" routes
   if (
     isAuthenticated &&

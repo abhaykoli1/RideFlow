@@ -64,9 +64,9 @@ function MenuItems({ setSidebar, setHeaderContent }) {
       });
   }
   return (
-    <Box className="shadow-sm w-[230px] duration-300 SidebarBG">
+    <Box className="shadow-sm w-[230px] duration-300 SidebarBG z-50">
       <nav className="flex-col flex gap-1 pt-4 !-mx-3 h-screen px-2">
-        <div className="px-6 flex items-center">
+        {/* <div className="px-6 flex items-center">
           <Avatar
             // onClick={toggleDropdown}
             className="relative h-10 w-10 cursor-pointer   !bg-white !text-slate-800 flex items-center justify-center  capitalize font-bold text-xl "
@@ -82,7 +82,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
               {user?.userName?.replace(/(_\d+)$/, "")}
             </span>
           </Label>
-        </div>
+        </div> */}
         {UserNavItems.map((nav) => (
           <label
             key={nav.id}
@@ -119,7 +119,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
               <RecentActors fontSize="large" className="p-1" />
               Bookings
             </label>
-            <label
+            {/* <label
               onClick={() => {
                 handleLogout();
                 setSidebar ? setSidebar(false) : null;
@@ -129,7 +129,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
             mx-3 duration-300 items-center"
             >
               <LogOut className=" h-6 w-6 ml-1" /> Logout
-            </label>
+            </label> */}
           </div>
         )}
       </nav>

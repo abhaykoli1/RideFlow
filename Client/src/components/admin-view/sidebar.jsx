@@ -11,6 +11,8 @@ import {
 import React, { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
+import rideFlowLargeDark from "../../assets/logo/rideFlowLargeDark2.png";
+import { Separator } from "../ui/separator";
 
 const adminSidebarMenuItems = [
   {
@@ -105,20 +107,31 @@ const AdminSidebar = ({ setSidebar, sidebar }) => {
         <div
           onClick={() => setSidebar(false)}
           variant="outline"
-          className="lg:hidden flex h-8 w-9 absolute  items-center justify-center rounded  top-6 -right-6 bg-white shadow border"
+          className="lg:hidden cursor-pointer flex h-8 w-9 absolute  items-center justify-center rounded  top-3 -right-6 bg-white shadow border"
         >
           <ChevronLeftIcon className="h-6 w-6 " color="#222" />
         </div>
       ) : null}
 
-      <aside className=" w-full flex-col bg-transparent pt-6 px-4 flex">
-        <div className="flex cursor-pointer items-center gap-2 !text-slate-700 ">
-          <ChartNoAxesCombined size={30} />
-          <h1 className="text-2xl font-extrabold mt-2 text-slate-700">
-            Admin Panel
-          </h1>
+      <aside className=" w-full flex-col bg-transparent pt-4  flex">
+        <div className="flex cursor-pointer gap-2 items-end !text-slate-700 px-4 border-b border-[#d0d0d0] lg:pb-[19px] pb-[9px]">
+          <div className="text-center flex flex-col items-center">
+            <ChartNoAxesCombined size={26} />
+            <h1 className="text-[10px] -mt-[6px]  line-clamp-6 font-extrabold text-slate-700">
+              Admin
+            </h1>
+          </div>
+          <div className="line-clamp-1 leading-3">
+            <img
+              src={rideFlowLargeDark}
+              alt="logo"
+              className="h-[22px] mb-1  w-ful lg:flex md:flex hidde z-0"
+            />
+          </div>
         </div>
-        <MenuItems setSidebar={setSidebar} handleClose={handleClose} />
+        <div className="px-4 -mt-5">
+          <MenuItems setSidebar={setSidebar} handleClose={handleClose} />
+        </div>
       </aside>
     </div>
   );

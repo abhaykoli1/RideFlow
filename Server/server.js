@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const MongoStore = require("connect-mongo");
 const dotenv = require("dotenv");
+const path = require("path");
 
 // Load environment variables
 dotenv.config();
@@ -73,6 +74,7 @@ app.use("/api/user/address", userAddressRouter);
 app.use("/api/contact", UserContactRouter);
 app.use("/api/booking", userBookingRouter);
 
+app.use("/static", express.static(path.join(__dirname, "public")));
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

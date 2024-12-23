@@ -124,9 +124,9 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
               <Button
                 className="w-full border-gray-600 hover:border-black bg-black text-white   hover:text-white "
                 onClick={() => {
+                  goTop();
                   navigate("/ride/booking");
                 }}
-                // handleAddToCart(RideDetails?._id, RideDetails?.totalStock)
               >
                 Book Now
               </Button>

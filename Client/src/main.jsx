@@ -7,7 +7,7 @@ import store from "./store/store.js";
 import { Toaster } from "./components/ui/toaster.jsx";
 import { AuthProvider } from "./components/common/Helper/context.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import '@fontsource/ubuntu'; // Defaults to weight 400
+import "@fontsource/ubuntu"; // Defaults to weight 400
 import "@fontsource/exo-2"; // Defaults to weight 400
 
 createRoot(document.getElementById("root")).render(

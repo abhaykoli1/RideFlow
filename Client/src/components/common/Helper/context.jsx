@@ -4,21 +4,22 @@ const MyContext = createContext();
 const AuthProvider = ({ children }) => {
   const [sidebar, setSidebar] = useState(false);
   const [auth, setAuth] = useState(false);
-
-  // const callFunction = (value) => {
-  //   setSidebar(value);
-  // };
   const [currentRideId, setCurrentRideId] = useState("");
-  // console.log("auth loc", auth);
+  const [openAddReviews, setOpenAddReviews] = useState(false);
+  const [OpenAddRidesDialog, setOpenAddRidesDialog] = useState(false);
+
   return (
     <MyContext.Provider
       value={{
         setSidebar,
         sidebar,
         auth,
+        openAddReviews,
+        setOpenAddReviews,
         setAuth,
+        OpenAddRidesDialog,
+        setOpenAddRidesDialog,
         currentRideId,
-        // callFunction,
       }}
     >
       {children}

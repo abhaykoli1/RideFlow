@@ -10,6 +10,7 @@ import { addContactQuery } from "@/store/user/contact-slice";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { fetchContactInfo } from "@/store/common/dashboard-slice";
+import CallCenter from "../../../assets/CallCenter.gif";
 
 const initialFormData = {
   name: "",
@@ -108,7 +109,6 @@ function ReachUs() {
       id="reachUs"
       className="Contact-background flex h-full flex-col w-100 overflow-auto lg:px-6 md:px-5 sm:px-4 px-4 justify-between pt-7"
     >
-      <p>email</p>
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -155,7 +155,7 @@ function ReachUs() {
                 <span className="mt-1">{details.description}</span>
                 <span className="mt-[5px] -ml-2">
                   {index === 2 ? (
-                    <a id="WhasappText" href={details.Link}>
+                    <a id="WhasappText" target="_blank" href={details.Link}>
                       WhatsApp
                     </a>
                   ) : null}
@@ -182,9 +182,7 @@ function ReachUs() {
           >
             <h2 className="text-[#ffa500] font-bold text-[25px] mb-2 flex items-end">
               <AnimatedGif
-                src={
-                  "http://res.cloudinary.com/dulkmeadg/image/upload/v1730522799/fspzicudavgpb5vbtb9t.gif"
-                }
+                src={CallCenter}
                 className={"CallCenter h-14 rounded-l-lg"}
               />
               Need Assistance? We're Here to Help

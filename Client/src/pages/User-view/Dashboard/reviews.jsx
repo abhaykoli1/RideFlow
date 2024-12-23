@@ -128,11 +128,11 @@ function UserReviews() {
                   xl:w-[40%] lg:w-[50%] md:w-[50%] sm:w-[90%] w-[96%] 
                   shadow-2xl  rounded-lg"
                   >
-                    {/* <div className="h-[400px] overflow-hidden">
+                    <div className="h-[400px] overflow-hidden">
                       <img src={view.image} className=" w-full rounded-t-lg" />
-                    </div> */}
+                    </div>
                     <p className=" p-4 lg:text-lg md:text-lg sm:text-sm text-sm text-pretty flex-1 justify-center overflow-hidden">
-                      {view.review}
+                      {/* {view.review} */}
 
                       {expandedIndexes[index]
                         ? view.review

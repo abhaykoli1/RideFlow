@@ -5,7 +5,6 @@ import {
   getAllBookings,
   updateBookingStatus,
 } from "@/store/user/booking-slice";
-import { fetchAllRides } from "@/store/admin/Rides-slice";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import AddressSheetContent from "@/components/admin-view/Booking-Details";
@@ -16,6 +15,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { fetchAllRides } from "@/store/admin/Rides-slice";
 
 const AdminBookings = () => {
   const dispatch = useDispatch();
@@ -66,20 +66,15 @@ const AdminBookings = () => {
 
   return (
     <div className=" mx-aut   text-slate-800">
-      <h1 className="text-3xl font-bold mb-3">Bookings</h1>
-      {/* <Button onClick={check}>Upadate</Button> */}
       {isLoading ? (
         <p className="text-center">Loading bookings...</p>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
       ) : allBookings.length > 0 ? (
         <div className="grid grid-cols-1 xl:grid-cols-2  gap-5">
           {allBookings.map((booking) => (
-            <Card
+            <div
               key={booking._id}
               className="border rounded-lg shadow-lg p-2.5 flex flex-col  relative"
             >
-              {/* User Info */}
               <div className="flex flex-col mb-2 -mt-1">
                 <h2 className="text-lg font-bold text-yellow">
                   {booking.userId?.userName.replace(/(_\d+)$/, "") || "N/A"}
@@ -89,7 +84,6 @@ const AdminBookings = () => {
                   {booking.userId?.email || "N/A"}
                 </p>
               </div>
-
               <img
                 src={getRideImage(booking.bikeId)}
                 alt="Bike"
@@ -105,15 +99,15 @@ const AdminBookings = () => {
                     onChange={(e) =>
                       handleStatusChange(booking._id, e.target.value)
                     }
-                    disabled={updatingId === booking._id} // Disable while updating
-                    className={`${
+                    disabled={updatingId === booking._id}
+                    className={`bg-transparent ${
                       booking.status === "Confirmed" ||
                       booking.status === "Completed"
                         ? "text-green-500"
                         : booking.status === "Pending"
                         ? "text-yellow"
                         : "text-red-500"
-                    } font-medium rounded focus:outline-none bg-white`}
+                    }  rounded focus:outline-none font-semibold`}
                   >
                     <option value="Pending">Pending</option>
                     <option value="Confirmed">Confirmed</option>
@@ -172,17 +166,12 @@ const AdminBookings = () => {
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       ) : (
         <p className="text-center">No bookings found.</p>
       )}
-      <Sheet open={openSheet} onOpenChange={() => setOpenSheet(false)}>
-        {/* <SheetContent> */}
-
-        {/* </SheetContent> */}
-      </Sheet>
     </div>
   );
 };

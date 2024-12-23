@@ -157,6 +157,7 @@ function UserRideTile({ className, ride, RidesList, index }) {
               {ride.totalStock !== 0 ? (
                 <Button
                   onClick={() => {
+                    goTop();
                     handleOrderRide(ride?._id);
                   }}
                   className="bg-white w-full text-slate-800 text-[12px] font-semibold h-8  rounded-md"
@@ -183,7 +184,7 @@ function UserRideTile({ className, ride, RidesList, index }) {
             onClick={() => {
               navigate("/ride/listing");
             }}
-            className="absolute z-30 bg-[rgba(0,0,0,0.5)] transform transition-transform duration-300 hover:scale-[120%]  w-full flex flex-col justify-center items-center px-3 h-full"
+            className="absolute z-0 bg-[rgba(0,0,0,0.5)] transform transition-transform duration-300 hover:scale-[120%]  w-full flex flex-col justify-center items-center px-3 h-full"
           >
             <Plus color="white" size={35} />
             <p className="text-white font-semibold">View More</p>

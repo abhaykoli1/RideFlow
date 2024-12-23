@@ -13,14 +13,36 @@ export const UserNavItems = [
   },
 
   {
-    id: "4",
+    id: "3",
     label: "Rides",
     path: "/ride/listing",
   },
   {
-    id: "5",
-    label: "Contact-Us",
+    id: "4",
+    label: "Contact Us",
     path: "/ride/Reach-Us",
+  },
+  {
+    id: "5",
+    label: "Bookings",
+    path: "/ride/bookings",
+  },
+];
+
+export const verifyFormControls = [
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "Your Email Address",
+    componentType: "input",
+    type: "email",
+  },
+  {
+    name: "code",
+    label: "Code",
+    placeholder: "Code",
+    componentType: "input",
+    type: "text",
   },
 ];
 
@@ -190,6 +212,20 @@ export const addContactDetails = [
     componentType: "input",
     type: "text",
     placeholder: "Enter Instagram Link",
+  },
+  {
+    label: "Facebook Link",
+    name: "facebook",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Facebook Link",
+  },
+  {
+    label: "Twitter Link",
+    name: "twitter",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Twitter Link",
   },
   {
     label: "Whatsapp Link",

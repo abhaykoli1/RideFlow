@@ -67,14 +67,6 @@ function AdminDashboard() {
         });
   }
 
-  // function handleDelete(getCurrentId) {
-  //   console.log("get Id", getCurrentId);
-  //   dispatch(deleteDashboardContent(getCurrentId)).then((data) => {
-  //     if (data?.payload?.success) {
-  //       dispatch(fetchDashboardContent());
-  //     }
-  //   });
-  // }
   function handleDeleteAll() {
     dispatch(deleteAllDashboardContent()).then((data) => {
       if (data?.payload?.success) {
@@ -102,11 +94,7 @@ function AdminDashboard() {
 
   return (
     <Fragment className="bg-white text-black h-[100vh]">
-      <div className="mb-5  w-full flex justify-between items-center">
-        <h1 className="text-3xl text-slate-800 font-bold ">Dashboard </h1>
-      </div>
       <div className="max-w-[750px mx-aut w-full ">
-        {/* <div className="grid gap-10 grid-cols-1 md:grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"> */}
         <div>
           {DashboardContent && DashboardContent.length > 0 ? (
             DashboardContent.map((content, index) => (
