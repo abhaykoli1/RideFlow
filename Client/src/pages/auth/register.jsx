@@ -77,14 +77,13 @@ function AuthRegister() {
       dispatch(registerUser(formData)).then((data) => {
         if (data?.payload?.success) {
           toast({
-            title: "Success",
-            description:
-              "Registration successful! Please check your email to verify your account.",
+            title: "Registration successful!",
+            description: data?.payload?.message,
           });
         } else {
           toast({
-            title: "Error",
-            description: data?.payload?.message || "Registration failed.",
+            title: "Registration failed.",
+            description: data?.payload?.message,
             variant: "destructive",
           });
         }

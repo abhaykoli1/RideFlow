@@ -59,7 +59,6 @@ const getRideDetails = async (req, res) => {
       data: ride,
     });
   } catch (e) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "Some error occured",

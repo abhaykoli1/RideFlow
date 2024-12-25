@@ -2,7 +2,6 @@ import config from "@/store/config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Initial state for the contact slice
 const initialState = {
   isLoading: false,
   contact: null,
@@ -50,52 +49,14 @@ export const addContactQuery = createAsyncThunk(
 //   }
 // );
 
-// // Async thunk to delete a contact by ID
-// export const deleteContactQuery = createAsyncThunk(
-//   "contacts/deleteContactQuery",
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       await axios.delete(`${config.API_URL}/user/contact/delete/${id}`);
-//       return id; // Return the deleted contact's ID
-//     } catch (error) {
-//       return rejectWithValue(
-//         error.response ? error.response.data : error.message
-//       );
-//     }
-//   }
-// );
-
-// Async thunk to fetch all contacts with pagination support
-// export const fetchAllContactQuery = createAsyncThunk(
-//   "contacts/fetchAllContactQuery",
-//   async (paginationParams, { rejectWithValue }) => {
-//     try {
-//       const { page = 1, limit = 10 } = paginationParams; // Default pagination
-//       const response = await axios.get(
-//         `${config.API_URL}/user/contact/fetchAll`, // API URL
-//         {
-//           params: { page, limit }, // Sending pagination params
-//         }
-//       );
-//       return response.data; // Return the full response object, including data, success message, etc.
-//     } catch (error) {
-//       return rejectWithValue(
-//         error.response ? error.response.data : error.message
-//       );
-//     }
-//   }
-// );
 export const fetchAllContactQuery = createAsyncThunk(
   "contact/fetchAllContactQuery",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/contact/fetchAll`
-      );
+      const response = await axios.get(`${config.API_URL}/contact/fetchAll`);
 
-      return response.data; // The data includes all contacts now
+      return response.data;
     } catch (error) {
-      // Handle errors and return the error message
       return rejectWithValue(
         error.response ? error.response.data : error.message
       );
@@ -113,18 +74,11 @@ export const deleteContact = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message); // Payload for error case
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-// export const deleteRide = createAsyncThunk("/Rides/deleteRide", async (id) => {
-//   const result = await axios.delete(`${config.API_URL}/contact/delete/${id}`);
-
-//   return result?.data;
-// });
-
-// Create the slice to handle state updates
 const contactSlice = createSlice({
   name: "contact",
   initialState,

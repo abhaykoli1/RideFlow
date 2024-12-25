@@ -27,7 +27,6 @@ import AdminBookings from "./pages/admin-view/AdminBookings";
 import AdminUsers from "./pages/admin-view/AdminUsers";
 import Bookings from "./pages/User-view/ride-Bookings";
 import ContactList from "./pages/admin-view/NeedAssist";
-import OTP from "./pages/auth/otp";
 import VerifyEmail from "./pages/auth/verify";
 import ForgotPassword from "./pages/auth/forgetPassword";
 import ResetPassword from "./pages/auth/resetPassword";
@@ -72,11 +71,9 @@ function App() {
         >
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
-          <Route path="/auth/verify-email/:token" element={<VerifyEmail />} />
+          <Route path="verify-email/:token" element={<VerifyEmail />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password/:token" element={<ResetPassword />} />
-
-          <Route path="otp" element={<OTP />} />
         </Route>
         <Route
           path="/admin"

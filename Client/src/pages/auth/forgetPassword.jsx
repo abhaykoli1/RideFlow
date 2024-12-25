@@ -1,6 +1,7 @@
 import AuthContainerPageElements from "@/components/authCompo/AuthContainerPageElements";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { forgotPassword } from "@/store/auth-slice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,15 +9,51 @@ import { useDispatch, useSelector } from "react-redux";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const { toast } = useToast();
+
+  const { isLoading, success } = useSelector((state) => state.auth);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    // Email validation
+    if (!email) {
+      isValid = false;
+      newErrors.vEmail = "Email is required.";
+    } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
+      isValid = false;
+      newErrors.validEmail = "Please enter a valid email address.";
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email) {
-      alert("Email is required!");
-      return;
+    if (validateForm()) {
+      dispatch(forgotPassword(email)).then((data) => {
+        if (data?.payload?.success) {
+          toast({
+            title: "Password reset email sent!",
+            description: "Please check your inbox...",
+          });
+        } else {
+          toast({
+            title: "Ops something happend!",
+            description: "Please try again Later...",
+            variant: "destructive",
+          });
+        }
+      });
+    } else {
+      toast({
+        title: "Please enter a valid email address!",
+        variant: "destructive",
+      });
     }
-    dispatch(forgotPassword(email));
   };
 
   return (
@@ -35,9 +72,12 @@ const ForgotPassword = () => {
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                validateForm();
+                setEmail(e.target.value);
+              }}
               className={`!border-b-2 !border-l-0 !border-t-0 !border-r-0  ${
-                error.email
+                errors.validEmail
                   ? "!border-b-red-500"
                   : /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
                       email
@@ -56,11 +96,7 @@ const ForgotPassword = () => {
           >
             {isLoading ? "Sending..." : "Send Reset Link"}
           </Button>
-          {/* {error && <p className="mt-4 text-red-600 text-sm">{error}</p>} */}
         </form>
-        {/* {successMessage && (
-          <p className="mt-4 text-green-600 text-sm">{successMessage}</p>
-        )}*/}
       </div>
     </section>
   );

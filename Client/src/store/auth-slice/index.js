@@ -7,11 +7,10 @@ const initialState = {
   isLoading: true,
   user: null,
   error: null,
-  allUsers: [], // To store the list of all users
-  successMessage: null,
+  allUsers: [],
+  success: false,
 };
 
-// Register User (Email-based)
 export const registerUser = createAsyncThunk(
   "/auth/register",
   async (formData, { rejectWithValue }) => {
@@ -28,94 +27,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// Forgot Password Async Thunk
-export const forgotPassword = createAsyncThunk(
-  "auth/forgotPassword",
-  async (email, { rejectWithValue }) => {
-    try {
-      if (!email) {
-        throw new Error("Email is required.");
-      }
-
-      const response = await axios.post(
-        `${config.API_URL}/auth/forgot-password`,
-        {
-          email,
-        }
-      );
-
-      return response.data; // Success response
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || "An error occurred.";
-      return rejectWithValue({ message });
-    }
-  }
-);
-
-// Reset Password Async Thunk
-export const resetPassword = createAsyncThunk(
-  "auth/resetPassword",
-  async ({ token, newPassword }, { rejectWithValue }) => {
-    try {
-      if (!token || !newPassword) {
-        throw new Error("Both token and new password are required.");
-      }
-
-      if (newPassword.length < 6) {
-        throw new Error("Password must be at least 6 characters long.");
-      }
-
-      const response = await axios.post(
-        `${config.API_URL}/auth/reset-password`,
-        {
-          token,
-          newPassword,
-        }
-      );
-
-      return response.data; // Success response
-    } catch (error) {
-      const message =
-        error.response?.data?.message || error.message || "An error occurred.";
-      return rejectWithValue({ message });
-    }
-  }
-);
-
-// export const forgotPassword = createAsyncThunk(
-//   "/auth/forgot-password",
-//   async (email, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(
-//         `${config.API_URL}/auth/forgot-password`,
-//         { email }
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
-// export const resetPassword = createAsyncThunk(
-//   "/auth/reset-password",
-//   async ({ token, newPassword }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(
-//         `${config.API_URL}/auth/reset-password`,
-//         {
-//           token,
-//           newPassword,
-//         }
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
 export const verifyEmail = createAsyncThunk(
   "/auth/verify-email",
   async (token, { rejectWithValue }) => {
@@ -126,44 +37,54 @@ export const verifyEmail = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || {
+          success: false,
+          message: "An error occurred while verifying the email.",
+        }
+      );
     }
   }
 );
 
-// export const registerUser = createAsyncThunk(
-//   "/auth/register",
-//   async (formData, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(
-//         `${config.API_URL}/auth/register`,
-//         formData,
-//         {
-//           withCredentials: true,
-//         }
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${config.API_URL}/auth/forgot-password`,
+        {
+          email,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      const message =
+        error.response?.data?.message || error.message || "An error occurred.";
+      return rejectWithValue({ message });
+    }
+  }
+);
 
-// export const verifyEmail = createAsyncThunk(
-//   "/auth/verify-email",
-//   async ({ email, code }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(`${config.API_URL}/auth/verify-email`, {
-//         email,
-//         code,
-//         withCredentials: true,
-//       });
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async ({ token, newPassword }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${config.API_URL}/auth/reset-password`,
+        {
+          token,
+          newPassword,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      const message =
+        error.response?.data?.message || error.message || "An error occurred.";
+      return rejectWithValue({ message });
+    }
+  }
+);
 
 export const loginUser = createAsyncThunk(
   "/auth/login",
@@ -268,15 +189,9 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = null;
+        state.user = action.payload.user || null;
         state.isAuthenticated = false;
-        // if (action.payload.success) {
-        //   state.user = action.payload.user;
-        //   state.isAuthenticated = false;
-        // } else {
-        //   state.user = null;
-        //   state.isAuthenticated = false;
-        // }
+        state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -284,6 +199,73 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload;
       })
+      // verify
+      .addCase(verifyEmail.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(verifyEmail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.success = action.payload.success; // Use response success flag
+        if (action.payload.success) {
+          state.user = action.payload.user || null; // Handle user data if returned
+          state.isAuthenticated = true; // Update authentication status
+          state.error = null;
+        } else {
+          state.user = null;
+          state.isAuthenticated = false;
+          state.error = action.payload.message || "Verification failed";
+        }
+      })
+      .addCase(verifyEmail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.success = false;
+        state.isAuthenticated = false;
+        state.error = action.payload.message || "An error occurred.";
+      })
+      // Verify Email
+      // .addCase(verifyEmail.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      //   state.success = false; // Reset success when a new request starts
+      // })
+      // .addCase(verifyEmail.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.success = action.payload.success; // Update success based on the response
+      //   if (action.payload.success) {
+      //     state.user = action.payload.user;
+      //     state.isAuthenticated = true;
+      //     state.error = null;
+      //   } else {
+      //     state.user = null;
+      //     state.isAuthenticated = false;
+      //     state.error = action.payload.message || "Verification failed";
+      //   }
+      // })
+      // .addCase(verifyEmail.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.success = false;
+      //   state.isAuthenticated = false;
+      //   state.error = action.payload;
+      // })
+      // .addCase(verifyEmail.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      // })
+      // .addCase(verifyEmail.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.user = action.payload.success ? action.payload.user : null;
+      //   state.isAuthenticated = !!action.payload.success; // Authenticate only if success
+      //   state.error = action.payload.success
+      //     ? null
+      //     : action.payload.message || "Verification failed";
+      // })
+      // .addCase(verifyEmail.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isAuthenticated = false;
+      //   state.error = action.payload;
+      // })
       .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -300,70 +282,16 @@ const authSlice = createSlice({
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.successMessage = null;
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.successMessage = action.payload.message;
+        state.success = action.payload.message; // Assume API returns success message
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message || "Something went wrong";
       })
-      // Forgot Password
-      // .addCase(forgotPassword.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(forgotPassword.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      // })
-      // .addCase(forgotPassword.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
-      // // Reset Password
-      // .addCase(resetPassword.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(resetPassword.fulfilled, (state) => {
-      //   state.isLoading = false;
-      // })
-      // .addCase(resetPassword.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
 
-      // Email Verification
-      .addCase(verifyEmail.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      // .addCase(verifyEmail.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isAuthenticated = true;
-      //   state.error = null;
-      // })
-      // .addCase(verifyEmail.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isAuthenticated = false;
-      //   state.error = action.payload || "Something went wrong";
-      // })
-
-      .addCase(verifyEmail.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (action.payload.success) {
-          state.user = action.payload.user;
-          state.isAuthenticated = true;
-        } else {
-          state.user = null;
-          state.isAuthenticated = false;
-        }
-      })
-      .addCase(verifyEmail.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = false;
-        state.error = action.payload;
-      })
       // .addCase(verifyEmail.pending, (state) => {
       //   state.isLoading = true;
       //   state.error = null;

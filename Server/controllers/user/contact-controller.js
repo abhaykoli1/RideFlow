@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Contact = require("../../models/contact");
 
 // Add a new contact query
@@ -27,32 +26,6 @@ const addContactQuery = async (req, res) => {
     });
   }
 };
-
-// Edit an existing contact query by ID
-// const editContactQuery = async (req, res) => {
-//   const { id } = req.params;
-//   const { name, email, phone, message } = req.body;
-
-//   try {
-//     const updatedContact = await Contact.findByIdAndUpdate(
-//       id,
-//       { name, email, phone, message },
-//       { new: true } // Return the updated document
-//     );
-
-//     if (!updatedContact) {
-//       return res.status(404).json({ message: "Contact not found" });
-//     }
-
-//     res
-//       .status(200)
-//       .json({ message: "Contact updated successfully", data: updatedContact });
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ message: "Error editing contact", error: error.message });
-//   }
-// };
 
 // Delete a contact query by ID
 const deleteContactQuery = async (req, res) => {

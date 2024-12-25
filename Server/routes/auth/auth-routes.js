@@ -18,14 +18,14 @@ const {
 const router = express.Router();
 
 router.post("/register", registerUser);
-router.post("/verify-email", verifyEmail);
-
+router.get("/verify-email/:token", verifyEmail);
+// router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/google-login", googleAuth);
 router.get("/admin/users", authMiddleware, fetchAllUsers);
-router.post("/forgot-password", requestPasswordReset); // Request password reset
-router.post("/reset-password", resetPassword); // Reset password
+router.post("/forgot-password", requestPasswordReset);
+router.post("/reset-password", resetPassword);
 
 router.get("/check-auth", authMiddleware, (req, res) => {
   const user = req.user;

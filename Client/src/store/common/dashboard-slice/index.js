@@ -44,9 +44,7 @@ export const fetchDashboardContent = createAsyncThunk(
   "/Dashboard/fetchDashboardContent",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/dashboard/get`
-      );
+      const response = await axios.get(`${config.API_URL}/dashboard/get`);
       return response.data;
     } catch (error) {
       console.error("Error fetching dashboard content:", error.message);
@@ -59,9 +57,7 @@ export const fetchContactInfo = createAsyncThunk(
   "/Dashboard/fetchContactInfo",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/dashboard/getInfo`
-      );
+      const response = await axios.get(`${config.API_URL}/dashboard/getInfo`);
       return response.data;
     } catch (error) {
       console.error("Error fetching dashboard content:", error.message);

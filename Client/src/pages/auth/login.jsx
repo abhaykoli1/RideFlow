@@ -78,7 +78,7 @@ function AuthLogin() {
   return (
     <section className="mx-auto w-full max-w-md duration-500">
       <AuthContainerPageElements
-        HaveAccount={"Create a new Account? "}
+        HaveAccount={"Create a new Account?"}
         Auth={"LOG IN"}
         GoToAuth={"Register"}
         Google={true}

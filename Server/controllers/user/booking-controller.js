@@ -1,6 +1,7 @@
 const Booking = require("../../models/booking");
 const User = require("../../models/User");
 const Ride = require("../../models/Rides");
+const nodemailer = require("nodemailer");
 
 // const bookRide = async (req, res) => {
 //   try {
@@ -94,8 +95,6 @@ const Ride = require("../../models/Rides");
 //   }
 // };
 
-const nodemailer = require("nodemailer");
-
 const bookRide = async (req, res) => {
   try {
     const {
@@ -185,7 +184,7 @@ const bookRide = async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"Ride Flow Rentals" <${process.env.EMAIL_USER}>`,
       to: user.email,
       subject: "Thank You for Booking with Us!",
       html: `<!DOCTYPE html>
@@ -306,7 +305,6 @@ const bookRide = async (req, res) => {
 </html>
 `,
     });
-
     res.status(201).json({
       success: true,
       message: "Your Booking Placed successfully",
@@ -353,7 +351,6 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-// Get bookings by userId (User's own bookings)
 const getUserBookings = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -377,17 +374,14 @@ const getUserBookings = async (req, res) => {
   }
 };
 
-// // Update booking status (for example, to Confirmed or Cancelled)
 const updateBookingStatus = async (req, res) => {
   try {
     const { bookingId, status } = req.body;
 
-    // Validate status
     if (!["Pending", "Confirmed", "Cancelled", "Completed"].includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
 
-    // Update the booking status
     const updatedBooking = await Booking.findByIdAndUpdate(
       bookingId,
       { status },
@@ -408,12 +402,10 @@ const updateBookingStatus = async (req, res) => {
   }
 };
 
-// Delete a booking
 const deleteBooking = async (req, res) => {
   try {
     const { bookingId } = req.params;
 
-    // Delete the booking by ID
     const deletedBooking = await Booking.findByIdAndDelete(bookingId);
 
     if (!deletedBooking) {
@@ -427,7 +419,6 @@ const deleteBooking = async (req, res) => {
   }
 };
 
-// Export the controller functions
 module.exports = {
   bookRide,
   getAllBookings,

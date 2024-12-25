@@ -139,7 +139,7 @@ function UserReviews() {
                         : `${view.review.slice(0, limit)}...`}
                       <a
                         onClick={() => toggleReadMore(index)}
-                        className="text-sm text-blue-500 hover:text-blue-600  ml-1 cursor-pointer"
+                        className="text-sm text-yellow hover:text-tomato  ml-1 cursor-pointer"
                       >
                         {expandedIndexes[index] ? "Read Less" : "Read More"}
                       </a>

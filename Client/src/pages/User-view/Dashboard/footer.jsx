@@ -123,8 +123,6 @@ const Footer = () => {
                 {items.title}
               </h3>
               <p className="border w-44 mb-3  border-[#ffa500]"></p>
-
-              {/* /// */}
               <div className=" cursor-pointer lg:text-lg md:text-md text-sm font-medium  subtitle">
                 <p
                   onClick={() => {

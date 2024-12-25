@@ -8,16 +8,12 @@ export const bookRide = createAsyncThunk(
   async (bookingData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/booking/bookride",
+        `${config.API_URL}/booking/bookride`,
         bookingData
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
-      // if (error.response && error.response.data) {
-      //   return rejectWithValue(error.response.data);
-      // }
-      // throw error;
     }
   }
 );
@@ -27,7 +23,7 @@ export const getAllBookings = createAsyncThunk(
   "userBooking/getAllBookings",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/booking/get`);
+      const response = await axios.get(`${config.API_URL}/booking/get`);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -44,7 +40,7 @@ export const getUserBookings = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/booking/user/${userId}`
+        `${config.API_URL}/booking/user/${userId}`
       );
       return response.data;
     } catch (error) {
@@ -60,13 +56,10 @@ export const updateBookingStatus = createAsyncThunk(
   "userBooking/updateBookingStatus",
   async ({ bookingId, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:8000/api/booking/status`,
-        {
-          bookingId,
-          status,
-        }
-      );
+      const response = await axios.patch(`${config.API_URL}/booking/status`, {
+        bookingId,
+        status,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -84,7 +77,7 @@ export const deleteBooking = createAsyncThunk(
   async (bookingId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/api/booking/delete/${bookingId}`
+        `${config.API_URL}/booking/delete/${bookingId}`
       );
       return { bookingId, message: response.data.message };
     } catch (error) {
@@ -99,14 +92,13 @@ export const deleteBooking = createAsyncThunk(
 
 // Initial state of the booking slice
 const initialState = {
-  isLoading: false, // Tracks loading state
-  bookingDetails: null, // Stores successful booking details
-  allBookings: [], // Stores all bookings (Admin view)
-  userBookings: [], // Stores user-specific bookings
+  isLoading: false,
+  bookingDetails: null,
+  allBookings: [],
+  userBookings: [],
   error: null,
 };
 
-// Redux Slice for booking state
 const bookingSlice = createSlice({
   name: "userBooking",
   initialState,
@@ -125,20 +117,17 @@ const bookingSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      // When booking request is pending (loading state)
       .addCase(bookRide.pending, (state) => {
         state.isLoading = true;
-        state.error = null; // Clear previous errors
+        state.error = null;
       })
-      // When booking is successful (fulfilled state)
       .addCase(bookRide.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.bookingDetails = action.payload; // Save booking details
+        state.bookingDetails = action.payload;
       })
-      // When booking request fails (rejected state)
       .addCase(bookRide.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload; // Save the error message
+        state.error = action.payload;
       })
 
       // Get All Bookings
@@ -194,7 +183,6 @@ const bookingSlice = createSlice({
       })
       .addCase(deleteBooking.fulfilled, (state, action) => {
         state.isLoading = false;
-        // Remove the deleted booking from the state
         state.allBookings = state.allBookings.filter(
           (booking) => booking._id !== action.payload.bookingId
         );

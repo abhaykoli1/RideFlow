@@ -3,7 +3,6 @@ import { Navigate, useLocation } from "react-router-dom";
 function CheckAuth({ isAuthenticated, user, children }) {
   const location = useLocation();
 
-  console.log(user?.role);
   // Define public paths accessible without authentication
   const publicPaths = [
     "/ride/home",
@@ -26,7 +25,7 @@ function CheckAuth({ isAuthenticated, user, children }) {
     return <Navigate to="/ride/home" />;
   } else if (!isAuthenticated) {
     if (
-      !location.pathname.includes("/login") &&
+      !location.pathname.includes("/") &&
       location.pathname !== "/ride/home"
     ) {
       return <Navigate to="/auth/login" />;
@@ -50,9 +49,11 @@ function CheckAuth({ isAuthenticated, user, children }) {
   if (user?.role === "admin" && location.pathname.includes("/ride")) {
     return <Navigate to="/admin" />;
   }
+
   if (!isAuthenticated && location.pathname.includes("/admin")) {
     return <Navigate to="/ride/home" />;
   }
+
   // Restrict non-admin users from accessing "/admin" routes
   if (
     isAuthenticated &&
@@ -71,7 +72,6 @@ function CheckAuth({ isAuthenticated, user, children }) {
     return <Navigate to="/ride/home" />;
   }
 
-  // Render children if all conditions are met
   return <>{children}</>;
 }
 
