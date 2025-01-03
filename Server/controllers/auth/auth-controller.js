@@ -515,20 +515,13 @@ const authMiddleware = async (req, res, next) => {
 
 const fetchAllUsers = async (req, res, next) => {
   try {
-    if (req.user.role !== "admin") {
-      return res.status(403).json({
-        success: false,
-        message: "Access denied. Admin privileges required.",
-      });
-    }
-
     const users = await User.find({}).select("-password -__v");
     res.status(200).json({
       success: true,
       users,
     });
   } catch (err) {
-    next(err); // Passes the error to the centralized error handler
+    next(err);
   }
 };
 
@@ -548,6 +541,13 @@ const requestPasswordReset = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "No user found with this email.",
+      });
+    }
+    if (user.googleId) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "This account is linked with Google. Please log in using Google authentication.",
       });
     }
 
@@ -771,13 +771,20 @@ const googleAuth = async (req, res) => {
       idToken: tokenId,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
-
     const payload = ticket.getPayload();
     const { sub, email, name, picture } = payload;
+
     let user = await User.findOne({ googleId: sub });
 
     if (!user) {
       user = await User.findOne({ email });
+
+      if (user) {
+        return res.status(400).json({
+          success: false,
+          message: "User already exists with this email! Use a different email",
+        });
+      }
 
       if (!user) {
         user = new User({
@@ -810,7 +817,6 @@ const googleAuth = async (req, res) => {
       }
     }
 
-    // Create a JWT token for your own authentication
     const token = jwt.sign(
       {
         id: user._id,

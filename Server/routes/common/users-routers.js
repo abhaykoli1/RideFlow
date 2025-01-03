@@ -2,10 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { getAllUsers } = require("../../controllers/common/users-controller");
+const {
+  fetchAllUsers,
+  updateUserRole,
+} = require("../../controllers/common/users-controller");
 
 const router = express.Router();
 
-router.get("/get", getAllUsers); // `/api/users` will return all users
+router.get("/getList", fetchAllUsers);
+router.put("/updateRole", updateUserRole);
 
 module.exports = router;

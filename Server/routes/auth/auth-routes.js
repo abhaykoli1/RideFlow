@@ -19,11 +19,11 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.get("/verify-email/:token", verifyEmail);
-// router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/google-login", googleAuth);
-router.get("/admin/users", authMiddleware, fetchAllUsers);
+// router.get("/admin/users", authMiddleware, fetchAllUsers);
+router.get("/admin/users", fetchAllUsers);
 router.post("/forgot-password", requestPasswordReset);
 router.post("/reset-password", resetPassword);
 
