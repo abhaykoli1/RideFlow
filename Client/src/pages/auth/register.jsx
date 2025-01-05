@@ -147,7 +147,7 @@ function AuthRegister() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div className="mx-auto w-full max-w-md space-y-6 bg-white text-slate-800">
       <AuthContainerPageElements
         HaveAccount={"Already have an Account? "}
         Auth={"REGISTER"}
@@ -277,42 +277,13 @@ function AuthRegister() {
           )}
         </div>
 
-        <Button className="w-full invertBg !font-bold mt-3" type="submit">
+        <Button
+          className="w-full invertB bg-slate-800 text-white !font-bold mt-3"
+          type="submit"
+        >
           Register
         </Button>
       </form>
-
-      {/* //       
-//       <form onSubmit={onVerifySubmit}>
-//         <div>
-//           <div
-//             htmlFor="otp"
-//             className="font-bold  text-[18px] text-center  w-full"
-//           >
-//             Verification Code
-//           </div>
-//           <div className="flex items-cente justify-center gap-2 mt-4">
-//             {code.map((value, index) => (
-//               <Input
-//                 key={index}
-//                 id={`otp-${index}`}
-//                 type="text"
-//                 maxLength="1"
-//                 value={value}
-//                 onChange={(e) => handleVerifyInputChange(e.target.value, index)}
-//                 onKeyUp={(e) => handleKeyUp(e, index)}
-//                 className="w-10 h-10 text-center border rounded-md text-lg focus:!border-yellow  focus:outline-no "
-//               />
-//             ))}
-//           </div>
-//           {otpError && (
-//             <p className="text-red-500 text-center text-sm mt-2">{otpError}</p>
-//           )}
-//         </div>
-//         <Button className="w-full invertBg !font-bold mt-3" type="submit">
-//           Verify
-//         </Button>
-//       </form> */}
     </div>
   );
 }

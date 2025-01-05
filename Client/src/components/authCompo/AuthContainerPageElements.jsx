@@ -46,7 +46,8 @@ const AuthContainerPageElements = ({
     <div className="">
       <div className="flex">
         <img
-          src={isDarkMode === true ? rideFlowLargeLight : rideFlowLargeDark}
+          src={rideFlowLargeDark}
+          // src={isDarkMode === true ? rideFlowLargeLight : rideFlowLargeDark}
           alt="logo"
           className={`h-[26px] w-ful mr-4 mb-3  z-0`}
         />

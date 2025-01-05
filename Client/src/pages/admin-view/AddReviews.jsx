@@ -114,7 +114,7 @@ const AddReviews = () => {
           className="overflow-auto !bg-white !text-slate-800"
         >
           <SheetHeader>
-            <SheetTitle>
+            <SheetTitle className="text-slate-800">
               {currentEditedId !== null ? "Edit Review" : "Add New Review"}
             </SheetTitle>
           </SheetHeader>
@@ -130,6 +130,9 @@ const AddReviews = () => {
           <div className="py-6">
             <CommonForm
               onSubmit={onSubmit}
+              inputCss={"text-slate-800"}
+              lableCss={"text-slate-800 font-semibold"}
+              textAreaCss={"text-slate-800"}
               formData={formData}
               setFormData={setFormData}
               buttonCss={"bg-slate-800 text-white"}

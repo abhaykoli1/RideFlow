@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Home from "../../../assets/Home.png";
+import Home from "../../../assets/Home.webp";
 import {
   Accordion,
   AccordionContent,

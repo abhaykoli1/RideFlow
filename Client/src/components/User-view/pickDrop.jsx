@@ -21,6 +21,12 @@ const PickDrop = () => {
       variant: "destructive",
     });
   }
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   return (
     <div className="mx-auto container  lg:max-w-[750px] md:max-w-[650px]  max-w-[400px] lg:px-5 md:px-3 sm:px-2  pt-3  Border border-tomato rounded-lg bg-[rgba(0,0,0,0.5)]">
       <div className="flex lg:flex-row  md:flex-row sm:flex-col flex-col flex-1 w-100 justify-around lg:items-center">
@@ -63,7 +69,7 @@ const PickDrop = () => {
                 setLoading(true);
                 setTimeout(() => {
                   goTop();
-                  navigate("/ride/listing");
+                  navigate("/listing");
                 }, 800);
               }}
               className="bg-transparent SearchBt Border text-[#b8b8b8] hover:border-gray-400 hover:text-[#fff] w-[100%] -mt-2 "

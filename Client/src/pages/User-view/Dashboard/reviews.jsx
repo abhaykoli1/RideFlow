@@ -85,7 +85,12 @@ function UserReviews() {
   };
 
   return (
-    <section id="revies" className="bg-cover bg-top bg-black">
+    <section
+      id="revies"
+      className={` ${
+        ReviewsList.length > 0 ? "flex" : "hidden"
+      } bg-cover bg-top bg-black`}
+    >
       <div className="bg-[url('http://res.cloudinary.com/dulkmeadg/image/upload/v1730099191/vq0a5xtthaml3m8g1zch.jpg')] bg-cover">
         <div className=" bg-[rgba(0,0,0,0.5)] pt-4  pb-4  px-3">
           <div className="titleHolder">
@@ -168,16 +173,6 @@ function UserReviews() {
               />
             </div>
           </div>
-          {/* <div className="flex justify-center">
-            <Button
-              onClick={() => setOpen(true)}
-              variant="outline"
-              className="text-center border-white hover:!border-tomato bg-black lg:h-11 rounded-full text-white hover:!text-tomat duration-500"
-            >
-              <Plus color="white" />
-              <p className="pl-2 text-[14px]  ">Add Yours</p>
-            </Button>
-          // </div> */}
         </div>
       </div>
 

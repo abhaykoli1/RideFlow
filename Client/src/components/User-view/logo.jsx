@@ -2,19 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import rideFlowLargeLight from "../../assets/logo/rideFlowLargeLight2.png";
 import rideFlowSmallYellowDark from "../../assets/logo/rideFlowSmallYellowDark.png";
-import rideFlowSmallYellowLight from "../../assets/logo/rideFlowSmallYellowLight.png";
-import rideFlowSmallWhite from "../../assets/logo/rideFlowSmallWhite.png";
-import rideFlowSmallBlack from "../../assets/logo/rideFlowSmallBlack.png";
 
 import { Label } from "../ui/label";
 const Logo = ({ L2, B, Path }) => {
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   const navigate = useNavigate();
   return (
     <div
       className="flex cursor-pointer"
       onClick={() => {
         goTop();
-        navigate("/ride/home");
+        navigate("/");
       }}
     >
       <div className="flex items-center">

@@ -104,18 +104,36 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const googleAuth = createAsyncThunk(
-  "/auth/google-login",
+// export const googleAuth = createAsyncThunk(
+//   "/auth/google-login",
+//   async (tokenId, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.post(
+//         `${config.API_URL}/auth/google-login`,
+//         { tokenId },
+//         { withCredentials: true }
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
   async (tokenId, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${config.API_URL}/auth/google-login`,
+        `${config.API_URL}/auth/google`,
         { tokenId },
         { withCredentials: true }
       );
+      console.log("first");
       return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
+    } catch (response) {
+      // console.log("error Response", response.response.data.message);
+      return response.response.data;
     }
   }
 );
@@ -224,48 +242,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload.message || "An error occurred.";
       })
-      // Verify Email
-      // .addCase(verifyEmail.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      //   state.success = false; // Reset success when a new request starts
-      // })
-      // .addCase(verifyEmail.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.success = action.payload.success; // Update success based on the response
-      //   if (action.payload.success) {
-      //     state.user = action.payload.user;
-      //     state.isAuthenticated = true;
-      //     state.error = null;
-      //   } else {
-      //     state.user = null;
-      //     state.isAuthenticated = false;
-      //     state.error = action.payload.message || "Verification failed";
-      //   }
-      // })
-      // .addCase(verifyEmail.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.success = false;
-      //   state.isAuthenticated = false;
-      //   state.error = action.payload;
-      // })
-      // .addCase(verifyEmail.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      // })
-      // .addCase(verifyEmail.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.user = action.payload.success ? action.payload.user : null;
-      //   state.isAuthenticated = !!action.payload.success; // Authenticate only if success
-      //   state.error = action.payload.success
-      //     ? null
-      //     : action.payload.message || "Verification failed";
-      // })
-      // .addCase(verifyEmail.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isAuthenticated = false;
-      //   state.error = action.payload;
-      // })
+      // forget password
       .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -291,22 +268,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload?.message || "Something went wrong";
       })
-
-      // .addCase(verifyEmail.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      // })
-      // .addCase(verifyEmail.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   if (action.payload.success) {
-      //     state.user = action.payload.user || null; // Optional
-      //     state.isAuthenticated = true; // If needed
-      //   }
-      // })
-      // .addCase(verifyEmail.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
 
       // Login
       .addCase(loginUser.pending, (state) => {
@@ -375,8 +336,22 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload || "Failed to fetch users";
       })
+
       // Google login fulfilled case
-      .addCase(googleAuth.fulfilled, (state, action) => {
+      // .addCase(googleAuth.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      // })
+      // .addCase(googleAuth.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.user = action.payload.user;
+      // })
+      // .addCase(googleAuth.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.error = action.payload;
+      // });
+
+      .addCase(googleLogin.fulfilled, (state, action) => {
         state.isLoading = false;
         if (action.payload.success) {
           state.user = action.payload.user;
@@ -386,7 +361,7 @@ const authSlice = createSlice({
           state.isAuthenticated = false;
         }
       })
-      .addCase(googleAuth.rejected, (state, action) => {
+      .addCase(googleLogin.rejected, (state, action) => {
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;

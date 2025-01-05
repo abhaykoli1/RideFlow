@@ -22,31 +22,37 @@ import { Label } from "../ui/label";
 
 function MenuItems({ setSidebar, setHeaderContent }) {
   const navigate = useNavigate();
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   const UserNavItems = [
     {
       id: "1",
       label: "Home",
-      path: "/ride/home",
+      path: "/",
       icon: <LayoutDashboard size={26} />,
     },
     {
       id: "2",
       label: "About",
-      path: "/ride/about",
+      path: "/about",
       icon: <AlbumIcon size={26} />,
     },
 
     {
       id: "4",
       label: "Rides",
-      path: "/ride/listing",
+      path: "/listing",
       icon: <Bike size={26} />,
     },
     {
       id: "5",
       label: "Contact Us",
-      path: "/ride/Reach-Us",
+      path: "/Reach-Us",
       icon: <Contact size={26} />,
     },
   ];
@@ -108,7 +114,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
             <label
               onClick={() => {
                 goTop();
-                navigate("/ride/bookings");
+                navigate("/bookings");
 
                 setSidebar ? setSidebar(false) : null;
               }}

@@ -12,7 +12,6 @@ import React, { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 import rideFlowLargeDark from "../../assets/logo/rideFlowLargeDark2.png";
-import { Separator } from "../ui/separator";
 
 const adminSidebarMenuItems = [
   {

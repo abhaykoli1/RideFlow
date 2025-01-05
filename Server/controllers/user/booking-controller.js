@@ -189,120 +189,141 @@ const bookRide = async (req, res) => {
       subject: "Thank You for Booking with Us!",
       html: `<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Confirmation</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
-    p ,li{
-      color: #000;
-    }
-    .email-container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
-    }
-    .email-header {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 25px 20px;
-    }
-    .email-header h1 {
-      font-size: 28px;
-      margin: 0;
-    }
-    .email-body {
-    border: 1px solid #333;
-      padding: 20px 20px;
-    }
-    .email-body p {
-      font-size: 16px;
-      margin: 0 0 15px;
-    }
-    .email-body .highlight {
-      color: #ffa600;
-      font-weight: bold;
-    }
-    .email-body .bike-image {
-      text-align: center;
-     
-    }
-    .email-body .bike-image img {
-      width: 90%;
-      height:  auto;
-      
-    }
-    .details-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px 0;
-    }
-    .details-list li {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    .details-list li b {
-      color: #ffa600;
-    }
-    .email-footer {
-      background-color: #333;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-    }
-    .email-footer a {
-      color: #ffa600;
-      text-decoration: none;
-    }
-    .email-footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="email-container">
-    <div class="email-header">
-      <h1>Thank You for Booking!</h1>
-    </div>
-    <div class="email-body">
-      <p>Dear <span class="highlight">${user.userName}</span>,</p>
-      <p>Your booking for the bike <b class="highlight">${bike.rideName}'s</b> booking has been placed successfully. Below are your booking details:</p>
-      <div class="bike-image">
-        <img src="${bike.image}" alt="Bike Image">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #222;
+        color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+      }
+      .header img {
+        max-width: 140px;
+      }
+      .body {
+        padding: 20px;
+        color: #fff;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+      .body p {
+        margin-bottom: 15px;
+      }
+      .body .highlight {
+        color: #ffa600;
+        font-weight: bold;
+      }
+      .body .bike-image {
+        padding: 5px;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .body .bike-image img {
+        width: 90%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .details-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px;
+      }
+      .details-list li {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .details-list li b {
+        color: #ffa600;
+      }
+      .thank-you {
+        text-align: center;
+        font-style: italic;
+        margin-top: 20px;
+      }
+      .footer {
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 30px;
+      }
+      .footer a {
+        color: #ffa600;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .output {
+        text-transform: capitalize;
+      }
+      .dloutput {
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          src="http://res.cloudinary.com/dulkmeadg/image/upload/v1735155737/pph48xmmwykrbhle7uzo.png"
+          alt="RideFlow Logo"
+        />
       </div>
-      <ul class="details-list">
-      <li><b>Brand: </b> ${bike.brand}</li>
-        <li><b>Bike Name: </b> ${bike.rideName}</li>
-        <li><b>Booking Date: </b></li>
-        <ul>
-          <li><b>From: </b> ${bookedTimeSlots.from}</li>
-          <li><b>To: </b> ${bookedTimeSlots.to}</li>
+      <div class="body">
+        <p>Dear <span class="highlight output"> ${user.userName.replace(
+          /(_\d+)$/,
+          ""
+        )}</span>,</p>
+        <p>
+          Your booking for the bike
+          <b class="highlight output">${bike.rideName}'s</b> has been placed
+          successfully. Below are your booking details:
+        </p>
+        <div class="bike-image">
+          <img src="${bike.image}" alt="Bike Image" />
+        </div>
+        <ul class="details-list">
+          <li>
+            <b>Bike Name: </b> <span class="output">${bike.rideName}</span>
+          </li>
+          <li><b>Brand: </b> <span class="output">${bike.brand}</span></li>
+          <li><b>DL: </b> <span class="dloutput">${dl}</span></li>
+          <li><b>Phone No.: </b> ${phone}</li>
+          <li><b>Pick Up: </b> ${bookedTimeSlots.from}</li>
+          <li><b>Drop Off: </b> ${bookedTimeSlots.to}</li>
+          <li><b>Total Days: </b> ${totalDays}</li>
+          <li><b>Total Amount: </b> ₹ ${totalAmount}</li>
         </ul>
-        <li><b>Total Days: </b> ${totalDays}</li>
-        <li><b>Total Amount: </b> ₹${totalAmount}</li>
-      </ul>
-      <p style="text-align: center;"> We’ll be in touch shortly with more information.</p>
-      <p style="text-align: center;"> Thank you for choosing us. Have a safe and enjoyable ride!</p>
+        <p class="thank-you">
+          Thank you for choosing RideFlow. Have a safe and enjoyable ride!
+        </p>
+      </div>
+      <div class="footer">
+        &copy; 2025 <a href="#">RideFlow Rentals</a>. All rights reserved.
+      </div>
     </div>
-    <div class="email-footer">
-      &copy; 2025 <a href="#">RideFlow Rentals</a>. All rights reserved.
-    </div>
-  </div>
-</body>
+  </body>
 </html>
+
 `,
     });
     res.status(201).json({

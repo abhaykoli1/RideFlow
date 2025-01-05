@@ -11,154 +11,6 @@ dotenv.config();
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
-// const registerUser = async (req, res) => {
-//   const { userName, email, password } = req.body;
-
-//   try {
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "User already exists.",
-//       });
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 12);
-//     const verificationToken = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit code
-//     const verificationTokenExpiry = Date.now() + 24 * 60 * 60 * 1000; // Expires in 24 hours
-
-//     const pendingUser = new PendingUser({
-//       userName,
-//       email,
-//       password: hashedPassword,
-//       verificationToken,
-//       verificationTokenExpiry,
-//     });
-
-//     await pendingUser.save();
-
-//     const transporter = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         user: process.env.EMAIL_USER,
-//         pass: process.env.EMAIL_PASS,
-//       },
-//     });
-
-//     await transporter.sendMail({
-//       from: process.env.EMAIL_USER,
-//       to: email,
-//       subject: " Complete Your Registration – Verify Your Email RideFlow",
-//       html: `
-//           <!DOCTYPE html>
-// <html>
-//   <body>
-//     <div class="email-container">
-//       <div class="header">
-//         <h1>Verify Your Email</h1>
-//       </div>
-//       <div class="content">
-//          <p>Hi <strong class="name">${userName}</strong>,</p>
-//         <p>
-//           Thank you for signing up! To complete your registration, please use
-//           the verification code below:
-//         </p>
-//         <div class="otp">${verificationToken}</div>
-//         <p style="margin-top: 20px;">This code is valid for the next 10 minutes.</p>
-//         <p>
-//           If you did not request this verification, please ignore this email or
-//           contact our support team for help.
-//         </p>
-
-//       </div>
-//       <div class="footer">
-//         <p>Need help? Contact us at support@example.com.</p>
-//         <p>&copy; 2024 RideFLow. All Rights Reserved.</p>
-//       </div>
-//     </div>
-//   </body>
-// </html>
-//       `,
-//     });
-//     res.status(200).json({
-//       success: true,
-//       message: "Registration successful! Please verify your email.",
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "An error occurred during registration.",
-//     });
-//   }
-// };
-
-// const verifyEmail = async (req, res) => {
-//   const { email, code } = req.body;
-
-//   try {
-//     const pendingUser = await PendingUser.findOne({
-//       email,
-//       verificationToken: code,
-//       verificationTokenExpiry: { $gt: Date.now() },
-//     });
-
-//     if (!pendingUser) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Invalid or expired verification code.",
-//       });
-//     }
-
-//     const newUser = new User({
-//       userName: pendingUser.userName,
-//       image: pendingUser.userName[0],
-//       role: "user",
-//       email: pendingUser.email,
-//       password: pendingUser.password,
-//     });
-
-//     await newUser.save();
-
-//     await PendingUser.deleteOne({ email });
-
-//     const token = jwt.sign(
-//       {
-//         id: newUser._id,
-//         role: newUser.role,
-//         image: newUser.userName[0],
-//         email: newUser.email,
-//         userName: newUser.userName,
-//       },
-//       process.env.CLIENT_SECRET_KEY,
-//       { expiresIn: process.env.JWT_EXPIRATION_TIME }
-//     );
-
-//     res
-//       .cookie("token", token, {
-//         httpOnly: true,
-//         secure: process.env.NODE_ENV === "production",
-//       })
-//       .json({
-//         success: true,
-//         message: "Email verified successfully and logged in!",
-//         user: {
-//           id: newUser._id,
-//           role: newUser.role,
-//           image: newUser.userName[0],
-//           email: newUser.email,
-//           userName: newUser.userName,
-//         },
-//       });
-//   } catch (error) {
-//     console.error("Email verification error:", error);
-//     res.status(500).json({
-//       success: false,
-//       message: "An error occurred during email verification.",
-//     });
-//   }
-// };
-
 const registerUser = async (req, res) => {
   const { userName, email, password } = req.body;
 
@@ -297,6 +149,9 @@ const registerUser = async (req, res) => {
       text-align: center;
       font-style: italic;
     }
+      .output {
+        text-transform: capitalize;
+      }
   </style>
 </head>
 <body>
@@ -305,7 +160,7 @@ const registerUser = async (req, res) => {
       <img src="http://res.cloudinary.com/dulkmeadg/image/upload/v1735155737/pph48xmmwykrbhle7uzo.png" alt="RideFlow Logo" />
     </div>
     <div class="body">
-      <p class="nameCon"><strong>Hi</strong><strong class="name"> ${userName}</strong>,</p>
+      <p class="nameCon"><strong>Hi</strong><strong class="name output"> ${userName}</strong>,</p>
       <p>Thank you for signing up for RideFlow, your trusted bike rental service!</p>
       <p>To complete your registration and start riding, please verify your email address by pressing the button below:</p>
       <div class="button-container">
@@ -423,11 +278,11 @@ const loginUser = async (req, res) => {
       });
     }
 
-    if (checkUser.googleId) {
+    if (checkUser.googleId && !checkUser.password) {
       return res.status(403).json({
         success: false,
         message:
-          "This account is linked with Google. Please log in using Google authentication.",
+          "This account is linked with Google. Use sign in with google or change password",
       });
     }
 
@@ -543,16 +398,9 @@ const requestPasswordReset = async (req, res) => {
         message: "No user found with this email.",
       });
     }
-    if (user.googleId) {
-      return res.status(403).json({
-        success: false,
-        message:
-          "This account is linked with Google. Please log in using Google authentication.",
-      });
-    }
 
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const tokenExpiry = Date.now() + 3600000; // 1 hour from now
+    const tokenExpiry = Date.now() + 3600000;
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = tokenExpiry;
@@ -568,7 +416,6 @@ const requestPasswordReset = async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
     });
-    // const logoUrl = "http://localhost:8000/static/logo.png";
 
     const logo =
       "https://drive.google.com/file/d/18RCIU6TMcB5YqcKJ5bBnsC_9kallIkxR/view?usp=drive_link";
@@ -660,6 +507,9 @@ const requestPasswordReset = async (req, res) => {
       text-align: center;
       font-style: italic;
     }
+    .output {
+        text-transform: capitalize;
+    }
   </style>
             </head>
           
@@ -669,7 +519,7 @@ const requestPasswordReset = async (req, res) => {
       <img src="http://res.cloudinary.com/dulkmeadg/image/upload/v1735155737/pph48xmmwykrbhle7uzo.png" alt="RideFlow Logo" />
     </div>
     <div class="body">
-      <p class="nameCon"><strong>Hi</strong><strong class="name"> ${user.userName.replace(
+      <p class="nameCon"><strong>Hi</strong><strong class="name output"> ${user.userName.replace(
         /(_\d+)$/,
         ""
       )}</strong>,</p>
@@ -766,7 +616,14 @@ const resetPassword = async (req, res) => {
 const googleAuth = async (req, res) => {
   const { tokenId } = req.body;
 
+  if (!tokenId) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Token ID is required" });
+  }
+
   try {
+    // Verify Google ID Token
     const ticket = await client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.GOOGLE_CLIENT_ID,
@@ -774,69 +631,168 @@ const googleAuth = async (req, res) => {
     const payload = ticket.getPayload();
     const { sub, email, name, picture } = payload;
 
-    let user = await User.findOne({ googleId: sub });
+    let pendingUser = await PendingUser.findOne({ email });
+    if (pendingUser) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "This email is already in the verification process. Please check your inbox.",
+      });
+    }
 
-    if (!user) {
-      user = await User.findOne({ email });
+    // Find or create user
+    let user =
+      (await User.findOne({ googleId: sub })) ||
+      (await User.findOne({ email }));
 
-      if (user) {
+    if (user) {
+      if (!user.googleId) {
+        user.googleId = sub; // Link Google account to existing user
+        await user.save();
+      } else if (user.email !== email) {
         return res.status(400).json({
           success: false,
           message: "User already exists with this email! Use a different email",
         });
       }
-
-      if (!user) {
-        user = new User({
-          email,
-          role: "user",
-          userName: name,
-          googleId: sub,
-          image: picture,
-        });
-
-        const existingUserName = await User.findOne({ userName: name });
-
-        if (existingUserName) {
-          let counter = 1;
-          let newUserName = `${name}_${counter}`;
-
-          while (await User.findOne({ userName: newUserName })) {
-            counter++;
-            newUserName = `${name}_${counter}`;
-          }
-          user.userName = newUserName;
-        }
-
-        await user.save();
-      } else {
-        if (!user.googleId) {
-          user.googleId = sub;
-          await user.save();
-        }
-      }
+    } else {
+      user = await createNewUser(email, name, sub, picture);
     }
 
+    // Generate JWT Token
     const token = jwt.sign(
       {
         id: user._id,
         role: user.role,
         email: user.email,
+        image: picture,
         userName: user.userName,
-        image: user.image,
       },
       process.env.CLIENT_SECRET_KEY,
       { expiresIn: process.env.JWT_EXPIRATION_TIME }
     );
 
     res
-      .cookie("token", token, { httpOnly: true })
-      .json({ success: true, message: "Logged in successfully", user });
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+      })
+      .json({
+        success: true,
+        message: "Logged in successfully",
+        user: {
+          email: user.email,
+          role: user.role,
+          id: user._id,
+          userName: user.userName,
+          image: picture,
+        },
+      });
   } catch (error) {
-    console.error("Google Authentication Error:", error);
-    res.status(400).json({ success: false, message: "Google login failed" });
+    console.error("Google Authentication Error:", error.stack);
+    res.status(500).json({ success: false, message: error });
   }
 };
+
+// Helper Function to Create New User
+const createNewUser = async (email, name, googleId, picture) => {
+  let userName = name;
+  const existingUsers = await User.find({
+    userName: new RegExp(`^${name}(_\\d+)?$`),
+  });
+
+  if (existingUsers.length) {
+    const counter = existingUsers.length + 1;
+    userName = `${name}_${counter}`;
+  }
+
+  const user = new User({
+    email,
+    role: "user",
+    userName,
+    googleId,
+    image: picture,
+  });
+
+  await user.save();
+  return user;
+};
+
+// const googleAuth = async (req, res) => {
+//   const { tokenId } = req.body;
+
+//   try {
+//     const ticket = await client.verifyIdToken({
+//       idToken: tokenId,
+//       audience: process.env.GOOGLE_CLIENT_ID,
+//     });
+//     const payload = ticket.getPayload();
+//     const { sub, email, name, picture } = payload;
+
+//     let user = await User.findOne({ googleId: sub });
+
+//     if (!user) {
+//       user = await User.findOne({ email });
+
+//       if (user) {
+//         return res.status(400).json({
+//           success: false,
+//           message: "User already exists with this email! Use a different email",
+//         });
+//       }
+
+//       if (!user) {
+//         user = new User({
+//           email,
+//           role: "user",
+//           userName: name,
+//           googleId: sub,
+//           image: picture,
+//         });
+
+//         const existingUserName = await User.findOne({ userName: name });
+
+//         if (existingUserName) {
+//           let counter = 1;
+//           let newUserName = `${name}_${counter}`;
+
+//           while (await User.findOne({ userName: newUserName })) {
+//             counter++;
+//             newUserName = `${name}_${counter}`;
+//           }
+//           user.userName = newUserName;
+//         }
+
+//         await user.save();
+//       } else {
+//         if (!user.googleId) {
+//           user.googleId = sub;
+//           await user.save();
+//         }
+//       }
+//     }
+
+//     const token = jwt.sign(
+//       {
+//         id: user._id,
+//         role: user.role,
+//         email: user.email,
+//         userName: user.userName,
+//         image: user.image,
+//       },
+//       process.env.CLIENT_SECRET_KEY,
+//       { expiresIn: process.env.JWT_EXPIRATION_TIME }
+//     );
+
+//     res
+//       .cookie("token", token, { httpOnly: true })
+//       .json({ success: true, message: "Logged in successfully", user });
+//   } catch (error) {
+//     console.error("Google Authentication Error:", error);
+//     res.status(400).json({ success: false, message: "Google login failed" });
+//   }
+// };
 
 module.exports = {
   registerUser,

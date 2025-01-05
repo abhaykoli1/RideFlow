@@ -27,9 +27,15 @@ function UserRideTile({ className, ride, RidesList, index }) {
   }
 
   function handleOrderRide(getCurrentRideId) {
-    sessionStorage.setItem("currentRideId", getCurrentRideId);
-    navigate("/ride/booking");
+    navigate(`/booking/${getCurrentRideId}`);
     dispatch(fetchRideDetails(getCurrentRideId));
+  }
+
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   return (
@@ -120,7 +126,7 @@ function UserRideTile({ className, ride, RidesList, index }) {
               <div className="w-full">
                 <p className=" text-[13px]">110 Km Limit</p>
                 <p className=" text-[11px]">
-                  {`( Excess ${"\u20B9"}3/km + GST )`}
+                  {`( Excess ${"\u20B9"}2/km + GST )`}
                 </p>
                 <div className="flex justify-between items-center ">
                   <span
@@ -182,7 +188,7 @@ function UserRideTile({ className, ride, RidesList, index }) {
         {index === RidesList.slice(0, 5).length - 1 ? (
           <div
             onClick={() => {
-              navigate("/ride/listing");
+              navigate("/listing");
             }}
             className="absolute z-0 bg-[rgba(0,0,0,0.5)] transform transition-transform duration-300 hover:scale-[120%]  w-full flex flex-col justify-center items-center px-3 h-full"
           >

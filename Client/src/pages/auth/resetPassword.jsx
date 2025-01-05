@@ -84,7 +84,7 @@ const ResetPassword = () => {
   }, [success, navigate]);
 
   return (
-    <section className="mx-auto w-full max-w-md duration-500">
+    <section className="mx-auto w-full max-w-md duration-500 !bg-white text-slate-800">
       <div className="p-6 w-full">
         <AuthContainerPageElements
           HaveAccount={"Back to"}
@@ -94,7 +94,7 @@ const ResetPassword = () => {
           Auth={"RESET PASSWORD"}
         />
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 relative">
+          <div className="mb-4 relative bg-white">
             <Input
               type={showPassword ? "text" : "password"}
               id="newPassword"
@@ -173,7 +173,7 @@ const ResetPassword = () => {
 
           <Button
             type="submit"
-            className="w-full invertBg !font-bold !mt-3"
+            className="w-full invertB bg-slate-800 text-white !font-bold !mt-3"
             disabled={isLoading}
           >
             {isLoading ? "Resetting..." : "Reset Password"}

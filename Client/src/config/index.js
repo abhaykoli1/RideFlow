@@ -4,28 +4,28 @@ export const UserNavItems = [
   {
     id: "1",
     label: "Home",
-    path: "/ride/home",
+    path: "/",
   },
   {
     id: "2",
     label: "About",
-    path: "/ride/about",
+    path: "/about",
   },
 
   {
     id: "3",
     label: "Rides",
-    path: "/ride/listing",
+    path: "/listing",
   },
   {
     id: "4",
     label: "Contact Us",
-    path: "/ride/Reach-Us",
+    path: "/Reach-Us",
   },
   {
     id: "5",
     label: "Bookings",
-    path: "/ride/bookings",
+    path: "/bookings",
   },
 ];
 
@@ -271,8 +271,9 @@ export const addRidesFormElements = [
     componentType: "select",
     options: [
       { id: "yamaha", label: "Yamaha" },
+      { id: "suzuki", label: "Suzuki" },
       { id: "bajaj", label: "Bajaj" },
-      { id: "enfield", label: "Royal Enfield" },
+      { id: "royal Enfield", label: "Royal Enfield" },
       { id: "hero", label: "Hero" },
       { id: "tvs", label: "TVS" },
       { id: "honda", label: "Honda" },
@@ -330,8 +331,9 @@ export const categoryOptionsMap = {
 
 export const brandOptionsMap = {
   yamaha: "Yamaha",
+  suzuki: "Suzuki",
   bajaj: "Bajaj",
-  royal_enfield: "Royal Enfield",
+  royal_Enfield: "Royal Enfield",
   hero: "Hero",
   tvs: "TVS",
   honda: "Honda",
@@ -345,8 +347,9 @@ export const filterOptions = {
   ],
   brand: [
     { id: "yamaha", label: "Yamaha" },
+    { id: "suzuki", label: "Suzuki" },
     { id: "bajaj", label: "Bajaj" },
-    { id: "royal_enfield", label: "Royal Enfield" },
+    { id: "royal Enfield", label: "Royal Enfield" },
     { id: "hero", label: "Hero" },
     { id: "tvs", label: "TVS" },
     { id: "honda", label: "Honda" },

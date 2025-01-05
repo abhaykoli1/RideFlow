@@ -20,7 +20,7 @@ const AuthLayout = () => {
         <div className="max-w-md space-y-6 text-center text-primary-foreground"></div>
       </div>
       <div
-        className={`fixed top-0 bottom-0 flex items-center justify-center px-4 lg:px-10 md:px-5 sm:px-5 transition-transform duration-500
+        className={`fixed bg-white text-slate-800 top-0 bottom-0 flex items-center justify-center px-4 lg:px-10 md:px-5 sm:px-5 transition-transform duration-500
         ${
           !auth
             ? "lg:translate-x-[calc(100vw-360px)] md:translate-x-[calc(100vw-360px)]"

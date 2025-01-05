@@ -156,7 +156,8 @@ const BillingDetails = ({
         // });
         setOpenDialog(true);
         setTimeout(() => {
-          navigate("/ride/bookings");
+          // goTop();
+          // navigate("/ride/bookings");
         }, 3000);
       } else {
         toast({
@@ -166,6 +167,13 @@ const BillingDetails = ({
       }
     });
   };
+
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <div>
@@ -238,12 +246,23 @@ const BillingDetails = ({
         </p>
       </div>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="bg-teal-500 text-white rounded-lg p-10 text-center max-w-lg w-full">
+        <DialogContent className="bg-gradient-to-b from-[#ffedca] to-white text-black rounded-md p-10 text-center max-w-lg w-full">
           <h1 className="text-4xl font-bold mb-4">You're All Set!</h1>
-          <p>Your Booking Placed successfully</p>
+          <p className="text-lg font-semibold ">
+            Your Booking Placed successfully
+          </p>
           <p className="text-lg font-medium mb-6">
             We’ll be in touch shortly with more information.
           </p>
+          <Button
+            onClick={() => {
+              goTop();
+              navigate("/bookings");
+            }}
+            className="bg-slate-800 text-white"
+          >
+            Go To Booking History
+          </Button>
         </DialogContent>
       </Dialog>
     </div>

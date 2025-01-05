@@ -40,7 +40,6 @@ function App() {
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
-  // "http://res.cloudinary.com/dulkmeadg/image/upload/v1730524986/o9ce5ixqmq9fgihbqmon.gif"
 
   if (isLoading)
     return (
@@ -52,15 +51,6 @@ function App() {
   return (
     <div className="flex flex-col overflow-hidden ">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <CheckAuth
-              isAuthenticated={isAuthenticated}
-              user={user}
-            ></CheckAuth>
-          }
-        />
         <Route
           path="/auth"
           element={
@@ -91,20 +81,20 @@ function App() {
           <Route path="addReviews" element={<AddReviews />} />
         </Route>
         <Route
-          path="/ride"
+          path="/"
           element={
             <CheckAuth isAuthenticated={isAuthenticated} user={user}>
               <ShopLayout />
             </CheckAuth>
           }
         >
-          <Route path="home" element={<UserDashboard />} />
+          <Route path="" element={<UserDashboard />} />
           <Route path="listing" element={<RideListing />} />
           <Route path="Reach-Us" element={<ReachUs />} />
           <Route path="details" element={<RideDetailsPage />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="faqs" element={<FAQ />} />
-          <Route path="booking" element={<BookingComponent />} />
+          <Route path="booking/:rideId" element={<BookingComponent />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="Policy" element={<PrivacyPolicy />} />
           <Route path="Terms&Condition" element={<TermsAndConditions />} />

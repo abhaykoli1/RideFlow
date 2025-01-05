@@ -23,7 +23,6 @@ const UserDashboard = () => {
         <UserReviews />
         <ReachUs />
       </main>
-      <Footer />
     </section>
   );
 };

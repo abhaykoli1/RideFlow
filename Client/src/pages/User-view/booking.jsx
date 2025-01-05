@@ -21,6 +21,7 @@ import { fetchRideDetails } from "@/store/user/Rides-slice";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const initialAddressFormData = {
   address: "",
@@ -31,6 +32,8 @@ const initialAddressFormData = {
 };
 
 const BookingComponent = () => {
+  const { rideId } = useParams();
+
   const dispatch = useDispatch();
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState("");
   const { user } = useSelector((state) => state.auth);
@@ -49,7 +52,7 @@ const BookingComponent = () => {
   }
 
   useEffect(() => {
-    const rideId = sessionStorage.getItem("currentRideId");
+    // const rideId = sessionStorage.getItem("currentRideId");
     if (rideId) {
       dispatch(fetchRideDetails(rideId));
     }
@@ -72,7 +75,6 @@ const BookingComponent = () => {
     sessionStorage.getItem("dlError") || ""
   );
 
-  // Regular Expression for Driving Licence Validation
   const validateDrivingLicence = (value) =>
     /^[A-Za-z]{2}[0-9]{2}(?: [0-9]{11}|[A-Za-z][0-9]{11})$/.test(value);
 
@@ -99,13 +101,11 @@ const BookingComponent = () => {
     sessionStorage.getItem("mobileNoError") || ""
   );
 
-  // Validate mobile number to ensure it starts with "+91 " and has 10 digits after
   const validateMobileNo = (value) => /^[0-9]{10}$/.test(value.slice(0)); // Validate only digits after "+91 "
 
   const handleMobileChange = (e) => {
     const value = e.target.value;
 
-    // Ensure "+91 " prefix is preserved
     if (!value.startsWith("+91 ")) {
       setMobileNo("+91 ");
       return;
@@ -114,8 +114,7 @@ const BookingComponent = () => {
     setMobileNo(value);
     sessionStorage.setItem("mobileNo", value);
 
-    // Validate the mobile number
-    const mobilePart = value.slice(4); // Extract the part after "+91 "
+    const mobilePart = value.slice(4);
     if (!validateMobileNo(mobilePart)) {
       const errorMessage = "Enter a valid 10-digit mobile number.";
       setMobileError(errorMessage);
@@ -182,15 +181,6 @@ const BookingComponent = () => {
   useState(() => {
     console.log("phone =" + formData);
   });
-  // if (!validateMobileNo(formData.phone)) {
-
-  // setMobileError(
-  //   sessionStorage.setItem(
-  //     "mobileNoError",
-  //     "Enter a valid 10-digit mobile number."
-  //   )
-  // );
-  // }
 
   function handleDeleteAddress(getCurrentAddress) {
     dispatch(
@@ -243,15 +233,13 @@ const BookingComponent = () => {
   return (
     <div className="ListingBg">
       <div className="lg:pt-28 md:pt-28 pt-20  lg:pb-10  md:pb-10 pb-5 lg:px-5 md:px-5 sm:px-4 px-3 xl:container mx-auto ">
-        <h1 className="lg:text-4xl md:text-xl sm:text-3xl text-2xl font-bold text-yello  mb-2 bg-gradient-to-t from-[#ffae00] to-[#fff9ee] bg-clip-text text-transparent">
-          Ride Booking
-        </h1>
+        <div className="titleHolder">
+          <h1 className=" font-bold mb-2 bg-gradient-to-t from-[#ffae00] to-[#fff9ee] bg-clip-text text-transparent">
+            Ride Booking
+          </h1>
+        </div>
 
-        {/* || "" === null ? (
-          <p className="text-tomato text-sm mb-3">{mobileError}</p>
-        ) : null} */}
-
-        <div className="grid lg:grid-cols-[2fr_1.3fr] md:grid-cols-[2fr_1.5fr] grid-cols-1 gap-3">
+        <div className="grid lg:grid-cols-[2fr_1.3fr] md:grid-cols-[2fr_1.5fr grid-cols-1 gap-3 ">
           <div className="flex flex-col gap-3">
             <BookingRideDetailsTile
               RideDetails={RideDetails}
@@ -259,7 +247,7 @@ const BookingComponent = () => {
               Day={day}
               Date={date}
             />
-            <div className="lg:flex md:flex flex-col gap-3 hidden">
+            <div className="lg:flex mdflex flex-col gap-3 hidden">
               <RentalLocation />
             </div>
           </div>
@@ -333,7 +321,7 @@ const BookingComponent = () => {
               <div className={`flex items-center gap-3 mt-2`}>
                 <DateCompo
                   date={date}
-                  Calendar={"!-left-[100px] absolute"}
+                  Calendar={"bookingCalender !-left-[100px] absolute "}
                   setDate={setDate}
                   dateCss={
                     "font-semibold text-black !border-2 !pl-2  !rounded-lg !bg-[#ffff]  h-9 w-full"
@@ -350,16 +338,6 @@ const BookingComponent = () => {
               <div className="flex flex-col -gap-4">
                 {/* Driving Licence Input */}
                 <div className="flex w-full gap-2 ">
-                  {/* <span
-                    className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3
-                    ${
-                      sessionStorage.getItem("dlError") || "" === null
-                        ? "border-red-500"
-                        : " border-green-500"
-                    }`}
-                  >
-                    DL
-                  </span> */}
                   <input
                     type="text"
                     value={drivingLicenceNo}
@@ -382,15 +360,6 @@ const BookingComponent = () => {
                   } w-full gap-2`}
                 >
                   {" "}
-                  {/* <span
-                    className={`bg-white flex w-[57px] focus:outline-none border rounded-md mt-2 py-1.5 px-3 ${
-                      sessionStorage.getItem("mobileNoError") || "" === null
-                        ? "border-red-500"
-                        : " border-green-500"
-                    }`}
-                  >
-                    +91
-                  </span> */}
                   <input
                     type="text"
                     value={mobileNo}
@@ -427,7 +396,7 @@ const BookingComponent = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="flex lg:hiden md:hidden">
+        <div className="flex lg:hidden">
           <RentalLocation />
         </div>
 

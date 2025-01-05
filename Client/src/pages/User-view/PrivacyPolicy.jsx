@@ -18,15 +18,11 @@ const PrivacyPolicy = () => {
           </h1>
         </div>
 
-        <p className="text-lg mb-4">
-          <strong>Effective Date:</strong> [Insert Date]
-        </p>
-
         <p className="mb-6">
-          Welcome to <span className="font-semibold">RideFlow</span> (or "we,"
-          "our," or "us"). Your privacy is critically important to us. This
-          Privacy Policy explains how we collect, use, disclose, and safeguard
-          your information when you visit our website or use our services.
+          Welcome to <span className="font-semibold">RideFlow</span>. Your
+          privacy is critically important to us. This Privacy Policy explains
+          how we collect, use, disclose, and safeguard your information when you
+          visit our website or use our services.
         </p>
         <p className="mb-6">
           By accessing or using our services, you agree to the practices
@@ -117,7 +113,7 @@ const PrivacyPolicy = () => {
           transmission over the Internet is 100% secure.
         </p>
 
-        <h6 className="text-2xl font-semibold mt-8 mb-4 text-[#f4c76d]">
+        {/* <h6 className="text-2xl font-semibold mt-8 mb-4 text-[#f4c76d]">
           5. Your Rights
         </h6>
         <p className="mb-6">
@@ -135,7 +131,7 @@ const PrivacyPolicy = () => {
           <li>
             <strong>Opt-out:</strong> Unsubscribe from marketing communications.
           </li>
-        </ul>
+        </ul> */}
         {ContactInfo && ContactInfo.length > 0
           ? ContactInfo.map((content, index) => (
               <p className="mb-6">
@@ -148,7 +144,7 @@ const PrivacyPolicy = () => {
           : null}
 
         <h6 className="text-2xl font-semibold mt-8 mb-4 text-[#f4c76d]">
-          6. Contact Us
+          5. Contact Us
         </h6>
         <p className="mb-6">
           If you have any questions or concerns about this Privacy Policy,
@@ -162,14 +158,43 @@ const PrivacyPolicy = () => {
                   <strong>Email: </strong> {content.email}
                 </li>
                 <li className="flex gap-2">
-                  <strong>Phone: </strong> {content.phone}
-                </li>
-                <li className="flex gap-2">
-                  <strong>Address: </strong> {content.address}
+                  <strong>Phone: </strong>+91 {content.phone}
                 </li>
               </ul>
             ))
           : null}
+        <li className="flex gap-2 mb-2">
+          <strong>Address: </strong>
+        </li>
+        <div className="flex flex-col gap-3 mb-6">
+          <div className="flex gap-3">
+            <p>
+              <strong>1. </strong>
+            </p>
+            <p>
+              Sindhi Camp Bus Stand, Entry Gate 1, Kanti Nagar, Sindhi Camp,
+              Jaipur, Rajasthan 302016
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <p>
+              <strong>2. </strong>
+            </p>
+            <p>
+              Ganpati Plaza, Mirza Ismail Road Near Gulab Ji chai Wale,Sindhi
+              Camp,Jaipur,Raj
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <p>
+              <strong>3. </strong>
+            </p>
+            <p>
+              Gate No. 2 Pillar No. 155, Metro Parking, Jaipur Railway Station,
+              opposite Car Maker Work-Shop, Gopalbari, Jaipur, Rajasthan 302007
+            </p>
+          </div>
+        </div>
 
         <p className="text-center font-semibold">
           Thank you for trusting RideFlow with your information.

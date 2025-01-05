@@ -114,9 +114,7 @@ export const deleteAllDashboardContent = createAsyncThunk(
   "Dashboard/deleteAllDashboardContent", // A unique action type
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8000/api/dashboard/delete`
-      ); // API endpoint for deleting all
+      const response = await axios.delete(`${config.API_URL}/dashboard/delete`); // API endpoint for deleting all
       return response?.data; // Return the server response
     } catch (error) {
       // Use `rejectWithValue` to handle errors gracefully

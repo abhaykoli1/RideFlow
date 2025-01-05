@@ -31,24 +31,6 @@ export const addContactQuery = createAsyncThunk(
   }
 );
 
-// Async thunk to edit an existing contact by ID
-// export const editContactQuery = createAsyncThunk(
-//   "contacts/editContactQuery",
-//   async ({ id, contactData }, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.put(
-//         `${config.API_URL}/user/contact/edit/${id}`,
-//         contactData
-//       );
-//       return response.data.data; // Return the updated contact data
-//     } catch (error) {
-//       return rejectWithValue(
-//         error.response ? error.response.data : error.message
-//       );
-//     }
-//   }
-// );
-
 export const fetchAllContactQuery = createAsyncThunk(
   "contact/fetchAllContactQuery",
   async (_, { rejectWithValue }) => {
@@ -131,63 +113,6 @@ const contactSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload || "Failed to delete contact.";
       });
-    // .addCase(fetchAllContactQuery.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(fetchAllContactQuery.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.contact = action.payload.data; // Assuming data contains the contacts list
-    //   state.totalPages = action.payload.totalPages; // Pagination info
-    //   state.currentPage = action.payload.currentPage;
-    // })
-    // .addCase(fetchAllContactQuery.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload || "Failed to fetch contacts";
-    // });
-
-    // Handling editContactQuery
-    //   .addCase(editContactQuery.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(editContactQuery.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     const updatedContact = action.payload;
-    //     state.contacts = state.contacts.map((contact) =>
-    //       contact._id === updatedContact._id ? updatedContact : contact
-    //     );
-    //   })
-    //   .addCase(editContactQuery.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   })
-
-    //   // Handling deleteContactQuery
-    //   .addCase(deleteContactQuery.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(deleteContactQuery.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.contacts = state.contacts.filter(
-    //       (contact) => contact._id !== action.payload
-    //     );
-    //   })
-    //   .addCase(deleteContactQuery.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   })
-
-    //   // Handling fetchAllContactQuery
-    //   .addCase(fetchAllContactQuery.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(fetchAllContactQuery.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.contacts = action.payload; // Set the fetched contacts to the state
-    //   })
-    //   .addCase(fetchAllContactQuery.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   });
   },
 });
 

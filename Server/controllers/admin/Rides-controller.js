@@ -123,7 +123,6 @@ const editRide = async (req, res) => {
     findRide.salePrice = salePrice === "" ? 0 : salePrice || findRide.salePrice;
     // findRide.rentPerWeek =
     //   rentPerWeek === "" ? 0 : rentPerWeek || findRide.rentPerWeek;
-
     findRide.totalStock = totalStock || findRide.totalStock;
     findRide.image = image || findRide.image;
     findRide.averageReview = averageReview || findRide.averageReview;

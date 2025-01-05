@@ -1,3 +1,4 @@
+import { fetchRideDetails } from "@/store/user/Rides-slice";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -6,9 +7,25 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function RideDetailsDialog({ open, setOpen, RideDetails }) {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function handleOrderRide(getCurrentRideId) {
+    goTop();
+    navigate(`/booking/${getCurrentRideId}`);
+    dispatch(fetchRideDetails(getCurrentRideId));
+  }
 
   return (
     <Dialog className="detailsDialogBox " open={open} onOpenChange={setOpen}>
@@ -124,8 +141,7 @@ function RideDetailsDialog({ open, setOpen, RideDetails }) {
               <Button
                 className="w-full border-gray-600 hover:border-black bg-black text-white   hover:text-white "
                 onClick={() => {
-                  goTop();
-                  navigate("/ride/booking");
+                  handleOrderRide(RideDetails._id);
                 }}
               >
                 Book Now

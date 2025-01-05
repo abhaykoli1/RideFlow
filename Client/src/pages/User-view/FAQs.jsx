@@ -53,22 +53,20 @@ const FAQ = () => {
   return (
     <section className="w-100 h-full overflow-y-auto bg- flex flex-col justify-between pt-16">
       <div className="container mx-auto h-full p-6">
-      <div className="titleHolder">
-        <h1 className="text-3xl font-bold text-tomato">
-          Frequently Asked Questions
-        </h1>
-        <h6 className="subtitle text-gray-300 mb-5">
-          Find answers to the most common questions about our bike rental
-          service. If you need more help, feel free to{" "}
-          <span
-            className="underline text-yellow cursor-pointer"
-            onClick={() => {
-              navigate("/ride/Reach-Us");
-            }}
-          >
-            contact us!
-          </span>
-        </h6>
+        <div className="titleHolder">
+          <h1 className="text-3xl font-bold text-tomato">
+            Frequently Asked Questions
+          </h1>
+          <h6 className="subtitle text-gray-300 mb-5">
+            Find answers to the most common questions about our bike rental
+            service. If you need more help, feel free to{" "}
+            <a
+              className="underline !text-yellow cursor-pointer"
+              href="/Reach-Us"
+            >
+              contact us!
+            </a>
+          </h6>
         </div>
         <Accordion type="single" collapsible>
           {faqs.map((faq, index) => (

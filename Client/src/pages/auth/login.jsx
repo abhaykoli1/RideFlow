@@ -76,7 +76,7 @@ function AuthLogin() {
     setShowPassword((prev) => !prev); // Toggle the visibility state
   };
   return (
-    <section className="mx-auto w-full max-w-md duration-500">
+    <section className="mx-auto w-full max-w-md duration-500 bg-white text-slate-800">
       <AuthContainerPageElements
         HaveAccount={"Create a new Account?"}
         Auth={"LOG IN"}
@@ -84,6 +84,7 @@ function AuthLogin() {
         Google={true}
         To={"/auth/register"}
       />
+
       <GoogleLoginButton />
 
       <p className="subtitle text-center mt-7 mb-5">OR</p>
@@ -158,11 +159,10 @@ function AuthLogin() {
             </a>
           </div>
         </div>
-
         <Button
           onClick={onSubmit}
           type="submit"
-          className="w-full invertBg !font-bold !mt-3"
+          className="w-full invertB bg-slate-800 text-white !font-bold !mt-3"
         >
           LOGIN
         </Button>

@@ -9,7 +9,7 @@ function AdminRideTile({
   handleDelete,
 }) {
   return (
-    <Card className="w-full max-w- mx-auto h-[360px]">
+    <Card className="w-full  mx-auto h-[360px]">
       <div>
         <div className="relative flex place-content-center">
           <img
@@ -19,11 +19,13 @@ function AdminRideTile({
           />
         </div>
         <CardContent>
-          <div className="flex justify-between">
-            <h3 className="text-xl font-bold mb-2 mt-2 capitalize text-yellow">
+          <div className="flex justify-between gap-7">
+            <h3 className="text-xl font-bold mb-2 mt-2 capitalize text-yellow ">
               {ride?.brand}
             </h3>
-            <h3 className="text-xl font-bold mb-2 mt-2">{ride?.rideName}</h3>
+            <h3 className="text-xl font-bold mb-2 mt-2 whitespace-nowrap truncate">
+              {ride?.rideName}
+            </h3>
           </div>
           <div className="flex justify-between items-center mb-2">
             <span

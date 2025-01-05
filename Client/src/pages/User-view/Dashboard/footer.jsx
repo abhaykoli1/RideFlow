@@ -9,11 +9,10 @@ import {
 import { Divider } from "@mui/material";
 import { ChevronUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
-// import { Col, Container, Row } from "react-bootstrap";
-import whatsapp from "../../../assets/wp.png";
-import tw from "../../../assets/tw.png";
-import ig from "../../../assets/ig.png";
-import fb from "../../../assets/fb.png";
+import whatsapp from "../../../assets/wp.webp";
+import tw from "../../../assets/tw.webp";
+import ig from "../../../assets/ig.webp";
+import fb from "../../../assets/fb.webp";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,12 +67,12 @@ const Footer = () => {
           id: 1,
           title: "Ride Flow",
           item1Icon: <Mail />,
-          item1: `${email || "Phone not available"}`,
-          path1: "/ride/Reach-Us",
+          item1: `${email || "Email No. not available"}`,
+          path1: "/Reach-Us",
 
           item2Icon: <Phone />,
-          item2: `${phone || "Phone not available"}`,
-          path2: "/ride/Reach-Us",
+          item2: `${phone || "Phone No. not available"}`,
+          path2: "/Reach-Us",
 
           item3Icon: "",
           item3: "",
@@ -89,10 +88,10 @@ const Footer = () => {
       title: "Legal Terms",
       item1Icon: "",
       item1: "Privacy & Policy",
-      path1: "/ride/Policy",
+      path1: "/Policy",
       item2Icon: "",
       item2: "Terms & Conditions",
-      path2: "/ride/Terms&Condition",
+      path2: "/Terms&Condition",
       item3Icon: "",
       item3: "",
       path3: "",
@@ -102,15 +101,22 @@ const Footer = () => {
       title: "Links",
       item1Icon: "",
       item1: "About Us",
-      path1: "/ride/about",
+      path1: "/about",
       item2Icon: "",
       item2: "FAQ's",
-      path2: "/ride/faqs",
+      path2: "/faqs",
       item3Icon: "",
       item3: "",
       path3: "",
     },
   ];
+
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <section className="items-center">
@@ -203,7 +209,7 @@ const Footer = () => {
       <div className="bg-[#ffa500] text-white h-28 w-full flex justify-center items-center ">
         <div>
           <div className="flex-1 text-center font-semibold cursor-default">
-            &copy; 2022 RideFlow Rentals. All Right Reserved.
+            &copy; 2024 RideFlow Rentals. All Right Reserved.
           </div>
           <div className="mt-3  flex gap-5 items-center justify-center cursor-pointer">
             {Socials.map((items, index) => (
@@ -227,7 +233,7 @@ const Footer = () => {
         {showTopBtn && (
           <div
             className="flex invertBg justify-center items-center  lg:h-10 lg:w-10 md:h-10 md:w-10 h-10 w-10 fixed left-5 bottom-5 rounded-md z-50 cursor-pointer"
-            onClick={goTop}
+            onClick={() => goTop()}
           >
             <ChevronUp size={28} />
           </div>

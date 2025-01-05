@@ -8,19 +8,42 @@ const RentalLocation = () => {
         <span className="font-semibold mb-2 flex items-end gap-2 text-md ">
           <MapPinCheck color="tomato" /> Pick-Up Location
         </span>
-        <p className="mt-2 pl-3">
-          <strong>Sindhi Camp metro station</strong>
-          <p>Civil Lines Metro Station, Elevated Ajmer Rd,</p>
-          Kanti Nagar, Sindhi Camp, Jaipur, Rajasthan 302006
-        </p>
-      </div>
 
+        <div className="flex flex-col gap-3 mb-3 ml-5">
+          <div className="flex gap-3">
+            <p>
+              <strong>1. </strong>
+            </p>
+            <p>
+              Sindhi Camp Bus Stand, Entry Gate 1, Kanti Nagar, Sindhi Camp,
+              Jaipur, Rajasthan 302016
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <p>
+              <strong>2. </strong>
+            </p>
+            <p>
+              Ganpati Plaza, Mirza Ismail Road Near Gulab Ji chai Wale,Sindhi
+              Camp,Jaipur,Raj
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <p>
+              <strong>3. </strong>
+            </p>
+            <p>
+              Gate No. 2 Pillar No. 155, Metro Parking, Jaipur Railway Station,
+              opposite Car Maker Work-Shop, Gopalbari, Jaipur, Rajasthan 302007
+            </p>
+          </div>
+        </div>
+      </div>
       <iframe
-        className="w-full h-[60vh] border rounded-md shadow-lg"
-        title="map"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCnB8fjIxUxle9dEmChHrcY0wnatLC5B8s&q=Sindicamp+Metro+Station,+Jaipur,+Rajasthan&zoom=16"
+        src="https://www.google.com/maps/d/embed?mid=1VlsZrWMDveAn6Ld-Mxygq_EZ_ASgmP4&ehbc=2E312F"
         allowFullScreen
-        loading="fast"
+        className="w-full h-[500px] border rounded-md shadow-lg"
+        loading="lazy"
       />
     </div>
   );

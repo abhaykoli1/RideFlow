@@ -10,6 +10,13 @@ import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
 
 const ShopHeader = ({ setSidebar, sidebar }) => {
+  function goTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   return (
@@ -17,18 +24,15 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
       <div className="  px-4 lg:h-[72px] md:h-[72px]  sm:h-[60px] h-[60px] duration-500 flex items-center justify-between ">
         <div className="flex gap-2 items-center">
           <Logo
-            Path={"/ride/home"}
+            Path={"/"}
             L2={"text-white lg:flex md:flex hidden "}
             B={"border-[.5px] border-white"}
           />
         </div>
-        <div className="flex gap-2  items-center">
-          <div className="lg:flex md:flex hidden items-center ">
+        <div className="flex gap-2 items-center">
+          <div className="lg:flex md:flex hidden items-center">
             {UserNavItems.map((nav) => (
-              <ul
-                key={nav.id}
-                className="flex gap-5 text-md font-bold uppercase"
-              >
+              <ul key={nav.id} className="flex text-md font-bold uppercase">
                 <li className="mr-5">
                   <NavLink
                     onClick={() => {
@@ -36,7 +40,7 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
                     }}
                     to={nav.path}
                     className={({ isActive }) =>
-                      `  cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text- ${
+                      `cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text- ${
                         isActive ? "text-yellow" : "!text-white"
                       }`
                     }
@@ -56,7 +60,7 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
           {!isAuthenticated ? (
             <Button
               onClick={() => navigate("/auth/login")}
-              className="h-9 bg-[#fcad19] text-[16px] hover:underline  px-2 text-white hover:text- hover:!bg-slate-10 duration-500 font-bold  !border-none   !-py-4  flex items-center  "
+              className="h-9  -ml-5 bg-[#fcad19] text-[16px] hover:underline  px-3 text-white hover:text- hover:!bg-slate-10 duration-500 font-bold  !border-none   !-py-[10px]  flex items-center  "
             >
               Log In
             </Button>
@@ -74,13 +78,13 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
               <Menu
                 onClick={() => setSidebar(!sidebar)}
                 size={34}
-                className={`text-white  w-[40px]   p-1 cursor-pointer`}
+                className={`text-white  w-[40px] p-1 cursor-pointer`}
               />
             ) : (
               <X
                 onClick={() => setSidebar(!sidebar)}
                 size={32}
-                className={`text-white  h-[34px] w-[40px]   p-1 cursor-pointer`}
+                className={`text-white  h-[34px] w-[40px] p-1 cursor-pointer`}
               />
             )}
           </div>

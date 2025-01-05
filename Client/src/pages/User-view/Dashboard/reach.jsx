@@ -28,10 +28,10 @@ function ReachUs() {
       const { address, phone, whatsapp, email } = ContactInfo[0];
 
       setContactDetails([
-        {
-          description: address || "Address not available",
-          icon: <MapPin />,
-        },
+        // {
+        //   description: address || "Address not available",
+        //   icon: <MapPin />,
+        // },
         {
           description: `Call : +91 ${phone || "Phone not available"}`,
           icon: <Phone />,
@@ -115,18 +115,14 @@ function ReachUs() {
         transition={{ duration: 0.4 }}
         className="container pb-12 mx-auto z-10 "
       >
-        <div className="titleHolder -mb-3 mt-5">
+        <div className="titleHolder -mb-3 mt-14">
           <h1 className=" font-bold text-yellow ">Reach Us Out!</h1>
-          {/* <h6 className="subtitle text-center mt-2">
-            We are a passionate team dedicated to providing the best bike rental
-            experience.
-          </h6> */}
         </div>
         <motion.div className="mb-12 titleHolder">
-          <h1 className="text-3xl font-bold mt-5 mb-2">
+          <h2 className="text-3xl font-bold mt-5 mb-2">
             <span className="text-tomato">Ready for Your Next Adventure? </span>
             Book Your Bike Today!
-          </h1>
+          </h2>
           <h6 className="lg:w-[80%] md:w-[80%] w-100 subtitle">
             Explore our diverse selection of two-wheelers available for rent.
             Choose flexible options by the hour, day, week, or month – and hit
@@ -141,32 +137,10 @@ function ReachUs() {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="flex-col gap-5 w-100"
           >
-            {ContactDetails.map((details, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="text-sm flex gap-3 pb-3 items-start"
-              >
-                <span className="h-5 mb-2">{details.icon}</span>
-                <span className="mt-1">{details.description}</span>
-                <span className="mt-[5px] -ml-2">
-                  {index === 2 ? (
-                    <a id="WhasappText" target="_blank" href={details.Link}>
-                      WhatsApp
-                    </a>
-                  ) : null}
-                </span>
-              </motion.div>
-            ))}
             <motion.iframe
-              className="w-full h-60 border rounded-md shadow-lg"
-              title="map"
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCnB8fjIxUxle9dEmChHrcY0wnatLC5B8s&q=Sindicamp+Metro+Station,+Jaipur,+Rajasthan&zoom=16"
+              src="https://www.google.com/maps/d/embed?mid=1VlsZrWMDveAn6Ld-Mxygq_EZ_ASgmP4&ehbc=2E312F"
               allowFullScreen
+              className="w-full h-[500px] border rounded-md shadow-lg"
               loading="lazy"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -180,6 +154,27 @@ function ReachUs() {
             transition={{ duration: 0.3, delay: 0.4 }}
             className="ContactForm Border p-3 rounded-md w-100 flex flex-col justify-end"
           >
+            {ContactDetails.map((details, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="text-sm flex gap-3 pb-3 items-start"
+              >
+                <span className="h-5 mb-2">{details.icon}</span>
+                <span className="mt-1">{details.description}</span>
+                <span className="mt-[5px] -ml-2">
+                  {index === 1 ? (
+                    <a id="WhasappText" target="_blank" href={details.Link}>
+                      WhatsApp
+                    </a>
+                  ) : null}
+                </span>
+              </motion.div>
+            ))}
             <h2 className="text-[#ffa500] font-bold text-[25px] mb-2 flex items-end">
               <AnimatedGif
                 src={CallCenter}

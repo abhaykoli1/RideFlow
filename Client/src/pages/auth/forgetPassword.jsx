@@ -5,12 +5,13 @@ import { useToast } from "@/hooks/use-toast";
 import { forgotPassword } from "@/store/auth-slice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const { toast } = useToast();
-
+  const navigate = useNavigate();
   const { isLoading, success } = useSelector((state) => state.auth);
   const [errors, setErrors] = useState({});
 
@@ -41,8 +42,16 @@ const ForgotPassword = () => {
             description: "Please check your inbox...",
           });
         } else {
+          if (
+            data?.payload?.message ===
+            "This account is linked with Google. Please log in using Google authentication."
+          ) {
+            setTimeout(() => {
+              navigate("/auth/login");
+            }, [2000]);
+          }
           toast({
-            title: "Ops something happend!",
+            title: data?.payload?.message,
             description: "Please try again Later...",
             variant: "destructive",
           });
@@ -57,7 +66,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <section className="mx-auto w-full max-w-md duration-500">
+    <section className="mx-auto w-full max-w-md duration-500 bg-white text-slate-800">
       <div className="p-6  w-full">
         <AuthContainerPageElements
           HaveAccount={"Back to"}
@@ -91,7 +100,7 @@ const ForgotPassword = () => {
           </div>
           <Button
             type="submit"
-            className="w-full invertBg !font-bold !mt-3"
+            className="w-full bg-slate-800 text-white !font-bold !mt-3"
             disabled={isLoading}
           >
             {isLoading ? "Sending..." : "Send Reset Link"}
