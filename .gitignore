@@ -1,6 +1,6 @@
 # Node.js
 Server/node_modules/
-
+/.DS_Store/
 Server/package-lock.json
 
 
