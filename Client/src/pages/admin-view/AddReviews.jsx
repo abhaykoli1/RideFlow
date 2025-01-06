@@ -39,11 +39,17 @@ const AddReviews = () => {
 
   function onSubmit(event) {
     event.preventDefault();
+
+    const updatedFormData = {
+      ...formData,
+      image: uploadedImageUrl, // Add image to form data
+    };
+
     currentEditedId !== null
       ? dispatch(
           editReview({
             id: currentEditedId,
-            formData,
+            formData: updatedFormData,
           })
         ).then((data) => {
           console.log(data, "edit");
@@ -64,6 +70,7 @@ const AddReviews = () => {
             dispatch(fetchAllReviews());
             setOpenAddReviews(false);
             setImageFile(null);
+            setUploadedImageUrl("");
             setFormData(initialFormData);
             toast({
               title: "Review added successfully",

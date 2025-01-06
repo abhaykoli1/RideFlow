@@ -19,8 +19,9 @@ function AdminRideTile({
           />
         </div>
         <CardContent>
-          <div className="flex justify-between gap-7">
-            <h3 className="text-xl font-bold mb-2 mt-2 capitalize text-yellow ">
+          <div className="flex justify-between gap-3">
+            <h3 className="text-xl font-bold mb-2 mt-2 capitalize text-yellow whitespace-nowrap truncate">
+              {/* {ride?.brand === "royal Enfield" ? "Enfield" : ride?.brand} */}
               {ride?.brand}
             </h3>
             <h3 className="text-xl font-bold mb-2 mt-2 whitespace-nowrap truncate">
