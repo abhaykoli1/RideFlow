@@ -1,21 +1,21 @@
 # Node.js
-server/node_modules/
+Server/node_modules/
 
-server/package-lock.json
+Server/package-lock.json
 
 
 
 # Logs
 *.log
-server/logs/
+Server/logs/
 
 # Build files and caches
-client/dist/
-client/build/
+Client/dist/
+Client/build/
 
 
 # Dependency directories
-client/node_modules/
+Client/node_modules/
 
 
 
