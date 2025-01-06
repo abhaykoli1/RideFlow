@@ -1,0 +1,28 @@
+# Node.js
+server/node_modules/
+
+server/package-lock.json
+
+
+
+# Logs
+*.log
+server/logs/
+
+# Build files and caches
+client/dist/
+client/build/
+
+
+# Dependency directories
+client/node_modules/
+
+
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.swd
