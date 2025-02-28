@@ -1,9 +1,15 @@
 import React from "react";
 import Home from "../../../assets/Home.png";
+import { Helmet } from "react-helmet";
 
 const AboutUs = () => {
   return (
-    <div className="pt-20 pb-5 bg-transparent bg-cover">
+    <section className="pt-20 pb-5 bg-transparent bg-cover">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>About Us | RideFlow | Bike to ride in jaipur</title>
+        <link rel="canonical" href="https://rideflowrentals.in/about" />
+      </Helmet>
       <div className="px-6 py-3 lg:container mx-auto">
         <div className="titleHolder">
           <h1 className="font-bold text-center text-yellow">Who We Are?</h1>
@@ -43,7 +49,8 @@ const AboutUs = () => {
 
             <img
               src={Home}
-              alt="motorbike Rental"
+              alt="motorbikes"
+              title="this image for knowing us"
               className="rounded-lg w-full"
             />
           </div>
@@ -93,7 +100,7 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

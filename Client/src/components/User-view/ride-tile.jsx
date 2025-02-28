@@ -82,7 +82,8 @@ function UserRideTile({ className, ride, RidesList, index }) {
             className={`w-full mt-5 h-52 object-cover max-w-80 mx-auto text-center duration-500 
               ${isHovered === index ? "scale-[90%]" : "hover:scale-[90%]"}`}
             src={ride.image}
-            alt={`${ride.rideName}`}
+            alt={ride.rideName}
+            title="Bike Images for Rent"
           />
 
           <p

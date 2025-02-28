@@ -2,26 +2,31 @@ import React, { useEffect } from "react";
 import UserReviews from "./reviews";
 import Services from "./services";
 import Hero from "./hero";
-import ReachUs from "./reach";
 import RideFleet from "./fleet";
-import Footer from "./footer";
 import WhyChooseUs from "./whyChooseUs";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchContactInfo } from "@/store/common/dashboard-slice";
 import { Call, Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { Label } from "@/components/ui/label";
-import { Mail } from "lucide-react";
+import { Helmet } from "react-helmet";
+import Reach from "./reach";
 
 const UserDashboard = () => {
   return (
     <section className="mt-12">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>RideFlow | Bike to ride in jaipur</title>
+        <link rel="canonical" href="https://rideflowrentals.in" />
+        <meta
+          name="description"
+          content="RideFlow Rentals offers hassle-free motorbike rentals for city rides and adventures. Book your bike online with ease and explore the roads with confidence."
+        />
+      </Helmet>
       <main>
         <Hero />
         <RideFleet />
         <WhyChooseUs />
         <Services />
         <UserReviews />
-        <ReachUs />
+        <Reach />
       </main>
     </section>
   );

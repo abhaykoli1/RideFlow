@@ -16,7 +16,7 @@ import RideListing from "./pages/User-view/listing";
 import NotFound from "./pages/not-found";
 import FAQ from "./pages/User-view/FAQs";
 import AboutUs from "./pages/User-view/Dashboard/aboutUs";
-import ReachUs from "./pages/User-view/Dashboard/reach";
+
 import AnimatedGif from "./components/animatedGif";
 import RideDetailsPage from "./pages/User-view/ride-details";
 import AddReviews from "./pages/admin-view/AddReviews";
@@ -31,12 +31,45 @@ import VerifyEmail from "./pages/auth/verify";
 import ForgotPassword from "./pages/auth/forgetPassword";
 import ResetPassword from "./pages/auth/resetPassword";
 import Ebike from "./assets/ebike.gif";
+import ReachUs from "./pages/User-view/ReachUs";
+import { Helmet } from "react-helmet";
+import TagManager from "react-gtm-module";
+
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
   );
 
+  // const GoogleTag = () => {
+  //   useEffect(() => {
+  //     // Check if the Google tag is already added to prevent duplicates
+  //     if (
+  //       !document.querySelector(
+  //         'script[src="https://www.googletagmanager.com/gtag/js?id=AW-16839198103"]'
+  //       )
+  //     ) {
+  //       const script1 = document.createElement("script");
+  //       script1.async = true;
+  //       script1.src =
+  //         "https://www.googletagmanager.com/gtag/js?id=AW-16839198103";
+  //       document.head.appendChild(script1);
+
+  //       const script2 = document.createElement("script");
+  //       script2.innerHTML = `
+  //         window.dataLayer = window.dataLayer || [];
+  //         function gtag(){dataLayer.push(arguments);}
+  //         gtag('js', new Date());
+  //         gtag('config', 'AW-16839198103');
+  //       `;
+  //       document.head.appendChild(script2);
+  //     }
+  //   }, []); // Empty array ensures this only runs once when the component is mounted
+  //
+  //   return null; // This component does not need to render anything
+  // };
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
@@ -49,7 +82,8 @@ function App() {
     );
 
   return (
-    <div className="flex flex-col overflow-hidden ">
+    <div className="flex flex-col overflow-hidden">
+      {/* <GoogleTag /> */}
       <Routes>
         <Route
           path="/auth"
@@ -93,7 +127,7 @@ function App() {
           <Route path="Reach-Us" element={<ReachUs />} />
           <Route path="details" element={<RideDetailsPage />} />
           <Route path="about" element={<AboutUs />} />
-          <Route path="faqs" element={<FAQ />} />
+          <Route path="Faq's" element={<FAQ />} />
           <Route path="booking/:rideId" element={<BookingComponent />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="Policy" element={<PrivacyPolicy />} />

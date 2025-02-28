@@ -28,7 +28,7 @@ function ShopLayout() {
     <div className="h-screen flex-1 flex min-h-screen w-full ">
       {/* sidebar */}
       <div
-        className={`z-30 h-full top-0 fixed duration-500 transition-all  shadow-xl
+        className={`z-30 h-full top-8 fixed duration-500 transition-all  shadow-xl
           ${sidebar ? "right-0" : "-right-[241px] "}`}
       >
         <ShopSidebar
@@ -39,8 +39,8 @@ function ShopLayout() {
         />
       </div>
       {/* header  */}
-
-      <div className="fixed top-0 w-full right-0 bg-transparent z-50">
+      <Header />
+      <div className="fixed top-8 w-full right-0 bg-transparent z-50">
         <ShopHeader
           setOpen={setSidebar}
           sidebar={sidebar}
@@ -50,7 +50,7 @@ function ShopLayout() {
         />
       </div>
 
-      <main className="absolute top-0 right-0 left-0">
+      <main className="absolute top-8 right-0 left-0">
         <div className="h-full">
           <Outlet />
         </div>
@@ -60,7 +60,7 @@ function ShopLayout() {
       {sidebar ? (
         <div
           onClick={() => setSidebar(false)}
-          className="sidebarBack z-10 lg:hidden md:flex flex w-full h-screen fixed right-0 top-0 bottom-0 duration-500 transition-all"
+          className="sidebarBack z-10 lg:hidden md:flex flex w-full h-screen  bg-[rgba(0,0,0,0.3)] fixed right-0 top-0 bottom-0 duration-500 transition-all"
         />
       ) : null}
     </div>

@@ -104,7 +104,7 @@ const Footer = () => {
       path1: "/about",
       item2Icon: "",
       item2: "FAQ's",
-      path2: "/faqs",
+      path2: "/Faq's",
       item3Icon: "",
       item3: "",
       path3: "",
@@ -125,9 +125,9 @@ const Footer = () => {
         <div className="container mt-2 mx-auto grid md:grid-cols-3 sm:grid-cols-2 lg:gap-16 lg:grid-cols-3 py-3">
           {footer.map((items, index) => (
             <div key={index} className="my-2">
-              <h3 className="text-[18px] font-semibold  pb-2 uppercase">
+              <h2 className="text-[18px] font-semibold  pb-2 uppercase">
                 {items.title}
-              </h3>
+              </h2>
               <p className="border w-44 mb-3  border-[#ffa500]"></p>
               <div className=" cursor-pointer lg:text-lg md:text-md text-sm font-medium  subtitle">
                 <p
@@ -164,9 +164,9 @@ const Footer = () => {
           ))}
           {footerLinks.map((items, index) => (
             <div key={index} className="my-2">
-              <h3 className="text-[18px] font-semibold  pb-2 uppercase">
+              <h2 className="text-[18px] font-semibold  pb-2 uppercase">
                 {items.title}
-              </h3>
+              </h2>
               <p className="border w-44 mb-3  border-[#ffa500]"></p>
 
               {/* /// */}
@@ -215,12 +215,15 @@ const Footer = () => {
             {Socials.map((items, index) => (
               <a
                 href={items.link}
+                title="Ride Flow Social Links"
                 target="_blank"
                 className="flex items-center"
                 key={index}
               >
                 <img
                   src={items.icon}
+                  alt={"Socials"}
+                  title="Ride Flow Social Icons Image"
                   className={` ${
                     items.link === " " ? "hidden" : "flex"
                   } h-10 w-10`}
@@ -243,11 +246,12 @@ const Footer = () => {
       {ContactInfo && ContactInfo.length > 0
         ? ContactInfo.map((content, index) => (
             <a
-              target="_black"
               href={content.whatsapp}
+              title="Whatsapp Api Link"
+              target="_black"
               className="flex justify-center items-center lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 fixed right-5 bottom-[7px] rounded-md z-50 cursor-pointer"
             >
-              <img src={whatsapp} />
+              <img src={whatsapp} alt={"Whatsapp"} title="Social Icon Image" />
             </a>
           ))
         : null}

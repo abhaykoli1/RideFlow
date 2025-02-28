@@ -14,7 +14,14 @@ const Services = () => {
   const services = [
     {
       title: "Standard Bikes",
-      icon: <AnimatedGif src={Bike} alt={"Bike"} className="rounded-l-lg" />,
+      icon: (
+        <AnimatedGif
+          src={Bike}
+          alt={"Bike"}
+          title="Animated Gif Content"
+          className="rounded-l-lg"
+        />
+      ),
       description:
         "We offer a diverse fleet of quality bikes for a smooth, enjoyable ride.",
     },
@@ -23,7 +30,12 @@ const Services = () => {
       description:
         "We provide helmets, safety gear, and accessories for a safe ride.",
       icon: (
-        <AnimatedGif src={helmet} className="p-6 bg-green-400 rounded-l-lg" />
+        <AnimatedGif
+          src={helmet}
+          alt={"helmet"}
+          title="Animated Gif Content"
+          className="p-6 bg-green-400 rounded-l-lg"
+        />
       ),
     },
     {
@@ -34,6 +46,7 @@ const Services = () => {
         <AnimatedGif
           src={service}
           alt={"service"}
+          title="Animated Gif Content"
           className="p-6 bg-blue-500 rounded-l-lg"
         />
       ),
@@ -41,7 +54,12 @@ const Services = () => {
     {
       title: "Affordable Rent",
       icon: (
-        <AnimatedGif src={price} className="p-6 bg-pink-500 rounded-l-lg" />
+        <AnimatedGif
+          src={price}
+          alt={"price"}
+          title="Animated Gif Content"
+          className="p-6 bg-pink-500 rounded-l-lg"
+        />
       ),
       description:
         "Enjoy competitive rates with flexible packages to fit your budget and needs.",
@@ -54,6 +72,7 @@ const Services = () => {
         <AnimatedGif
           src={group}
           alt={"group"}
+          title="Animated Gif Content"
           className="p-6 bg-tomato rounded-l-lg"
         />
       ),
@@ -64,6 +83,7 @@ const Services = () => {
         <AnimatedGif
           src={CallCenter}
           alt={"CallCenter"}
+          title="Animated Gif Content"
           className="p-6 bg-purple-400 rounded-l-lg"
         />
       ),
@@ -72,7 +92,14 @@ const Services = () => {
     },
     {
       title: "Flexible Rental Options",
-      icon: <AnimatedGif src={option} className="rounded-l-lg" />,
+      icon: (
+        <AnimatedGif
+          src={option}
+          alt={"Option"}
+          title="Animated Gif Content"
+          className="rounded-l-lg"
+        />
+      ),
       description:
         "Whether for an hour, day, or week, we offer flexible rental periods to match your plans.",
     },
@@ -175,7 +202,7 @@ const Services = () => {
     <section className="flex lg:py-4 md:py-3 sm:py-2 py-3 diagonal-background w-full cursor-default lg:px-6 md:px-5 sm:px-4 px-4">
       <div className="rounded-lg py-2 w-full shadow-custom content container mx-auto">
         <div className="titleHolder">
-          <motion.h1
+          <motion.h3
             className="text-3xl text-end font-bold text-tomato"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -183,7 +210,7 @@ const Services = () => {
             viewport={{ once: false }}
           >
             What Makes Our Service the Best Choice?
-          </motion.h1>
+          </motion.h3>
 
           <h6 className="subtitle mb-5 text-end">
             Discover Excellence in Every Ride

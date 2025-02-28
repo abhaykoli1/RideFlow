@@ -10,6 +10,13 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import "@fontsource/ubuntu";
 import "@fontsource/exo-2";
 import config from "./store/config.js";
+import TagManager from "react-gtm-module";
+
+const tagManagerArgs = {
+  gtmId: "GTM-T7CNNBTW", // Your GTM ID here
+};
+
+TagManager.initialize(tagManagerArgs);
 
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={config.CLIENT_ID}>

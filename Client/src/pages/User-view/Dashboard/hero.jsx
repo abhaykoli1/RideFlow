@@ -75,3 +75,41 @@ const Hero = () => {
 };
 
 export default Hero;
+
+// import React from "react";
+// import PickDrop from "@/components/User-view/pickDrop";
+// import hero from "../../../assets/hero.jpg";
+
+// const Hero = ({ dashboardContent }) => {
+//   const content = dashboardContent?.length > 0 ? dashboardContent[0] : null;
+
+//   return (
+//     <section className="relative w-full h-[450px] md:h-[500px] lg:h-[600px] overflow-hidden">
+//       {/* Background Image */}
+//       <div
+//         className="absolute inset-0 bg-cover bg-center -z-10"
+//         style={{ backgroundImage: `url(${content?.image || hero})` }}
+//       ></div>
+
+//       {/* Overlay */}
+//       <div className="absolute inset-0 bg-black/30"></div>
+
+//       {/* Content */}
+//       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+//         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">
+//           {content?.heading || "Ride The City With Ease"}
+//         </h1>
+//         <p className="mt-2 text-lg md:text-xl font-medium animate-pulse">
+//           Book Your Bike ASAP!!
+//         </p>
+
+//         {/* PickDrop Component */}
+//         <div className="mt-4 w-full max-w-md">
+//           <PickDrop />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Hero;

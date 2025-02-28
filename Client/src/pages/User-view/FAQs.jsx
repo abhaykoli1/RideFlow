@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 const faqs = [
   {
     question: "What types of bikes do you offer?",
@@ -52,6 +53,11 @@ const FAQ = () => {
 
   return (
     <section className="w-100 h-full overflow-y-auto bg- flex flex-col justify-between pt-16">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>FAQ's | RideFlow | Bike to ride in jaipur</title>
+        <link rel="canonical" href="https://rideflowrentals.in/Faq's" />
+      </Helmet>
       <div className="container mx-auto h-full p-6">
         <div className="titleHolder">
           <h1 className="text-3xl font-bold text-tomato">

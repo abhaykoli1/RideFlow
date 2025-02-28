@@ -63,9 +63,9 @@ const RideFleet = () => {
           </p>
         </div>
         <div className="titleHolder px-3">
-          <h1 className="font-bold text-4xl -mt-2">
+          <h3 className="font-bold text-3xl -mt-2">
             Choose the Perfect Bike for Your Adventure!
-          </h1>
+          </h3>
           <h6 className="mt-2 subtitle">
             As Jaipur's largest bike rental inventory, we offer unmatched
             options for every rider.
@@ -84,13 +84,13 @@ const RideFleet = () => {
         </div>
       </div>
 
-      <div className="flex HorizontalScroll pt-7 pb-10 gap-5 px-5 md:px-10">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 :grid-cols-1 HorizontalScrol pt-7 pb-10 gap-5 px-5 md:px-10">
         {RidesList && RidesList.length > 0 ? (
           RidesList.slice(0, 5).map((rideItem, index) => (
             <UserRideTile
               index={index}
               className={
-                "grid bg-white shadow-xl grid-cols-1 shrink-0 w-64 relative !rounded-xl overflow-hidden cursor-pointer mx-auto border"
+                "grid bg-white shadow-xl grid-cols-1 shrink- w-full relative !rounded-xl overflow-hidden cursor-pointer mx-auto border"
               }
               fleet={true}
               RidesList={RidesList}

@@ -17,6 +17,7 @@ import { useSearchParams } from "react-router-dom";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import DateCompo from "@/components/User-view/date";
 import DayCompo from "@/components/User-view/day";
+import { Helmet } from "react-helmet";
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -88,6 +89,11 @@ const RideListing = () => {
 
   return (
     <section className={`fixed flex w-full mt-0 left-0 h-[100%] ListingBg `}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Listed Rides | RideFlow | Bike to ride in jaipur</title>
+        <link rel="canonical" href="https://rideflowrentals.in/listing" />
+      </Helmet>
       {/* Filter  */}
       <div
         className={`h-[100%] overflow-scroll duration lg:w-[240px]  BorderRight`}

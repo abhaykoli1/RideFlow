@@ -20,6 +20,7 @@ import {
 import { fetchRideDetails } from "@/store/user/Rides-slice";
 
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -84,13 +85,13 @@ const BookingComponent = () => {
     sessionStorage.setItem("drivingLicenceNo", value);
 
     // Validate while typing
-    if (!validateDrivingLicence(value)) {
-      setDlError(
-        sessionStorage.setItem("dlError", "Enter a valid Driving Licence.")
-      );
-    } else {
-      setDlError(sessionStorage.setItem("dlError", ""));
-    }
+    // if (!validateDrivingLicence(value)) {
+    //   setDlError(
+    //     sessionStorage.setItem("dlError", "Enter a valid Driving Licence.")
+    //   );
+    // } else {
+    //   setDlError(sessionStorage.setItem("dlError", ""));
+    // }
   };
 
   const [mobileNo, setMobileNo] = useState(
@@ -177,7 +178,6 @@ const BookingComponent = () => {
         });
   }
 
-  // if (formData) {
   useState(() => {
     console.log("phone =" + formData);
   });
@@ -231,7 +231,15 @@ const BookingComponent = () => {
     currentSelectedAddress?.address + ", " + currentSelectedAddress?.city;
 
   return (
-    <div className="ListingBg">
+    <section className="ListingBg">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Ride Booking | RideFlow | Bike to ride in jaipur</title>
+        <link
+          rel="canonical"
+          href={`https://rideflowrentals.in/booking/${rideId}`}
+        />
+      </Helmet>
       <div className="lg:pt-28 md:pt-28 pt-20  lg:pb-10  md:pb-10 pb-5 lg:px-5 md:px-5 sm:px-4 px-3 xl:container mx-auto ">
         <div className="titleHolder">
           <h1 className=" font-bold mb-2 bg-gradient-to-t from-[#ffae00] to-[#fff9ee] bg-clip-text text-transparent">
@@ -421,7 +429,7 @@ const BookingComponent = () => {
           </SheetContent>
         </Sheet>
       </div>
-    </div>
+    </section>
   );
 };
 

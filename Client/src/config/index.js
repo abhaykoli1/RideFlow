@@ -5,27 +5,32 @@ export const UserNavItems = [
     id: "1",
     label: "Home",
     path: "/",
+    title: "Ride Flow Home page ",
   },
   {
     id: "2",
     label: "About",
     path: "/about",
+    title: "About Us Page ",
   },
 
   {
     id: "3",
     label: "Rides",
     path: "/listing",
+    title: "Ride Listing Page ",
   },
   {
     id: "4",
     label: "Contact Us",
     path: "/Reach-Us",
+    title: "Contact Us Page ",
   },
   {
     id: "5",
     label: "Bookings",
     path: "/bookings",
+    title: "Ride Booking Us Page ",
   },
 ];
 

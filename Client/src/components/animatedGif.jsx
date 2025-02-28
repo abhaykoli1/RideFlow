@@ -1,7 +1,7 @@
 import React from "react";
 
-const AnimatedGif = ({ src, alt, className }) => {
-  return <img src={src} alt={alt} className={className} />;
+const AnimatedGif = ({ src, alt, className, title }) => {
+  return <img src={src} alt={alt} title={title} className={className} />;
 };
 
 export default AnimatedGif;

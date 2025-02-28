@@ -140,7 +140,7 @@ const BillingDetails = ({
             deliveryOption === "Home" ? currentSelectedAddress?.pincode : "",
           phone: deliveryOption === "Home" ? currentSelectedAddress?.phone : "",
         },
-        dl: sessionStorage.getItem("drivingLicenceNo"),
+        dl: sessionStorage.getItem("drivingLicenceNo") || "Not Required",
         phone:
           deliveryOption === "Pick"
             ? sessionStorage.getItem("mobileNo")
@@ -245,6 +245,7 @@ const BillingDetails = ({
           <a>Terms & Conditions</a> of BikeRental
         </p>
       </div>
+
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="bg-gradient-to-b from-[#ffedca] to-white text-black rounded-md p-10 text-center max-w-lg w-full">
           <h1 className="text-4xl font-bold mb-4">You're All Set!</h1>

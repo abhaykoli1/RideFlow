@@ -44,7 +44,7 @@ const WhyChooseUs = () => {
         >
           <div className="flex flex-col justify-center">
             <div className="titleHolder">
-              <motion.h1
+              <motion.h3
                 className="text-3xl font-bold text-tomato"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -52,7 +52,7 @@ const WhyChooseUs = () => {
                 viewport={{ once: false }}
               >
                 Why Choose Us?
-              </motion.h1>
+              </motion.h3>
               <motion.h6
                 className="subtitle mb-5"
                 initial={{ opacity: 0 }}
@@ -66,7 +66,8 @@ const WhyChooseUs = () => {
             </div>
             <motion.img
               src={Home}
-              alt="Bike Rental"
+              alt="motorbikes"
+              title="this image for knowing us"
               className="rounded-lg w-full"
               initial={{ scale: 0.7, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { Menu, X } from "lucide-react";
-
 import Avtar from "./Avtar";
 import Logo from "./logo";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -20,12 +18,12 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   return (
-    <header className="backdrop-blur-x  HeaderBG bg-white HeaderBorderBotto  shadow-md">
-      <div className="  px-4 lg:h-[72px] md:h-[72px]  sm:h-[60px] h-[60px] duration-500 flex items-center justify-between ">
+    <header className="backdrop-blur-x HeaderBG bg-white HeaderBorderBotto shadow-md">
+      <div className="px-4 lg:h-[72px] md:h-[72px] sm:h-[60px] h-[60px] duration-500 flex items-center justify-between">
         <div className="flex gap-2 items-center">
           <Logo
             Path={"/"}
-            L2={"text-white lg:flex md:flex hidden "}
+            L2={"text-white lg:flex md:flex hidden"}
             B={"border-[.5px] border-white"}
           />
         </div>
@@ -39,6 +37,7 @@ const ShopHeader = ({ setSidebar, sidebar }) => {
                       goTop();
                     }}
                     to={nav.path}
+                    title={nav.title}
                     className={({ isActive }) =>
                       `cursor-pointer text-[15px] font-bold TextHover hover:underline focus:text-yellow  !text- ${
                         isActive ? "text-yellow" : "!text-white"

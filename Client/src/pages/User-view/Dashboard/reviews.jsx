@@ -94,9 +94,9 @@ function UserReviews() {
       <div className="bg-[url('http://res.cloudinary.com/dhppoiecn/image/upload/v1736148130/be5r0wxvsi00obglfili.jpg')] bg-cover">
         <div className=" bg-[rgba(0,0,0,0.5)] pt-4  pb-4  px-3">
           <div className="titleHolder">
-            <h1 className="font-extrabold text-tomato  mt-8 mb-4 text-center drop-shadow-lg">
+            <h3 className="font-extrabold text-tomato text-3xl  mt-8 mb-4 text-center drop-shadow-lg">
               Customer Stories and Feedback
-            </h1>
+            </h3>
           </div>
           <Swiper
             ref={swiperRef}

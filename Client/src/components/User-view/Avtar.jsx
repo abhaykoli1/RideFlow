@@ -41,7 +41,13 @@ const Avtar = ({ hi, AvtarClass }) => {
             >
               {user?.image?.length === 1
                 ? user?.image.toUpperCase() || user?.userName[0]
-                : <AvatarImage src={user?.image} /> || user?.userName[0]}
+                : (
+                    <img
+                      src={user?.image}
+                      alt="AvtarImage"
+                      title="Profile Image"
+                    />
+                  ) || user?.userName[0]}
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent

@@ -293,7 +293,7 @@ const authSlice = createSlice({
       // Check Authentication
       .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
-      })
+      })   
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
         if (action.payload.success) {

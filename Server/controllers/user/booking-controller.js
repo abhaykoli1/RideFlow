@@ -122,12 +122,12 @@ const bookRide = async (req, res) => {
         message: "Missing required fields",
       });
     }
-    if (!dl) {
-      return res.status(400).json({
-        success: false,
-        message: "Please Enter Driving Licence Number",
-      });
-    }
+    // if (!dl) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Please Enter Driving Licence Number",
+    //   });
+    // }
     if (!phone) {
       return res.status(400).json({
         success: false,
@@ -135,14 +135,14 @@ const bookRide = async (req, res) => {
       });
     }
 
-    const dlRegex = /^[A-Za-z]{2}[0-9]{2}(?: [0-9]{11}|[A-Za-z][0-9]{11})$/;
+    // const dlRegex = /^[A-Za-z]{2}[0-9]{2}(?: [0-9]{11}|[A-Za-z][0-9]{11})$/;
 
-    if (!dlRegex.test(dl)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Driving Licence format! Use RJ14D00000000000.",
-      });
-    }
+    // if (!dlRegex.test(dl)) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Invalid Driving Licence format! Use RJ14D00000000000.",
+    //   });
+    // }
 
     const user = await User.findById(userId);
     if (!user) {

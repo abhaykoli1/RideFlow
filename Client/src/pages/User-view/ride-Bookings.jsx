@@ -1,5 +1,6 @@
 import { getUserBookings } from "@/store/user/booking-slice";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 
 const formatCustomDate = (dateString) => {
@@ -87,7 +88,13 @@ const Bookings = () => {
   };
 
   return (
-    <div className="ListingBg pt-[105px] pb-4 min-h-[70vh]">
+    <section className="ListingBg pt-[105px] pb-4 min-h-[70vh]">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>History | RideFlow | Bike to ride in jaipur</title>
+        <link rel="canonical" href="https://rideflowrentals.in/bookings" />
+      </Helmet>
+
       <div className="lg:px-6 md:px-6 sm:px-5 px-2">
         <div className="-mt-4 space-y-4 container mx-auto">
           <h1 className="px-3 lg:text-3xl md:text-3xl sm:text-2xl text-2xl font-bold text-tomato">
@@ -173,7 +180,7 @@ const Bookings = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

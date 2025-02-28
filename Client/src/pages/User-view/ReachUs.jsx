@@ -10,7 +10,7 @@ import { addContactQuery } from "@/store/user/contact-slice";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { fetchContactInfo } from "@/store/common/dashboard-slice";
-import CallCenter from "../../../assets/CallCenter.gif";
+import CallCenter from "../../assets/CallCenter.gif";
 import { Helmet } from "react-helmet";
 
 const initialFormData = {
@@ -20,7 +20,7 @@ const initialFormData = {
   comment: "",
 };
 
-function Reach() {
+function ReachUs() {
   const { ContactInfo, isLoading } = useSelector((state) => state.dasboard);
   const [ContactDetails, setContactDetails] = useState([]);
 
@@ -110,11 +110,11 @@ function Reach() {
       id="reachUs"
       className="Contact-background flex h-full flex-col w-100 overflow-auto lg:px-6 md:px-5 sm:px-4 px-4 justify-between pt-7"
     >
-      {/* <Helmet>
+      <Helmet>
         <meta charSet="utf-8" />
         <title>Reach Us | RideFlow | Bike to ride in jaipur</title>
         <link rel="canonical" href="https://rideflowrentals.in/Reach-Us" />
-      </Helmet> */}
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ function Reach() {
         className="container pb-12 mx-auto z-10 "
       >
         <div className="titleHolder -mb-3 mt-14">
-          <h3 className=" font-bold text-3xl text-yellow">Reach Us Out!</h3>
+          <h1 className=" font-bold text-3xl text-yellow">Reach Us Out!</h1>
         </div>
         <motion.div className="mb-12 titleHolder">
           <h5 className="lg:text-3xl md:text-2xl sm:text-2xl text-xl font-bold mt-5 mb-2">
@@ -217,4 +217,4 @@ function Reach() {
   );
 }
 
-export default Reach;
+export default ReachUs;

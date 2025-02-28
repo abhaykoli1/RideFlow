@@ -103,7 +103,7 @@ function MenuItems({ setSidebar, setHeaderContent }) {
             disablepadding="true"
             className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
             py-[13px] 
-            mx-3 duration-300 "
+            mx-3 duration-300"
           >
             {nav.icon}
             {nav.label}
@@ -115,12 +115,9 @@ function MenuItems({ setSidebar, setHeaderContent }) {
               onClick={() => {
                 goTop();
                 navigate("/bookings");
-
                 setSidebar ? setSidebar(false) : null;
               }}
-              className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text 
-            py-[13px] 
-            mx-3 duration-300 items-center"
+              className="flex gap-4 px-4 text-white cursor-pointer text-[19px] font-medium  rounded-md  Menu_Text  py-[13px] mx-3 duration-300 items-center"
             >
               <RecentActors fontSize="large" className="p-1" />
               Bookings

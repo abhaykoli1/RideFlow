@@ -1,5 +1,6 @@
 import { fetchContactInfo } from "@/store/common/dashboard-slice";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 
 const TermsAndConditions = () => {
@@ -10,7 +11,15 @@ const TermsAndConditions = () => {
   }, [dispatch]);
 
   return (
-    <div className="ListingBg">
+    <section className="ListingBg">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Terms & Condition | RideFlow | Bike to ride in jaipur</title>
+        <link
+          rel="canonical"
+          href="https://rideflowrentals.in/Terms&Condition"
+        />
+      </Helmet>
       <div className="container px-5 text-xl mx-auto py-8 lg:pt-28 md:pt-24 pt-20">
         <div className="titleHolder">
           <h1 className=" font-bold text-center mb-6 text-yellow">
@@ -110,7 +119,7 @@ const TermsAndConditions = () => {
           Thank you for choosing RideFlow!
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 
