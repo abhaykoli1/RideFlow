@@ -52,6 +52,7 @@ const BookingComponent = () => {
     console.error("The variable 'day' is not a valid number.");
   }
 
+  console.log(RideDetails);
   useEffect(() => {
     // const rideId = sessionStorage.getItem("currentRideId");
     if (rideId) {
@@ -234,7 +235,15 @@ const BookingComponent = () => {
     <section className="ListingBg">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Ride Booking | RideFlow | Bike to ride in jaipur</title>
+        <title>
+          {RideDetails === null ? "" : RideDetails?.rideName} | RideFlow | Bike
+          to Ride in Jaipur
+        </title>
+
+        <meta
+          name="description"
+          content={RideDetails === null ? "" : RideDetails?.description}
+        />
         <link
           rel="canonical"
           href={`https://rideflowrentals.in/booking/${rideId}`}
@@ -247,7 +256,7 @@ const BookingComponent = () => {
           </h1>
         </div>
 
-        <div className="grid lg:grid-cols-[2fr_1.3fr] md:grid-cols-[2fr_1.5fr grid-cols-1 gap-3 ">
+        <div className="grid lg:grid-cols-[2fr_1.3fr] md:grid-cols-[2fr_1.5fr grid-cols-1 gap-3">
           <div className="flex flex-col gap-3">
             <BookingRideDetailsTile
               RideDetails={RideDetails}

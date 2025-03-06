@@ -750,6 +750,12 @@ button:focus-visible {
     right: -68px !important;
   }
   /* +++++++++++++++++++++++++++++++++++ */
+  .custom-calendar {
+    /* margin-top: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px 0px 0px 8px; */
+    height: 252px !important;
+  }
 
   .react-datepicker__time {
     border-radius: 0 0 7px 0 !important;
@@ -758,7 +764,7 @@ button:focus-visible {
     overflow: hidden !important;
     width: 67px !important;
     padding-left: 0px !important;
-    height: 167.5px !important;
+    height: 174px !important;
   }
   /* Time 12:00 AM */
   .react-datepicker__time-list-item {
@@ -862,6 +868,7 @@ button:focus-visible {
   margin-top: 1px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px 0px 0px 8px;
+  height: 310px;
 }
 
 /* Styling individual day cells */
@@ -930,11 +937,11 @@ button:focus-visible {
   right: -85px;
 }
 .react-datepicker__time {
-  border-radius: 0 0 7px 0 !important;
+  border-radius: 0 0px 0px 0 !important;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   background-color: #f7f9fc;
   overflow: auto;
-  height: 213px;
+  height: 220px;
 }
 /* Time 12:00 AM */
 .react-datepicker__time-list-item {
@@ -965,7 +972,7 @@ button:focus-visible {
 /* html  */
 .custom-datetime-input {
   color: white;
-  background-color: transparent;
+  background-color: transparent !important;
   border-bottom: 1px solid #d1dce5;
   padding: 8px 12px;
   font-size: 16px;

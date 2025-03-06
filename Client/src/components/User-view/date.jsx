@@ -37,6 +37,7 @@ const DateCompo = ({ dateCss, setDate, date, Calendar }) => {
         className={`${dateCss} custom-date-picker focus:outline-none text-sm !px-0`}
         calendarClassName={` ${Calendar} custom-calendar z-50 absolute lg:-left-28 md:-left-28 sm:-left-28 -left-[105px]`}
         todayButton="Today"
+        minDate={new Date()}
       />
     </div>
   );
