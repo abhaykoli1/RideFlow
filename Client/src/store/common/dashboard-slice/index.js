@@ -40,19 +40,6 @@ export const addContactInfo = createAsyncThunk(
   }
 );
 
-export const fetchDashboardContent = createAsyncThunk(
-  "/Dashboard/fetchDashboardContent",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(`${config.API_URL}/dashboard/get`);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching dashboard content:", error.message);
-      return rejectWithValue(error.response?.data || "An error occurred");
-    }
-  }
-);
-
 export const fetchContactInfo = createAsyncThunk(
   "/Dashboard/fetchContactInfo",
   async (_, { rejectWithValue }) => {
@@ -66,31 +53,17 @@ export const fetchContactInfo = createAsyncThunk(
   }
 );
 
-// export const fetchDashboardContent = createAsyncThunk(
-//   "Dashboard/fetchDashboardContent",
-//   async () => {
-//     console.log("fetchAllRides", fetchAllRides);
-
-//     const result = await axios.get(`${config.API_URL}/dashboard/content`);
-
-//     return result?.data;
-//   }
-// );
-
-export const editDashboardContent = createAsyncThunk(
-  "/Dashboard/editDashboardContent",
-  async ({ id, formData }) => {
-    const result = await axios.put(
-      `${config.API_URL}/dashboard/edit/${id}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return result?.data;
+export const fetchContactInfoById = createAsyncThunk(
+  "/Dashboard/fetchContactInfoById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${config.API_URL}/dashboard/fetchInfo/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -110,6 +83,34 @@ export const editContactInfo = createAsyncThunk(
   }
 );
 
+export const fetchDashboardContent = createAsyncThunk(
+  "/Dashboard/fetchDashboardContent",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${config.API_URL}/dashboard/get`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching dashboard content:", error.message);
+      return rejectWithValue(error.response?.data || "An error occurred");
+    }
+  }
+);
+export const editDashboardContent = createAsyncThunk(
+  "/Dashboard/editDashboardContent",
+  async ({ id, formData }) => {
+    const result = await axios.put(
+      `${config.API_URL}/dashboard/edit/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return result?.data;
+  }
+);
 export const deleteAllDashboardContent = createAsyncThunk(
   "Dashboard/deleteAllDashboardContent", // A unique action type
   async (_, { rejectWithValue }) => {
@@ -133,6 +134,20 @@ const AdminRidesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchContactInfoById.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchContactInfoById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ContactInfo = action.payload.data;
+      })
+      .addCase(fetchContactInfoById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Dashbord content
       .addCase(fetchDashboardContent.pending, (state) => {
         state.isLoading = true;
         state.error = null;

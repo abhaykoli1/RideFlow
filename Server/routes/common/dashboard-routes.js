@@ -6,6 +6,7 @@ const {
   addContactInfo,
   fetchContent,
   fetchInfo,
+  fetchInfoById,
   editContent,
   deleteAllContent,
   editContactInfo,
@@ -26,5 +27,6 @@ router.delete("/delete", deleteAllContent);
 // router.delete("/delete/:id", deleteContent);
 router.get("/get", fetchContent);
 router.get("/getInfo", fetchInfo);
+router.get("/fetchInfo/:id", fetchInfoById);
 
 module.exports = router;

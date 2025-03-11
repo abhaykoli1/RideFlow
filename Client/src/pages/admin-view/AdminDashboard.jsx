@@ -12,6 +12,7 @@ import {
   addNewDashboardContent,
   fetchDashboardContent,
   deleteAllDashboardContent,
+  fetchContactInfoById,
 } from "@/store/common/dashboard-slice";
 
 import { Fragment, useEffect, useState } from "react";

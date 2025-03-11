@@ -97,6 +97,31 @@ const fetchInfo = async (req, res) => {
     });
   }
 };
+// fetch contact details by id
+const fetchInfoById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contactInfo = await ContactInfo.findById(id);
+
+    if (!contactInfo) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact info not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: contactInfo,
+    });
+  } catch (e) {
+    console.error("Error fetching contact info by ID:", e.message);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching the contact info",
+    });
+  }
+};
 
 const editContactInfo = async (req, res) => {
   try {
@@ -133,7 +158,7 @@ const editContactInfo = async (req, res) => {
   }
 };
 
-//fetch Content
+//fetch Dashboard Content
 const fetchContent = async (req, res) => {
   try {
     const dashboardContent = await Content.find({});
@@ -156,7 +181,7 @@ const fetchContent = async (req, res) => {
   }
 };
 
-//edit Content
+//edit dashboard Content
 const editContent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -208,6 +233,7 @@ module.exports = {
   addToDashboard,
   addContactInfo,
   fetchContent,
+  fetchInfoById,
   editContactInfo,
   fetchInfo,
   editContent,

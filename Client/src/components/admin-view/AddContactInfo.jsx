@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import CommonForm from "../common/form";
 import { addContactDetails } from "@/config";
@@ -10,6 +10,7 @@ import {
   addContactInfo,
   editContactInfo,
   fetchContactInfo,
+  fetchContactInfoById,
 } from "@/store/common/dashboard-slice";
 
 const AddContactInfo = () => {
@@ -28,6 +29,20 @@ const AddContactInfo = () => {
   const [OpenAddContactInfo, setOpenAddContactInfo] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentEditedId) {
+      dispatch(fetchContactInfoById(currentEditedId)).then((data) => {
+        if (data?.payload) {
+          setFormData(data?.payload?.data);
+        }
+      });
+    }
+  }, [dispatch, currentEditedId]);
+
+  useEffect(() => {
+    dispatch(fetchContactInfo());
+  }, [dispatch]);
 
   function onSubmit(event) {
     event.preventDefault();
@@ -61,14 +76,16 @@ const AddContactInfo = () => {
         });
   }
 
-  useState(() => {
-    dispatch(fetchContactInfo());
-  }, [dispatch]);
+  function refresh() {
+    window.location.reload();
+  }
 
   return (
     <Fragment className="w-full">
       <div className="mt-20 mb-6 w-full flex justify-between items-center">
-        <h1 className="text-3xl text-slate-800 font-bold ">Add Contact Info</h1>
+        <h1 className="text-3xl text-slate-800 font-bold ">
+          Contact Information
+        </h1>
         {ContactInfo.length > 0 ? (
           <Button
             className="bg-slate-800 text-white"
@@ -90,10 +107,13 @@ const AddContactInfo = () => {
       </div>
       <Sheet
         open={OpenAddContactInfo}
-        onOpenChange={() => {
-          setOpenAddContactInfo(false);
-          setCurrentEditedId(null);
-          setFormData(initialFormData);
+        onOpenChange={(open) => {
+          if (!open) {
+            refresh();
+            setOpenAddContactInfo(false);
+            setCurrentEditedId(null);
+            setFormData(initialFormData);
+          }
         }}
       >
         <SheetContent
@@ -127,36 +147,36 @@ const AddContactInfo = () => {
           </thead>
           <tbody>
             {ContactInfo.map((content, index) => (
-              <>
-                <tr key={`${content._id}-email`} className="border-t">
+              <Fragment key={content._id}>
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Email</td>
                   <td className="py-2 px-4">{content.email}</td>
                 </tr>
-                <tr key={`${content._id}-phone`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Phone</td>
                   <td className="py-2 px-4">{content.phone}</td>
                 </tr>
-                <tr key={`${content._id}-instagram`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Instagram Link</td>
                   <td className="py-2 px-4">{content.instagram}</td>
                 </tr>
-                <tr key={`${content._id}-instagram`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Facebook Link</td>
                   <td className="py-2 px-4">{content.facebook}</td>
                 </tr>
-                <tr key={`${content._id}-instagram`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Twitter Link</td>
                   <td className="py-2 px-4">{content.twitter}</td>
                 </tr>
-                <tr key={`${content._id}-whatsapp`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Whatsapp Link</td>
                   <td className="py-2 px-4">{content.whatsapp}</td>
                 </tr>
-                <tr key={`${content._id}-location`} className="border-t">
+                <tr className="border-t">
                   <td className="py-2 px-4 font-bold">Location</td>
                   <td className="py-2 px-4">{content.address}</td>
                 </tr>
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>
