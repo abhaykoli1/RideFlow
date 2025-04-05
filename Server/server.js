@@ -29,6 +29,7 @@ const DashboardRouter = require("./routes/common/dashboard-routes");
 // const imageUploadRouter = require("./routes/common/imageUpload-routes");
 
 const app = express();
+
 const PORT = process.env.PORT || 8000;
 
 // Connect to the database

@@ -1033,39 +1033,11 @@ button:focus-visible {
   background-color: #f2f8fd;
 }
 
-/* Ensure the default calendar icon is visible and styled */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  color: black; /* Calendar icon color */
-  opacity: 1; /* Fully visible */
-  cursor: pointer; /* Pointer cursor for better UX */
+  color: black;
+  opacity: 1;
+  cursor: pointer;
 }
-
-/* Example CSS to customize the Google sign-in button */
-/* .g_id_signin {
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 10px;
-  padding: 12px 24px;
-  font-size: 16px;
-  width: 100% !important;
-}
-
-.g_id_signin:hover {
-  background-color: #d0d0d0;
-}
-
-.g_id_signin .g_id_button {
-  border: 2px solid #0073e6;
-  color: #0073e6;
-}
-
-#googleSignInButton {
-  width: 100%;
-} */
-
-/* #googleSignInButton {
-  background-color: transparent !important;
-} */
 
 .qJTHM {
   background-color: transparent !important;
