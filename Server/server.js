@@ -81,12 +81,12 @@ app.use(express.static(path.join(__dirname, "clientpublic")));
 //   res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
 // });
 
-app.get("/", (req, res) => {
-  res.send({
-    activeStatus: true,
-    message: "Welcome to the server",
-  });
-});
+// app.get("/", (req, res) => {
+//   res.send({
+//     activeStatus: true,
+//     message: "Welcome to the server",
+//   });
+// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/clientpublic/index.html"));

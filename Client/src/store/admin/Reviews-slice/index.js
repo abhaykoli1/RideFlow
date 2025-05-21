@@ -27,10 +27,8 @@ export const addnewReview = createAsyncThunk(
 export const fetchAllReviews = createAsyncThunk(
   "/Reviews/fetchAllReviews",
   async () => {
-    console.log("fetchAllReviews", fetchAllReviews);
-
     const result = await axios.get(`${config.API_URL}/admin/Reviews/get`);
-
+    console.log("fetchAllReviews", result);
     return result?.data;
   }
 );
