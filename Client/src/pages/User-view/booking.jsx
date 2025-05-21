@@ -1,4 +1,4 @@
-import { Label } from "@/components/ui/Label";
+// import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import Address from "@/components/User-view/address";
@@ -283,15 +283,15 @@ const BookingComponent = () => {
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="Pick" id="r1" />
-                    <Label htmlFor="r1" className="cursor-pointer">
+                    <label htmlFor="r1" className="cursor-pointer">
                       Pick-Up
-                    </Label>
+                    </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="Home" id="r2" />
-                    <Label htmlFor="r2" className="cursor-pointer">
+                    <label htmlFor="r2" className="cursor-pointer">
                       Drop Home
-                    </Label>
+                    </label>
                   </div>
                 </RadioGroup>
               </span>
@@ -334,7 +334,7 @@ const BookingComponent = () => {
 
             {/* Billing  */}
             <div className="flex-col pt-3 Borde Rounded px-3 pb-3 rounded-md bg-gradient-to-b from-[#ffedca]  to-white shadow-lg text-black flex ">
-              <Label>If you want to change the Timings:</Label>
+              <label>If you want to change the Timings:</label>
               <div className={`flex items-center gap-3 mt-2`}>
                 <DateCompo
                   date={date}

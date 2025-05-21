@@ -44,6 +44,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "caniuse-lite": "^1.0.30001718",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
