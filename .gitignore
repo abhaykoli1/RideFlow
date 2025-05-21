@@ -10,7 +10,7 @@ Server/package-lock.json
 Server/logs/
 
 # Build files and caches
-Client/dist/
+
 Client/build/
 
 
