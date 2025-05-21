@@ -76,9 +76,18 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.use(express.static(path.join(__dirname, "clientpublic")));
+
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
+// });
+
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
+  res.send({
+    activeStatus: true,
+    message: "Welcome to the server",
+  });
 });
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
 });
