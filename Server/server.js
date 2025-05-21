@@ -68,18 +68,15 @@ app.use("/api/user/Rides", userRidesRouter);
 app.use("/api/user/address", userAddressRouter);
 app.use("/api/contact", UserContactRouter);
 app.use("/api/booking", userBookingRouter);
-// app.use("/api/upload-image", adminRidesRouter);
+
 app.post("/api/upload", upload.single("file"), imageUpload);
+
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 // Import the routes
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-app.use(express.static(path.join(__dirname, "clientpublic")));
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
-// });
+// app.use(express.static(path.join(__dirname, "clientpublic")));
 
 // app.get("/", (req, res) => {
 //   res.send({
@@ -88,9 +85,6 @@ app.use(express.static(path.join(__dirname, "clientpublic")));
 //   });
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/clientpublic/index.html"));
-});
 // Start the server
 app
   .listen(PORT, () => {
