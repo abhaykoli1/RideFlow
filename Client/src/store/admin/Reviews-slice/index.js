@@ -26,10 +26,15 @@ export const addnewReview = createAsyncThunk(
 
 export const fetchAllReviews = createAsyncThunk(
   "/Reviews/fetchAllReviews",
-  async () => {
-    const result = await axios.get(`${config.API_URL}/admin/Reviews/get`);
-    console.log("fetchAllReviews", result);
-    return result?.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await axios.get(`${config.API_URL}/admin/Reviews/get`);
+      console.log("fetchAllReviews", result);
+      return result?.data;
+    } catch (error) {
+      console.log("Error fetching reviews:", error);
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
