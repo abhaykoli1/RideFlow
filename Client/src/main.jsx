@@ -11,7 +11,7 @@ import "@fontsource/ubuntu";
 import "@fontsource/exo-2";
 import config from "./store/config.js";
 import TagManager from "react-gtm-module";
-
+import Logo from "./assets/logo/rideFlowLargeLight2.png";
 const tagManagerArgs = {
   gtmId: "GTM-T7CNNBTW", // Your GTM ID here
 };
@@ -23,7 +23,10 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Provider store={store}>
         <AuthProvider>
-          <App />
+          <div className="min-h-screen flex place-content-center items-center text-3xl font-bold text-white bg-gradient-to-r from-[#222] to-[#111]">
+            <img src={Logo} alt="Logo" className="h-16 w-auto mr-2" />
+          </div>
+          {/* <App /> */}
           <Toaster />
         </AuthProvider>
       </Provider>
