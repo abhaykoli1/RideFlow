@@ -23,10 +23,10 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Provider store={store}>
         <AuthProvider>
-          <div className="min-h-screen flex place-content-center items-center text-3xl font-bold text-white bg-gradient-to-r from-[#222] to-[#111]">
+          {/* <div className="min-h-screen flex place-content-center items-center text-3xl font-bold text-white bg-gradient-to-r from-[#222] to-[#111]">
             <img src={Logo} alt="Logo" className="h-16 w-auto mr-2" />
-          </div>
-          {/* <App /> */}
+          </div> */}
+          <App />
           <Toaster />
         </AuthProvider>
       </Provider>
