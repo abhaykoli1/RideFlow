@@ -3,7 +3,8 @@ const config = {
 
   // API_URL: "http://localhost:8000/api",
 
-  API_URL: "https://ride-flow-iota.vercel.app/api",
+  // API_URL: "https://ride-flow-iota.vercel.app/api",
+  API_URL: "https://rideflow-v4he.onrender.com/api",
   CLIENT_ID:
     "295957989993-3eqvomqkcfhm39ov845blst9v2qboj7n.apps.googleusercontent.com",
 
