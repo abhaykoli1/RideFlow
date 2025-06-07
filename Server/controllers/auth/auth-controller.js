@@ -259,6 +259,8 @@ const verifyEmail = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
+  // console.log("body", email);
+
   try {
     const checkUser = await User.findOne({ email });
     const pendingUser = await PendingUser.findOne({ email });

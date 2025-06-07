@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import config from "../config";
 
+// console.log(config.API_URL);
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
@@ -22,7 +23,11 @@ export const registerUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || {
+          message: error.message || "An unexpected error occurred.",
+        }
+      );
     }
   }
 );
@@ -97,9 +102,13 @@ export const loginUser = createAsyncThunk(
           withCredentials: true,
         }
       );
+
+      // console.log("response", response);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message || "Login failed" }
+      );
     }
   }
 );
@@ -215,8 +224,14 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = action.payload;
+        state.error = action.payload?.message || "Registration failed";
       })
+      // .addCase(registerUser.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.user = null;
+      //   state.isAuthenticated = false;
+      //   state.error = action.payload;
+      // })
       // verify
       .addCase(verifyEmail.pending, (state) => {
         state.isLoading = true;
@@ -285,15 +300,20 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
-        // state.user = null;
         state.isAuthenticated = false;
-        state.error = action.payload;
+        state.error = action.payload?.message || "Login failed";
       })
+      // .addCase(loginUser.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   // state.user = null;
+      //   state.isAuthenticated = false;
+      //   state.error = action.payload;
+      // })
 
       // Check Authentication
       .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
-      })   
+      })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
         if (action.payload.success) {

@@ -75,6 +75,7 @@ function AuthRegister() {
     event.preventDefault();
     if (validateRegisterForm()) {
       dispatch(registerUser(formData)).then((data) => {
+        // console.log("data", data);
         if (data?.payload?.success) {
           toast({
             title: "Registration successful!",
@@ -83,7 +84,7 @@ function AuthRegister() {
         } else {
           toast({
             title: "Registration failed.",
-            description: data?.payload?.message,
+            description: data?.error?.message,
             variant: "destructive",
           });
         }

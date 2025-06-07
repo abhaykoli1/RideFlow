@@ -54,8 +54,11 @@ function AuthLogin() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     if (validateForm()) {
+      // console.log("valid");
       dispatch(loginUser(formData)).then((data) => {
+        // console.log("data", data);
         if (data?.payload?.success) {
           toast({
             title: data?.payload?.message,

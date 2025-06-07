@@ -45,7 +45,9 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*", // Allow all origins
+    // origin: "http://localhost:5173",
+    origin: "https://rideflowrentals.netlify.app",
+    // origin: "*", // Allow all origins
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -54,7 +56,7 @@ app.use(
       "Expires",
       "Pragma",
     ],
-    credentials: false, // Set to false when using '*' origin
+    credentials: true, // Set to false when using '*' origin
   })
 );
 
