@@ -37,18 +37,18 @@ const Header = () => {
           <div className="flex font-medium gap-2 items-center justify-end w">
             <Call fontSize="small" className="text-black" />
             <a
-              href={`tel:${7976054875}`}
+              href={`tel:${9351254093}`}
               title="Contact Number"
               className="text-black hover:text-black"
             >
-              +91 7976054875,
+              +91 9351254093,
             </a>
             <a
-              href={`tel:${9887434494}`}
+              href={`tel:${9511564276}`}
               title="Contact Number"
               className="text-black hover:text-black"
             >
-              +91 9887434494
+              +91 9511564276
             </a>
           </div>
           {/* <div className=" flex gap-5 items-center justify-center cursor-pointer">
