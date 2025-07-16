@@ -1,8 +1,9 @@
 const config = {
   //:local host
 
-  API_URL: "http://localhost:8000/api",
+  // API_URL: "http://localhost:8000/api",
   // API_URL: "https://rideflow-5wdg.onrender.com/api",
+  API_URL: "https://rideflow-production.up.railway.app/api",
 
   //
   // API_URL: "https://ride-flow-iota.vercel.app/api",
