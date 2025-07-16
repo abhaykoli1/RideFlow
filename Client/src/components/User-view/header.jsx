@@ -51,6 +51,7 @@ const Header = () => {
               +91 9511564276
             </a>
           </div>
+
           {/* <div className=" flex gap-5 items-center justify-center cursor-pointer">
                   {Socials.map((items, index) => (
                     <div className="" key={index}>

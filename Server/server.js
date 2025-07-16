@@ -27,10 +27,10 @@ const UserContactRouter = require("./routes/user/contact-routes");
 const userBookingRouter = require("./routes/user/booking-routes");
 const DashboardRouter = require("./routes/common/dashboard-routes");
 // const imageUploadRouter = require("./routes/common/imageUpload-routes");
-
-const app = express();
+const paymentRouter = require("./routes/user/payment-routes");
 
 const PORT = process.env.PORT || 8000;
+const app = express();
 
 // Connect to the database
 connectDB();
@@ -45,9 +45,10 @@ app.use(express.json());
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "https://rideflowrentals.netlify.app",
-    // origin: "*", // Allow all origins
+    origin: "http://localhost:5173",
+    // origin: "https://rideflowrentals.netlify.app",
+
+    // origin: "*",
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -60,6 +61,7 @@ app.use(
   })
 );
 
+//
 // Route handling
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
@@ -70,11 +72,12 @@ app.use("/api/user/Rides", userRidesRouter);
 app.use("/api/user/address", userAddressRouter);
 app.use("/api/contact", UserContactRouter);
 app.use("/api/booking", userBookingRouter);
+app.use("/api/payment", paymentRouter);
 
 app.post("/api/upload", upload.single("file"), imageUpload);
-
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
+//
 // Import the routes
 app.use("/static", express.static(path.join(__dirname, "public")));
 
@@ -88,6 +91,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 // });
 
 // Start the server
+
 app
   .listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -7,6 +7,7 @@ import { bookRide, resetBookingState } from "@/store/user/booking-slice";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import RazorpayCheckout from "./RazorpayCheckout";
 
 const initialBookingFormData = {
   userId: "",
@@ -156,8 +157,8 @@ const BillingDetails = ({
         // });
         setOpenDialog(true);
         setTimeout(() => {
-          // goTop();
-          // navigate("/ride/bookings");
+          goTop();
+          navigate("/ride/bookings");
         }, 3000);
       } else {
         toast({
@@ -233,13 +234,29 @@ const BillingDetails = ({
           </span>
         </div>
 
-        <Button
-          disabled={isLoading}
-          onClick={handleSubmit}
-          className="w-full bg-slate-800 text-white mt-1"
-        >
-          {isLoading ? "Booking..." : "Book Ride"}
-        </Button>
+        <div className="flex gap-3">
+          <div className="w-1/2 ">
+            <RazorpayCheckout
+              RideDetails={RideDetails}
+              Date={Date}
+              DropOffDate={DropOffDate}
+              daysToAdd={daysToAdd}
+              deliveryOption={deliveryOption}
+              currentSelectedAddress={currentSelectedAddress}
+              deliveryCharge={deliveryCharge}
+              result={result}
+              rideId={RideDetails?._id}
+              amountInRupees={result.finalCharge}
+            />
+          </div>
+          <Button
+            disabled={isLoading}
+            onClick={handleSubmit}
+            className="w-1/2 bg-slate-800 text-white "
+          >
+            {isLoading ? "Booking..." : "Book COD"}
+          </Button>
+        </div>
         <p className="text-center text-sm font-medium mt-2">
           By clicking on place ride you are accepting the{" "}
           <a>Terms & Conditions</a> of BikeRental
@@ -248,12 +265,13 @@ const BillingDetails = ({
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="bg-gradient-to-b from-[#ffedca] to-white text-black rounded-md p-10 text-center max-w-lg w-full">
-          <h1 className="text-4xl font-bold mb-4">You're All Set!</h1>
-          <p className="text-lg font-semibold ">
-            Your Booking Placed successfully
+          <h1 className="text-4xl font-bold mb-4">Booking Confirmed!</h1>
+          <p className="text-lg font-semibold mb-2">
+            You’ve chosen Cash on Delivery (COD)
           </p>
           <p className="text-lg font-medium mb-6">
-            We’ll be in touch shortly with more information.
+            Your booking has been placed successfully. Our team will contact you
+            shortly for pickup instructions and payment collection.
           </p>
           <Button
             onClick={() => {
